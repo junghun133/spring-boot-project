@@ -1,6 +1,6 @@
 package com.pjh.aed.controller;
 
-import com.pjh.aed.data.AEDLocation;
+import com.pjh.aed.data.entity.AEDLocation;
 import com.pjh.aed.service.AEDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
