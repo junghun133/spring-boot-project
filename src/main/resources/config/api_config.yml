@@ -1,28 +1,24 @@
-apis:
-  AED:
-    url: http://apis.data.go.kr/B552657/AEDInfoInqireService/
-    apikey: 8WkFeHl8obzSp%2BLAlvjpzvhaJHE%2BymMSwJwP8IBRGTSzzJs2hSvDRn8lchYK2hEl8k0NhnZzYu9UNckgs7mf3A%3D%3D
-    dataformat: xml
-
+api-info:
+  url: http://apis.data.go.kr/B552657/AEDInfoInqireService/
+  apikey: 8WkFeHl8obzSp%2BLAlvjpzvhaJHE%2BymMSwJwP8IBRGTSzzJs2hSvDRn8lchYK2hEl8k0NhnZzYu9UNckgs7mf3A%3D%3D
+  dataformat: xml
+  data:
     #자동심장충격 관리정보를 시도/시군구별 조회할 수 있다.
-    aedManageInfo: [
-      name: "getEgytAedManageInfoInqire",
-      maxSize: 4000
-    ]
+    # aed-manage-info:
+    - name: "getEgytAedManageInfoInqire"
+      max-size: 4000
+
     #자동심장충격기 정보를 경도/위도별 반경내 정보를 조회할 수 있다.
-    aedLocationinfo: [
-        name: "getAedLcinfoInquire",
-        maxSize: 4000
-    ]
+    # aed-location-info:
+    - name: "getAedLcinfoInquire"
+      max-size: 4000
 
- #경/위도를 기준으로 외상센터 위치정보를 조회하는 외상센터 위치정보 조회 기능제공
-  ErmctInfo:
-    url: http://apis.data.go.kr/B552657/ErmctInfoInqireService/
-    apikey: 8WkFeHl8obzSp%2BLAlvjpzvhaJHE%2BymMSwJwP8IBRGTSzzJs2hSvDRn8lchYK2hEl8k0NhnZzYu9UNckgs7mf3A%3D%3D
-    dataformat: xml
-
-    emergencyLocation: [
-        name: "getEgytAedManageInfoInqire",
-        maxSize: 4000
-    ]
-
+#경/위도를 기준으로 외상센터 위치정보를 조회하는 외상센터 위치정보 조회 기능제공
+ermct-info:
+  url: http://apis.data.go.kr/B552657/ErmctInfoInqireService/
+  apikey: 8WkFeHl8obzSp%2BLAlvjpzvhaJHE%2BymMSwJwP8IBRGTSzzJs2hSvDRn8lchYK2hEl8k0NhnZzYu9UNckgs7mf3A%3D%3D
+  dataformat: xml
+  data:
+    #emergency-location:
+    -  name: "getEgytAedManageInfoInqire"
+       max-size: 4000
