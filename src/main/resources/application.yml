@@ -4,3 +4,11 @@ Server:
 logging:
   level:
     org.springframework: DEBUG
+
+spring:
+  messages:
+    basename: messages
+  security:
+    user:
+      name: pjh
+      password: pjh
