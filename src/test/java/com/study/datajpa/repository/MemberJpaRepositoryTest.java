@@ -9,8 +9,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
-@Rollback(false)
+@Transactional //jpa의 모든 데이터변경은 트랜잭션 안에서 이루어져야됨
+@Rollback(false) //test 완료 후 다 rollback 시켜버려서
 class MemberJpaRepositoryTest {
     @Autowired MemberJpaRepository memberJpaRepository;
 
@@ -22,6 +22,7 @@ class MemberJpaRepositoryTest {
 
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
         Assertions.assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+        Assertions.assertThat(findMember).isEqualTo(member);
 
         memberJpaRepository.save(new Member("pjh"));
     }
