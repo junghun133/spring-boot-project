@@ -41,8 +41,7 @@ public class UserController {
         savedUser.setCode(code.getValue());
         savedUser.setMessage(message.getCause());
         Resource<User> resource = new Resource<>(savedUser);
-        String userId = Long.toString(user.getId());
-        ControllerLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(userId));
+        ControllerLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(user.getId()));
         resource.add(controllerLinkBuilder.withRel("searchUser"));
 
         return resource;

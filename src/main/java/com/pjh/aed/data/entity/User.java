@@ -21,10 +21,12 @@ public class User extends Response {
     @Id
     @GeneratedValue
     @NotNull
-    Long id;
+    @JsonIgnore
+    Long userCode;
+
     @NotNull
     String name;
 
-    @JsonIgnore
-    String userCode;
+    @NotNull
+    String id;
 }

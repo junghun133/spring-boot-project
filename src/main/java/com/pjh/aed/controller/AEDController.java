@@ -39,7 +39,6 @@ public class AEDController {
         AEDLocation aedLocations = new AEDLocation();
         Resource<AEDLocation> resource = new Resource<>(aedLocations);
 
-
         //ControllerLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).findByAddressToAEDDetailList(authId,null));
         //resource.add(controllerLinkBuilder.withRel("detail-location"));
         return resource;
