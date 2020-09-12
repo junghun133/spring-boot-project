@@ -17,7 +17,6 @@ class MemberTest {
     @PersistenceContext
     EntityManager em;
 
-
     @Test
     public void testEntity(){
         Team teamA = new Team("teamA");
