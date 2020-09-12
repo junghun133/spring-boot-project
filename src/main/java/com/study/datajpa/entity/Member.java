@@ -17,7 +17,7 @@ public class Member {
     private String username;
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // 실제 값을 사용할때 db에서 query 한다
     @JoinColumn(name = "team_id")
     private Team team;
 
