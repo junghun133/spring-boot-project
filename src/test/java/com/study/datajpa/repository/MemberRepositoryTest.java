@@ -1,7 +1,10 @@
 package com.study.datajpa.repository;
 
+import com.study.datajpa.dto.MemberDto;
 import com.study.datajpa.entity.Member;
+import com.study.datajpa.entity.Team;
 import com.study.datajpa.repository.springdatajpa.MemberRepository;
+import com.study.datajpa.repository.springdatajpa.TeamRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     @Test
     public void testMember(){
@@ -95,5 +100,33 @@ class MemberRepositoryTest {
         memberRepository.save(member1);
         Member member = memberRepository.findByUsername("AAAA").get(0);
         assertThat(member).isEqualTo(member1);
+    }
+
+    @Test
+    public void testQuery(){
+        Member member1 = new Member("AAAA", 10);
+        Member member2 = new Member("AAAA", 20);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> result = memberRepository.findUser("AAAA", 10);
+        assertThat(result.get(0)).isEqualTo(member1);
+    }
+
+    @Test
+    public void findMemberDto(){
+        Team team = new Team("teamA");
+        teamRepository.save(team);
+
+        Member m1 = new Member("AAA", 10);
+        memberRepository.save(m1);
+        m1.setTeam(team);
+
+        List<MemberDto> memberDto = memberRepository.findMemberDto();
+        for (MemberDto dto : memberDto) {
+            System.out.println("dto = " + dto);
+        }
+
     }
 }
