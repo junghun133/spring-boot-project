@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -144,5 +145,18 @@ class MemberRepositoryTest {
         for (Member member : members) {
             System.out.println("member = " + member);
         }
+    }
+
+    @Test
+    public void dynamicReturnTypeTest(){
+        Member member1 = new Member("AAAA", 10);
+        Member member2 = new Member("AAAA", 20);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        Optional<Member> result = memberRepository.findOptionalByUsername("asd");
+        assertThat(result.isPresent()).isEqualTo(false);
+        System.out.println("result = " + result.orElse(null));
     }
 }
