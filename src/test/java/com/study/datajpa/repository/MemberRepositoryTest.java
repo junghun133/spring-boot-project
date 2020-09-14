@@ -8,6 +8,10 @@ import com.study.datajpa.repository.springdatajpa.TeamRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -158,5 +162,40 @@ class MemberRepositoryTest {
         Optional<Member> result = memberRepository.findOptionalByUsername("asd");
         assertThat(result.isPresent()).isEqualTo(false);
         System.out.println("result = " + result.orElse(null));
+    }
+
+    @Test
+    public void paging(){
+        //given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
+
+        int age = 10;
+        //sorting이 복잡해지면 jpql에서 직접 sort 구현하자
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
+
+        //when
+        // 반환 type이 page 이기때문에 count query 도 select query 와 같이 실행함
+        Page<Member> page = memberRepository.findByAge(age, pageRequest);
+
+        // page -> dto
+        Page<MemberDto> memberDtos = page.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
+
+        //then
+        List<Member> content = page.getContent();
+        assertThat(content.size()).isEqualTo(3);
+        assertThat(page.getTotalElements()).isEqualTo(5);
+        //page index는 0부터
+        assertThat(page.getNumber()).isEqualTo(0);
+        assertThat(page.getTotalPages()).isEqualTo(2);
+        assertThat(page.isFirst()).isTrue();
+        assertThat(page.hasNext()).isTrue();
+
+        /*List<Member> content1 = page.getContent();
+        assertThat(page.getNumber()).isEqualTo(1);
+        assertThat(content1.size()).isEqualTo(2);*/
     }
 }
