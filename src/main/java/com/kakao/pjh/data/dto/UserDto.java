@@ -1,16 +1,34 @@
 package com.kakao.pjh.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class UserDto {
-    Long code;
+@Getter @Setter @JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserDto extends CommonDto {
+    @NotNull
     String id;
 
-    @JsonIgnore
+    @NotNull
     String password;
+
+    String name;
 
     Date createAt;
     Date lastLoginAt;
+
+    @Builder(builderMethodName = "userBuilder")
+    public UserDto(int result, String message, String id, String password, String name, Date createAt, Date lastLoginAt) {
+        super(result, message);
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.createAt = createAt;
+        this.lastLoginAt = lastLoginAt;
+    }
 }
