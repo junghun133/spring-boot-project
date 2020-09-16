@@ -24,8 +24,8 @@ public class MapController {
         user.setId(userDto.getId());
         user.setPassword(userDto.getPassword());
 
-        ResultComponent.Result result = loginService.login(user) ? ResultComponent.Result.SUCC : ResultComponent.Result.FAIL;
-
+        loginService.login(user);
+        ResultComponent.Result result = ResultComponent.Result.SUCC;
         return UserDto.userBuilder()
                 .result(result.getCode())
                 .message(result.getMessage())
