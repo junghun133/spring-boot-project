@@ -1,5 +1,6 @@
 package com.pjh.aed.service;
 
+import com.pjh.aed.data.dto.UserDto;
 import com.pjh.aed.data.entity.User;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.jpa.UserRepository;
@@ -13,19 +14,29 @@ public class UserDaoService implements DaoService{
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto userDto) {
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setName(userDto.getName());
+        User save = userRepository.save(user);
+
+        UserDto savedUser = new UserDto();
+        savedUser.setId(save.getId());
+        savedUser.setName(save.getName());
+        return savedUser;
     }
 
-    public User findOne(String id) throws UserNotFoundException {
+    public UserDto findOne(String id) throws UserNotFoundException {
         if(id == null)
             throw new UserNotFoundException();
 
         //id가 아니라 usercode로 조회해야함
         Optional<User> selectedUser = userRepository.findById(Long.parseLong(id));
-        if(!selectedUser.isPresent())
-            return null;
+        User user = selectedUser.orElse(null);
 
-        return selectedUser.get();
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        return userDto;
     }
 }
