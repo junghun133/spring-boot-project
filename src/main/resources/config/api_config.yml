@@ -1,7 +1,15 @@
-kakao-api:
-  url: https://dapi.kakao.com/v2/local/search/keyword.json/
+local-api:
+  url: https://dapi.kakao.com/v2/local/search/keyword.json
   apikey: 7822edec9750a048bde7fa98f9e796a3
 
-map-api:
-  url: https://map.kakao.com/link/map/
-  apikey: bdcd97024c926cda52b32dc9b30a51fa
+map-url-info:
+  base_url: https://map.kakao.com/link
+  items:
+    - name: map
+      url: /map
+    - name: to
+      url: /to
+    - name: roadview
+      url: /roadview
+    - name: search
+      url: /search

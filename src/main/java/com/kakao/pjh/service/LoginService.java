@@ -2,17 +2,12 @@ package com.kakao.pjh.service;
 
 import com.kakao.pjh.dao.UserDaoImpl;
 import com.kakao.pjh.data.entity.User;
-import com.kakao.pjh.exception.KakaoMapApiInternalServerError;
+import com.kakao.pjh.exception.KakaoApiInternalServerError;
 import com.kakao.pjh.exception.PasswordNotMatchException;
-import com.kakao.pjh.exception.UserNotFoundException;
-import com.kakao.pjh.repository.UserRepository;
 import com.kakao.pjh.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.HttpServerErrorException;
-
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,7 +25,7 @@ public class LoginService {
 
         String token = TokenUtil.getRandomToken();
         if(token == null)
-            throw new KakaoMapApiInternalServerError();
+            throw new KakaoApiInternalServerError();
 
         selectedUser.setApikey(token);
 //            throw new KakaoMapApiInternalServerError();

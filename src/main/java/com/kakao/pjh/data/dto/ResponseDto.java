@@ -6,12 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter @Builder
-public class CommonDto implements ResultComponent {
-    int result;
+public class ResponseDto implements Response {
     String message;
 
-    public CommonDto(int result, String message){
-        this.result = result;
+    public ResponseDto(String message){
         this.message = message;
     }
 }
