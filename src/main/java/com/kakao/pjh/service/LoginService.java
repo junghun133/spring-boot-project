@@ -1,6 +1,10 @@
 package com.kakao.pjh.service;
 
 import com.kakao.pjh.dao.UserDaoImpl;
+import com.kakao.pjh.data.ResultComponent;
+import com.kakao.pjh.data.dto.Request;
+import com.kakao.pjh.data.dto.Response;
+import com.kakao.pjh.data.dto.user.UserDto;
 import com.kakao.pjh.data.entity.User;
 import com.kakao.pjh.exception.KakaoApiInternalServerError;
 import com.kakao.pjh.exception.PasswordNotMatchException;
@@ -11,12 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class LoginService {
+public class LoginService implements APIService{
     @Autowired
     UserDaoImpl userDao;
 
     Encrypt encrypt;
-    public User login(User user) {
+
+    @Override
+    public Response process(Request request) {
+        User user = new User();
+        UserDto userDto = (UserDto) request;
+        user.setId(userDto.getId());
+        user.setPassword(userDto.getPassword());
+
         encrypt = new EncryptHelper();
         User selectedUser = userDao.selectUser(user.getId());
 
@@ -28,8 +39,14 @@ public class LoginService {
             throw new KakaoApiInternalServerError();
 
         selectedUser.setApikey(token);
-//            throw new KakaoMapApiInternalServerError();
 
-        return selectedUser;
+        ResultComponent.Result result = ResultComponent.Result.SUCC;
+        return UserDto.userBuilder()
+                .message(result.getMessage())
+                .apiKey(selectedUser.getApikey())
+                .name(selectedUser.getName())
+                .createAt(selectedUser.getCreateAt())
+                .lastLoginAt(selectedUser.getLastLoginAt())
+                .build();
     }
 }

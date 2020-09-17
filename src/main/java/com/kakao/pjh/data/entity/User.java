@@ -15,15 +15,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long code;
-
     String id;
     String name;
-
     @JsonIgnore
     String password;
-
     String apikey;
-
     Date createAt;
     Date lastLoginAt;
 

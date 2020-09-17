@@ -1,6 +1,8 @@
-package com.kakao.pjh.data.dto;
+package com.kakao.pjh.data.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.kakao.pjh.data.dto.Request;
+import com.kakao.pjh.data.dto.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +12,7 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 @Getter @Setter @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto extends ResponseDto {
+public class UserDto extends ResponseDto implements Request {
     @NotNull
     @Length(min = 2, message = "id는 2글자 이상 입력해 주세요.")
     String id;

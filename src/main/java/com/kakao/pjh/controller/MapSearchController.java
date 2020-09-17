@@ -1,13 +1,13 @@
 package com.kakao.pjh.controller;
 
-import com.kakao.pjh.apis.API;
 import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordRequestDto;
 import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseDto;
 import com.kakao.pjh.service.MapSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/v1/map")

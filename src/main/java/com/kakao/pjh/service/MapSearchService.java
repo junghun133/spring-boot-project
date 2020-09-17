@@ -25,7 +25,6 @@ public class MapSearchService implements APIService {
 
     @Override
     public Response process(Request request) {
-        //인기순위 처리 TODO
         API.APIs apiType = API.APIs.KAKAO_LOCAL;
         APIInfo api = APIInfo.builder()
                 .request(request)
@@ -34,7 +33,7 @@ public class MapSearchService implements APIService {
                 .configuration(kakaoLocalConfiguration)
                 .build();
         SearchByKeywordResponseDto response = apiFactory.getAPI(apiType).APICall(api);
-
+//TODO DB처리 DBHandler 만들고 needDbProcess
 
         return response;
     }
