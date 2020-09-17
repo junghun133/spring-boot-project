@@ -1,5 +1,8 @@
 package com.kakao.pjh.data.dto.searchByKeyword;
 
+import lombok.Data;
+
+@Data
 public class SearchByKeywordResponseDocuments {
     private String id;
     private String place_name;
@@ -9,8 +12,6 @@ public class SearchByKeywordResponseDocuments {
     private String phone;
     private String address_name;
     private String road_address_name;
-    private Double x;
-    private Double y;
     private String place_url;
     private String distance;
 }

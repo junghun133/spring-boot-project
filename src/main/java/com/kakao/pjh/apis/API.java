@@ -1,6 +1,6 @@
 package com.kakao.pjh.apis;
 
-import com.kakao.pjh.data.dto.Request;
+import com.kakao.pjh.data.APIInfo;
 import com.kakao.pjh.data.dto.Response;
 
 public interface API {
@@ -15,5 +15,5 @@ public interface API {
         KAKAO_SEARCH
     }
 
-    <R extends Response> R APICall(Request request, APIDetailType apiDetailType);
+    <R extends Response> R APICall(APIInfo apiInfo);
 }

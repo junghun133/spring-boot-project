@@ -2,22 +2,40 @@ package com.kakao.pjh.service;
 
 import com.kakao.pjh.apis.API;
 import com.kakao.pjh.apis.APIFactory;
+import com.kakao.pjh.config.KakaoLocalConfiguration;
+import com.kakao.pjh.data.APIInfo;
 import com.kakao.pjh.data.dto.Request;
 import com.kakao.pjh.data.dto.Response;
-import lombok.AllArgsConstructor;
+import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseDto;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("MapSearchService")
 @NoArgsConstructor
-@AllArgsConstructor
-public class MapSearchService {
-    @Autowired
+public class MapSearchService implements APIService {
     APIFactory apiFactory;
+    KakaoLocalConfiguration kakaoLocalConfiguration;
 
-    public Response search(Request request, API.APIs apiType) {
+    @Autowired
+    MapSearchService(APIFactory apiFactory, KakaoLocalConfiguration kakaoLocalConfiguration){
+        this.apiFactory = apiFactory;
+        this.kakaoLocalConfiguration = kakaoLocalConfiguration;
+    }
+
+    @Override
+    public Response process(Request request) {
         //인기순위 처리 TODO
-        return apiFactory.getAPI(apiType).APICall(request, API.APIDetailType.KAKAO_MAP );
+        API.APIs apiType = API.APIs.KAKAO_LOCAL;
+        APIInfo api = APIInfo.builder()
+                .request(request)
+                .response(new SearchByKeywordResponseDto())
+                .apis(apiType)
+                .configuration(kakaoLocalConfiguration)
+                .build();
+        SearchByKeywordResponseDto response = apiFactory.getAPI(apiType).APICall(api);
+
+
+        return response;
     }
 }

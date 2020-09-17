@@ -5,10 +5,10 @@ import lombok.*;
 
 import javax.validation.constraints.*;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 public class SearchByKeywordRequestDto implements Request {
     @NotNull
     private String query;

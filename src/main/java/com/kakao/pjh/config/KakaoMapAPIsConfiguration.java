@@ -12,7 +12,17 @@ import java.util.Map;
 @org.springframework.context.annotation.Configuration
 @ConfigurationProperties(prefix = "map-url-info")
 @PropertySource(value = "classpath:config/api_config.yml", factory = YamlPropertySourceFactory.class)
-public class KakaoMapAPIsConfiguration {
+public class KakaoMapAPIsConfiguration implements Configuration{
     String base_url;
     public List<Map<String, String>> items = new ArrayList<>();
+
+    @Override
+    public String getUrl() {
+        return base_url;
+    }
+
+    @Override
+    public String getApiKey() {
+        return null;
+    }
 }
