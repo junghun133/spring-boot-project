@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/v1/user")
-public class MapController {
+public class UserController {
     @Autowired
     LoginService loginService;
 
@@ -24,11 +24,12 @@ public class MapController {
         user.setId(userDto.getId());
         user.setPassword(userDto.getPassword());
 
-        loginService.login(user);
+        User loginUser = loginService.login(user);
         ResultComponent.Result result = ResultComponent.Result.SUCC;
         return UserDto.userBuilder()
                 .result(result.getCode())
                 .message(result.getMessage())
+                .apiKey(loginUser.getApikey())
                 .build();
     }
 }

@@ -22,6 +22,8 @@ public class User {
     @JsonIgnore
     String password;
 
+    String apikey;
+
     Date createAt;
     Date lastLoginAt;
 

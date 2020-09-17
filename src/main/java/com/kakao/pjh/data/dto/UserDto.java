@@ -17,16 +17,18 @@ public class UserDto extends CommonDto {
     @NotNull
     String password;
 
+    String apiKey;
     String name;
 
     Date createAt;
     Date lastLoginAt;
 
     @Builder(builderMethodName = "userBuilder")
-    public UserDto(int result, String message, String id, String password, String name, Date createAt, Date lastLoginAt) {
+    public UserDto(int result, String message, String id, String password, String apiKey, String name, Date createAt, Date lastLoginAt) {
         super(result, message);
         this.id = id;
         this.password = password;
+        this.apiKey = apiKey;
         this.name = name;
         this.createAt = createAt;
         this.lastLoginAt = lastLoginAt;
