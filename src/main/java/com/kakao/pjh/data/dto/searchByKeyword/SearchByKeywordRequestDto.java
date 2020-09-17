@@ -1,5 +1,6 @@
-package com.kakao.pjh.data.dto;
+package com.kakao.pjh.data.dto.searchByKeyword;
 
+import com.kakao.pjh.data.dto.Request;
 import lombok.*;
 
 import javax.validation.constraints.*;
@@ -8,7 +9,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SearchByKeywordRequestDto implements Request{
+public class SearchByKeywordRequestDto implements Request {
     @NotNull
     private String query;
     private String category_group_code;

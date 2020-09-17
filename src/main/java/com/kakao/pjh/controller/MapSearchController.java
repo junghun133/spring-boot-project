@@ -1,8 +1,8 @@
 package com.kakao.pjh.controller;
 
 import com.kakao.pjh.apis.API;
-import com.kakao.pjh.data.dto.SearchByKeywordRequestDto;
-import com.kakao.pjh.data.dto.SearchByKeywordResponseDto;
+import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordRequestDto;
+import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseDto;
 import com.kakao.pjh.service.MapSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
