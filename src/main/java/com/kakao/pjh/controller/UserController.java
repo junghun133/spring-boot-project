@@ -20,6 +20,6 @@ public class UserController {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
     public UserDto loginUsers(@RequestBody @Valid UserDto userDto){
-        return (UserDto) loginService.process(userDto);
+        return (UserDto) loginService.process(null, userDto);
     }
 }

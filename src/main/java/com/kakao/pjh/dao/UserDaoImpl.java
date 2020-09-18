@@ -1,6 +1,7 @@
 package com.kakao.pjh.dao;
 
 import com.kakao.pjh.data.entity.User;
+import com.kakao.pjh.exception.AccessDeniedAPIKeyException;
 import com.kakao.pjh.exception.UserNotFoundException;
 import com.kakao.pjh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,11 @@ public class UserDaoImpl implements UserDao{
         if(!userInfo.isPresent())
             throw new UserNotFoundException(String.format("ID[%s] not found", userId));
         return userInfo.orElse(null);
+    }
+
+    @Override
+    public void apiKeyValidation(String apiKey) {
+        if(userRepository.countByApiKey(apiKey) <= 0)
+            throw new AccessDeniedAPIKeyException();
     }
 }

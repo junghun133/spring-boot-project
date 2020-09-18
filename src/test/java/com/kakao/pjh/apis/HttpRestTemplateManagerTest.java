@@ -1,6 +1,6 @@
 package com.kakao.pjh.apis;
 
-import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseDto;
+import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseDtoFromKakaoAPI;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
@@ -22,7 +22,7 @@ class HttpRestTemplateManagerTest {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(BASE_URL).queryParam("query","카카오 뱅크");
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        ResponseEntity<SearchByKeywordResponseDto> exchange = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, SearchByKeywordResponseDto.class);
+        ResponseEntity<SearchByKeywordResponseDtoFromKakaoAPI> exchange = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, SearchByKeywordResponseDtoFromKakaoAPI.class);
 
         assertThat(exchange.getStatusCode().value()).isEqualTo(HttpStatus.OK.value());
         assertThat(exchange.hasBody()).isEqualTo(true);

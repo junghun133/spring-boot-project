@@ -22,7 +22,7 @@ public class LoginService implements APIService{
     Encrypt encrypt;
 
     @Override
-    public Response process(Request request) {
+    public Response process(String apiKey, Request request) {
         User user = new User();
         UserDto userDto = (UserDto) request;
         user.setId(userDto.getId());

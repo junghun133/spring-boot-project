@@ -1,7 +1,17 @@
 package com.kakao.pjh.repository;
 
-import com.kakao.pjh.data.entity.MapData;
+import com.kakao.pjh.data.entity.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface MapRepository extends JpaRepository<MapData, Long> {
+import java.util.Optional;
+
+public interface MapRepository extends JpaRepository<Map, Long> {
+    @Query("select m from Map m where m.mapId = :mapId")
+    Optional<Map> findByMapId(@Param("mapId") Long mapId);
+
+    @Query("select count(m) from Map m where m.mapId = :mapId")
+    Long countById(@Param("mapId") Long mapId);
 }
+

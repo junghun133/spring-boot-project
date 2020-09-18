@@ -4,5 +4,5 @@ import com.kakao.pjh.data.dto.Request;
 import com.kakao.pjh.data.dto.Response;
 
 public interface APIService {
-    Response process(Request request);
+    Response process(String apiKey, Request request);
 }
