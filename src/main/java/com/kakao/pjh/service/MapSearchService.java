@@ -21,6 +21,8 @@ import java.util.List;
 @Service("MapSearchService")
 @NoArgsConstructor
 public class MapSearchService implements APIService {
+    final API.APIs apiType = API.APIs.KAKAO_LOCAL;
+
     APIFactory apiFactory;
     KakaoLocalConfiguration kakaoLocalConfiguration;
     UserDaoImpl userDao;
@@ -37,7 +39,6 @@ public class MapSearchService implements APIService {
     @Override
     public Response process(String apiKey, Request request) {
         userDao.apiKeyValidation(apiKey);
-        API.APIs apiType = API.APIs.KAKAO_LOCAL;
         APIInfo api = APIInfo.builder()
                 .request(request)
                 .response(new SearchByKeywordResponseDtoFromKakaoAPI())

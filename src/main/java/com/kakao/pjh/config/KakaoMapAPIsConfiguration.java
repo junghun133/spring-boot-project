@@ -14,8 +14,6 @@ import java.util.Map;
 @PropertySource(value = "classpath:config/api_config.yml", factory = YamlPropertySourceFactory.class)
 public class KakaoMapAPIsConfiguration implements Configuration{
     String base_url;
-    public List<Map<String, String>> items = new ArrayList<>();
-
     @Override
     public String getUrl() {
         return base_url;

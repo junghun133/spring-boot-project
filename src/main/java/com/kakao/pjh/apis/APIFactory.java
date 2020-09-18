@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class APIFactory {
+public class APIFactory { //다양한 API가 추가될시 Factory component로 추가
     KakaoBizMessageAPI kakaoBizMessageAPI;
     KakaoLocalAPI kakaoLocalAPI;
 

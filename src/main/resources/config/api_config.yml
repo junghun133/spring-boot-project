@@ -4,12 +4,3 @@ local-api:
 
 map-url-info:
   base_url: https://map.kakao.com/link
-  items:
-    - name: map
-      url: /map
-    - name: to
-      url: /to
-    - name: roadview
-      url: /roadview
-    - name: search
-      url: /search

@@ -34,6 +34,14 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+    //403
+    @ExceptionHandler(MapDataNotFoundException.class)
+    public final ResponseEntity<Object> handleMapDataNotFoundExceptions(Exception ex, WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
     //401
     @ExceptionHandler(AccessDeniedAPIKeyException.class)
     public final ResponseEntity<Object> handleAPIKeyNotFoundExceptions(Exception ex, WebRequest request){

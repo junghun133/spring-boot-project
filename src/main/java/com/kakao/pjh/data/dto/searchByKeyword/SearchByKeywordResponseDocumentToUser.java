@@ -14,4 +14,5 @@ public class SearchByKeywordResponseDocumentToUser {
     String place_name;
     String category_name;
     String road_address_name;
+    String detailUri;
 }
