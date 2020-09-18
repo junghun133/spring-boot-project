@@ -6,19 +6,19 @@ import com.kakao.pjh.data.dto.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Getter @Setter @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto extends ResponseDto implements Request {
     @NotNull
-    @Length(min = 2, message = "id는 2글자 이상 입력해 주세요.")
+//    @Length(min = 2, message = "id는 2글자 이상 입력해 주세요.")
     String id;
 
     @NotNull
-    @Length(min = 5, message = "password 5글자 이상 입력해 주세요.")
+//    @Length(min = 5, message = "password 5글자 이상 입력해 주세요.")
     String password;
 
     String apiKey;

@@ -9,6 +9,7 @@ import com.kakao.pjh.data.APIInfo;
 import com.kakao.pjh.data.dto.Request;
 import com.kakao.pjh.data.dto.Response;
 import com.kakao.pjh.data.dto.searchByKeyword.*;
+import com.kakao.pjh.data.entity.Keyword;
 import com.kakao.pjh.data.entity.Map;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +44,20 @@ public class MapSearchService implements APIService {
                 .apis(apiType)
                 .configuration(kakaoLocalConfiguration)
                 .build();
+        //save keyword
+        SearchByKeywordRequestDto dto = (SearchByKeywordRequestDto) request;
+        Keyword keyword = new Keyword();
+        keyword.setKeyword(dto.getQuery());
+        mapSearchDao.mergeIntoKeyword(keyword);
+
+        //request/response
         SearchByKeywordResponseDtoFromKakaoAPI response = apiFactory.getAPI(apiType).APICall(api);
 
-        // DB process
+
+        // parsing for response
         SearchByKeywordResponseMetaFromKakaoAPI meta = response.getMeta();
         List<SearchByKeywordDocumentsFromKakaoAPI> documents = response.getDocuments();
+
         // set response meta
         SearchByKeywordResponseToUser responseToUser = new SearchByKeywordResponseToUser();
         responseToUser.setMeta(SearchByKeywordResponseMetaToUser.builder()
@@ -67,9 +77,10 @@ public class MapSearchService implements APIService {
                     .build());
         }
         responseToUser.setDocuments(documentToUsers);
-        //set entity
+
+        //set entity & data save
         for (SearchByKeywordDocumentsFromKakaoAPI document : documents) {
-            mapSearchDao.mergeIntoMapRowData(Map.builder()
+            mapSearchDao.insertMapRowData(Map.builder()
                     .mapId(Long.parseLong(document.getId()))
                     .place_name(document.getPlace_name())
                     .category_name(document.getCategory_name())

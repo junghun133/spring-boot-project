@@ -4,14 +4,12 @@ import com.kakao.pjh.data.ResultComponent;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import sun.plugin2.liveconnect.ArgumentHelper;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+                new ExceptionResponse(new Date(), ResultComponent.Result.FAIL.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

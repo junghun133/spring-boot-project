@@ -1,6 +1,8 @@
 package com.kakao.pjh.dao;
 
+import com.kakao.pjh.data.entity.Keyword;
 import com.kakao.pjh.data.entity.Map;
+import com.kakao.pjh.repository.KeywordRepository;
 import com.kakao.pjh.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,15 +16,13 @@ import java.util.Optional;
 public class MapSearchDaoImpl implements MapSearchDao{
     @Autowired
     MapRepository mapRepository;
+    @Autowired
+    KeywordRepository keywordRepository;
 
     @Override
-    public void mergeIntoMapRowData(Map map) {
+    public void insertMapRowData(Map map) {
         Optional<Map> selectedMap = mapRepository.findByMapId(map.getMapId());
-        if(selectedMap.isPresent()){
-            Map getSelectedMap = selectedMap.get();
-            Integer hitCount = getSelectedMap.getHitCnt();
-            getSelectedMap.setHitCnt(hitCount + 1);
-        }else{
+        if(!selectedMap.isPresent()){
             mapRepository.save(map);
         }
     }
@@ -36,5 +36,17 @@ public class MapSearchDaoImpl implements MapSearchDao{
     @Override
     public List<Map> selectPopularData() {
         return null;
+    }
+
+    @Override
+    public void mergeIntoKeyword(Keyword keyword) {
+        Optional<Keyword> selectedKeyword = keywordRepository.findByKeyword(keyword.getKeyword());
+        if(selectedKeyword.isPresent()){
+            Keyword k = selectedKeyword.get();
+            int hitCnt = k.getHitCnt();
+            k.setHitCnt(hitCnt + 1);
+        }else{
+            keywordRepository.save(keyword);
+        }
     }
 }

@@ -4,9 +4,9 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -18,7 +18,7 @@ import javax.persistence.Id;
 @DynamicUpdate
 public class Map {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long mapId;
@@ -31,6 +31,4 @@ public class Map {
     private String road_address_name;
     private String place_url;
 
-    @Column(columnDefinition = "INTEGER DEFAULT 1", nullable = false)
-    private Integer hitCnt;
 }

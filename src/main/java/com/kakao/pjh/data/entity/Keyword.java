@@ -4,10 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Setter
@@ -19,10 +16,10 @@ import javax.persistence.Id;
 @DynamicUpdate
 public class Keyword {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String keyword;
 
-    @Column(columnDefinition = "INTEGER DEFAULT 1", nullable = false)
+    @Column(columnDefinition = "INTEGER DEFAULT 1")
     private Integer hitCnt;
 }
