@@ -2,7 +2,6 @@ package com.kakao.pjh.data.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kakao.pjh.data.dto.Request;
-import com.kakao.pjh.data.dto.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

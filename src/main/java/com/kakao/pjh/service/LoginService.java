@@ -29,6 +29,7 @@ public class LoginService implements APIService{
         user.setId(userDto.getId());
         user.setPassword(userDto.getPassword());
 
+        //암호화 APIKey 생성
         encrypt = new EncryptHelper();
         User selectedUser = userDao.selectUser(user.getId());
 
@@ -39,7 +40,7 @@ public class LoginService implements APIService{
         if(token == null)
             throw new KakaoApiInternalServerError();
 
-        //update
+        //APIKey update
         selectedUser.setApikey(token);
 
         LoginResponseToUser responseToUser = LoginResponseToUser.builder()

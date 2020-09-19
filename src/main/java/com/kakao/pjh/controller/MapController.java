@@ -3,23 +3,16 @@ package com.kakao.pjh.controller;
 import com.kakao.pjh.apis.API;
 import com.kakao.pjh.data.dto.detail.DetailMapRequestDto;
 import com.kakao.pjh.data.dto.detail.DetailSearchResponseToUser;
+import com.kakao.pjh.data.dto.popular.PopularKeywordResponseToUser;
 import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordRequestDto;
-import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseDocumentToUser;
 import com.kakao.pjh.data.dto.searchByKeyword.SearchByKeywordResponseToUser;
 import com.kakao.pjh.service.MapDetailSearchService;
+import com.kakao.pjh.service.MapPopularKeywordService;
 import com.kakao.pjh.service.MapSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/v1/map")
@@ -28,6 +21,8 @@ public class MapController {
     MapSearchService mapSearchService;
     @Autowired
     MapDetailSearchService mapDetailSearchService;
+    @Autowired
+    MapPopularKeywordService mapPopularKeywordService;
 
     @GetMapping(value = "/search/keyword", produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchByKeywordResponseToUser retrieveLocal(
@@ -52,6 +47,7 @@ public class MapController {
         return (SearchByKeywordResponseToUser) mapSearchService.process(apiKey, requestDto);
     }
 
+    // keyword id를 통한 detail 조회
     @GetMapping(value = "/search/keyword/detail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DetailSearchResponseToUser detailSearchByMapId(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String apiKey,
@@ -65,5 +61,11 @@ public class MapController {
         return (DetailSearchResponseToUser) mapDetailSearchService.process(apiKey, requestDto);
     }
 
-    //TODO popular 조회 API
+    // popular 조회 API
+    @GetMapping(value = "/popular", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PopularKeywordResponseToUser keywordRank(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String apiKey
+    ){
+        return (PopularKeywordResponseToUser) mapPopularKeywordService.process(apiKey, null);
+    }
 }

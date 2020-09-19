@@ -8,6 +8,6 @@ import java.util.List;
 public interface MapSearchDao {
     void insertMapRowData(Map map);
     Map selectMapData(Long mapId);
-    List<Map> selectPopularData();
+    List<Keyword> selectPopularKeyword();
     void mergeIntoKeyword(Keyword keyword);
 }

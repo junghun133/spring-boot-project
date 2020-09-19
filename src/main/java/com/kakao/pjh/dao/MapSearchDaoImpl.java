@@ -34,8 +34,8 @@ public class MapSearchDaoImpl implements MapSearchDao{
     }
 
     @Override
-    public List<Map> selectPopularData() {
-        return null;
+    public List<Keyword> selectPopularKeyword() {
+        return keywordRepository.findTop10HitCntByOrderByHitCntDesc();
     }
 
     @Override
