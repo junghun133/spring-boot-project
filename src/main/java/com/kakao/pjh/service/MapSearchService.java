@@ -6,6 +6,7 @@ import com.kakao.pjh.config.KakaoLocalConfiguration;
 import com.kakao.pjh.dao.MapSearchDaoImpl;
 import com.kakao.pjh.dao.UserDaoImpl;
 import com.kakao.pjh.data.APIInfo;
+import com.kakao.pjh.data.ResultComponent;
 import com.kakao.pjh.data.dto.Request;
 import com.kakao.pjh.data.dto.Response;
 import com.kakao.pjh.data.dto.searchByKeyword.*;
@@ -14,7 +15,9 @@ import com.kakao.pjh.data.entity.Map;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,11 +73,21 @@ public class MapSearchService implements APIService {
         //set response document
         List<SearchByKeywordResponseDocumentToUser> documentToUsers = new ArrayList<>();
         for (SearchByKeywordDocumentsFromKakaoAPI document : documents) {
+            API.APIDetailType apiDetailType = API.APIDetailType.KAKAO_MAP;
+
+            //detail link
+            URI location = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                    .path("/detail/{id}")
+                    .queryParam("mapUrlType", apiDetailType.getValue())
+                    .buildAndExpand(document.getId())
+                    .toUri();
+
             documentToUsers.add(SearchByKeywordResponseDocumentToUser.builder()
                     .id(document.getId())
                     .category_name(document.getCategory_name())
                     .place_name(document.getPlace_name())
                     .road_address_name(document.getRoad_address_name())
+                    .detailUri(location.toString())
                     .build());
         }
         responseToUser.setDocuments(documentToUsers);
@@ -93,6 +106,8 @@ public class MapSearchService implements APIService {
                     .place_url(document.getPlace_url())
                     .build());
         }
+
+        responseToUser.setMessage(ResultComponent.Result.SUCC);
         return responseToUser;
     }
 }

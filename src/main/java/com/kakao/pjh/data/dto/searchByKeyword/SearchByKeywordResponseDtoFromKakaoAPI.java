@@ -10,4 +10,9 @@ import java.util.List;
 public class SearchByKeywordResponseDtoFromKakaoAPI extends ResponseDto {
     private SearchByKeywordResponseMetaFromKakaoAPI meta;
     private List<SearchByKeywordDocumentsFromKakaoAPI> documents;
+
+    @Override
+    protected boolean messageDisplay() {
+        return false;
+    }
 }

@@ -1,5 +1,6 @@
 package com.kakao.pjh.data.dto.detail;
 
+import com.kakao.pjh.data.dto.ResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DetailSearchResponseToUser {
+public class DetailSearchResponseToUser extends ResponseDto {
     private String id;
     private String place_name;
     private String category_name;
@@ -19,4 +20,9 @@ public class DetailSearchResponseToUser {
     private String address_name;
     private String road_address_name;
     private String place_url;
+
+    @Override
+    protected boolean messageDisplay() {
+        return true;
+    }
 }

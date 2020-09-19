@@ -4,6 +4,7 @@ import com.kakao.pjh.dao.UserDaoImpl;
 import com.kakao.pjh.data.ResultComponent;
 import com.kakao.pjh.data.dto.Request;
 import com.kakao.pjh.data.dto.Response;
+import com.kakao.pjh.data.dto.user.LoginResponseToUser;
 import com.kakao.pjh.data.dto.user.UserDto;
 import com.kakao.pjh.data.entity.User;
 import com.kakao.pjh.exception.KakaoApiInternalServerError;
@@ -38,15 +39,17 @@ public class LoginService implements APIService{
         if(token == null)
             throw new KakaoApiInternalServerError();
 
+        //update
         selectedUser.setApikey(token);
 
-        ResultComponent.Result result = ResultComponent.Result.SUCC;
-        return UserDto.userBuilder()
-                .message(result.getMessage())
+        LoginResponseToUser responseToUser = LoginResponseToUser.builder()
+                .id(selectedUser.getId())
                 .apiKey(selectedUser.getApikey())
                 .name(selectedUser.getName())
                 .createAt(selectedUser.getCreateAt())
                 .lastLoginAt(selectedUser.getLastLoginAt())
                 .build();
+        responseToUser.setMessage(ResultComponent.Result.SUCC);
+        return responseToUser;
     }
 }

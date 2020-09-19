@@ -49,23 +49,7 @@ public class MapController {
                 .size(size)
                 .sort(sort).build();
 
-        SearchByKeywordResponseToUser response = (SearchByKeywordResponseToUser) mapSearchService.process(apiKey, requestDto);
-
-        List<SearchByKeywordResponseDocumentToUser> documents = response.getDocuments();
-        if(documents.size() > 0){
-            for (SearchByKeywordResponseDocumentToUser document : documents) {
-                API.APIDetailType apiDetailType = API.APIDetailType.KAKAO_MAP;
-
-                URI location = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                        .path("/detail/{id}")
-                        .queryParam("mapUrlType", apiDetailType.getValue())
-                        .buildAndExpand(document.getId())
-                        .toUri();
-
-                document.setDetailUri(location.toString());
-            }
-        }
-        return response;
+        return (SearchByKeywordResponseToUser) mapSearchService.process(apiKey, requestDto);
     }
 
     @GetMapping(value = "/search/keyword/detail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,4 +65,5 @@ public class MapController {
         return (DetailSearchResponseToUser) mapDetailSearchService.process(apiKey, requestDto);
     }
 
+    //TODO popular 조회 API
 }

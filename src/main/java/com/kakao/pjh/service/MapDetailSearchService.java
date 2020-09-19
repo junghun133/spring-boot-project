@@ -3,6 +3,7 @@ package com.kakao.pjh.service;
 import com.kakao.pjh.config.KakaoMapAPIsConfiguration;
 import com.kakao.pjh.dao.MapSearchDaoImpl;
 import com.kakao.pjh.dao.UserDaoImpl;
+import com.kakao.pjh.data.ResultComponent;
 import com.kakao.pjh.data.dto.Request;
 import com.kakao.pjh.data.dto.Response;
 import com.kakao.pjh.data.dto.detail.DetailMapRequestDto;
@@ -35,6 +36,19 @@ public class MapDetailSearchService implements APIService{
         if(map == null)
             throw new MapDataNotFoundException();
 
-        return null;
+        DetailSearchResponseToUser responseToUser = DetailSearchResponseToUser.builder()
+                .id(Long.toString(map.getMapId()))
+                .place_name(map.getPlace_name())
+                .category_name(map.getCategory_name())
+                .category_group_code(map.getCategory_group_code())
+                .category_group_name(map.getCategory_group_name())
+                .phone(map.getPhone())
+                .address_name(map.getAddress_name())
+                .road_address_name(map.getRoad_address_name())
+                .place_url(map.getPlace_url())
+                .build();
+
+        responseToUser.setMessage(ResultComponent.Result.SUCC);
+        return responseToUser;
     }
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Getter @Setter @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto extends ResponseDto implements Request {
+public class UserDto implements Request {
     @NotNull
 //    @Length(min = 2, message = "id는 2글자 이상 입력해 주세요.")
     String id;
@@ -30,8 +30,7 @@ public class UserDto extends ResponseDto implements Request {
     Date lastLoginAt;
 
     @Builder(builderMethodName = "userBuilder")
-    public UserDto(String message, String id, String password, String apiKey, String name, Date createAt, Date lastLoginAt) {
-        super(message);
+    public UserDto(String id, String password, String apiKey, String name, Date createAt, Date lastLoginAt) {
         this.id = id;
         this.password = password;
         this.apiKey = apiKey;

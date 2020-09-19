@@ -1,11 +1,19 @@
 package com.kakao.pjh.data.dto;
 
+import com.kakao.pjh.data.ResultComponent;
 import lombok.*;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseDto implements Response {
+public abstract class ResponseDto implements Response {
     String message;
+
+    @Override
+    public void setMessage(ResultComponent.Result result){
+        if(messageDisplay())
+            this.message = result.getMessage();
+    }
+
+    protected abstract boolean messageDisplay();
 }

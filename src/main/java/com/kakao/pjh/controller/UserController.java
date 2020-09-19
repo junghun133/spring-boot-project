@@ -1,5 +1,6 @@
 package com.kakao.pjh.controller;
 
+import com.kakao.pjh.data.dto.user.LoginResponseToUser;
 import com.kakao.pjh.data.dto.user.UserDto;
 import com.kakao.pjh.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserController {
     LoginService loginService;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
-    public UserDto loginUsers(@RequestBody @Valid UserDto userDto){
-        return (UserDto) loginService.process(null, userDto);
+    public LoginResponseToUser loginUsers(@RequestBody @Valid UserDto userDto){
+        return (LoginResponseToUser) loginService.process(null, userDto);
     }
 }

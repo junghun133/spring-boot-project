@@ -13,4 +13,10 @@ import java.util.List;
 public class SearchByKeywordResponseToUser extends ResponseDto {
     SearchByKeywordResponseMetaToUser meta;
     List<SearchByKeywordResponseDocumentToUser> documents;
+
+
+    @Override
+    protected boolean messageDisplay() {
+        return true;
+    }
 }
