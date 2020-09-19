@@ -24,6 +24,7 @@ public class MapController {
     @Autowired
     MapPopularKeywordService mapPopularKeywordService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/search/keyword", produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchByKeywordResponseToUser retrieveLocal(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String apiKey,
@@ -48,6 +49,7 @@ public class MapController {
     }
 
     // keyword id를 통한 detail 조회
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/search/keyword/detail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DetailSearchResponseToUser detailSearchByMapId(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String apiKey,
