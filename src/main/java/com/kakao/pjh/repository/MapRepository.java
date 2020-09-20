@@ -11,7 +11,7 @@ public interface MapRepository extends JpaRepository<Map, Long> {
     @Query("select m from Map m where m.mapId = :mapId")
     Optional<Map> findByMapId(@Param("mapId") Long mapId);
 
-    @Query("select count(m) from Map m where m.mapId = :mapId")
-    Long countById(@Param("mapId") Long mapId);
+   /* @Query("select count(m) from Map m where m.mapId = :mapId")
+    Long countById(@Param("mapId") Long mapId);*/
 }
 

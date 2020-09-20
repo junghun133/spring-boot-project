@@ -4,10 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Setter @Getter
@@ -16,6 +13,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
+@Table(name = "TBL_MAP", indexes = @Index(columnList = "mapId"))
 public class Map {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

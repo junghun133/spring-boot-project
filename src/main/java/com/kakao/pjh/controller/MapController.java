@@ -24,9 +24,10 @@ public class MapController {
     @Autowired
     MapPopularKeywordService mapPopularKeywordService;
 
+    //전체 map 정보 조회
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/search/keyword", produces = MediaType.APPLICATION_JSON_VALUE)
-    public SearchByKeywordResponseToUser retrieveLocal(
+    public SearchByKeywordResponseToUser retrieveMapInfo(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String apiKey,
             @RequestParam(value = "query") String query,
             @RequestParam(required = false, value = "category_group_code") String category_group_code,

@@ -12,6 +12,7 @@ import com.kakao.pjh.data.dto.Response;
 import com.kakao.pjh.data.dto.searchByKeyword.*;
 import com.kakao.pjh.data.entity.Keyword;
 import com.kakao.pjh.data.entity.Map;
+import com.kakao.pjh.exception.NoResultWithHistoryKeywordException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service("MapSearchService")
@@ -42,21 +44,27 @@ public class MapSearchService implements APIService {
     @Override
     public Response process(String apiKey, Request request) {
         userDao.apiKeyValidation(apiKey);
+        SearchByKeywordRequestDto dto = (SearchByKeywordRequestDto) request;
         APIInfo api = APIInfo.builder()
                 .request(request)
                 .response(new SearchByKeywordResponseDtoFromKakaoAPI())
                 .apis(apiType)
                 .configuration(kakaoLocalConfiguration)
                 .build();
-        //save keyword
-        SearchByKeywordRequestDto dto = (SearchByKeywordRequestDto) request;
-        Keyword keyword = new Keyword();
-        keyword.setKeyword(dto.getQuery());
-        mapSearchDao.mergeIntoKeyword(keyword);
+
+        // data 조회 결과가 없었던 keyword 기간 비교 후 처리
+        if(!mapSearchDao.selectKeywordTotalCount(dto.getQuery()))
+            throw new NoResultWithHistoryKeywordException();
 
         //request/response
         SearchByKeywordResponseDtoFromKakaoAPI response = apiFactory.getAPI(apiType).APICall(api);
 
+        //save keyword
+        Integer searchedTotalCount = response.getMeta().getTotal_count();
+        Keyword keyword = new Keyword();
+        keyword.setKeyword(dto.getQuery());
+        keyword.setSearchedTotalCount(searchedTotalCount);
+        mapSearchDao.mergeIntoKeyword(keyword);
 
         // parsing for response
         SearchByKeywordResponseMetaFromKakaoAPI meta = response.getMeta();

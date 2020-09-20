@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,11 +34,13 @@ public class MapSearchDaoImpl implements MapSearchDao{
         return map.orElse(null);
     }
 
+    //가장 검색 빈도수가 많은 10건의 keyword 조회
     @Override
     public List<Keyword> selectPopularKeyword() {
         return keywordRepository.findTop10HitCntByOrderByHitCntDesc();
     }
 
+    //Keyword data 존재시 update, 존재하지않으면 save
     @Override
     public void mergeIntoKeyword(Keyword keyword) {
         Optional<Keyword> selectedKeyword = keywordRepository.findByKeyword(keyword.getKeyword());
@@ -45,8 +48,21 @@ public class MapSearchDaoImpl implements MapSearchDao{
             Keyword k = selectedKeyword.get();
             int hitCnt = k.getHitCnt();
             k.setHitCnt(hitCnt + 1);
+            k.setSearchedDate(new Date());
         }else{
+            keyword.setSearchedDate(new Date());
             keywordRepository.save(keyword);
+        }
+    }
+
+    @Override
+    public Boolean selectKeywordTotalCount(String keyword) {
+        Optional<Keyword> byKeyword = keywordRepository.findByKeyword(keyword);
+
+        if(!byKeyword.isPresent())
+            return true;
+        else{ //TODO totalcount 0이고 데이터 갱신 날짜 (ex 86400) 비교필요
+            return byKeyword.get().getSearchedTotalCount() == 0 ? false : true;
         }
     }
 }

@@ -22,7 +22,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(), ResultComponent.Result.FAIL.getMessage(), request.getDescription(false));
+                new ExceptionResponse(new Date(), ResultComponent.Result.INTERNAL_SERVER_ERROR.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -30,7 +30,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<Object> handleUserNotFoundExceptions(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(), ResultComponent.Result.FAIL.getMessage(), request.getDescription(false));
+                new ExceptionResponse(new Date(), ResultComponent.Result.NOT_FOUND.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -38,7 +38,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(MapDataNotFoundException.class)
     public final ResponseEntity<Object> handleMapDataNotFoundExceptions(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(), ResultComponent.Result.FAIL.getMessage(),  request.getDescription(false));
+                new ExceptionResponse(new Date(), ResultComponent.Result.NOT_FOUND.getMessage(),  request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -46,8 +46,16 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(AccessDeniedAPIKeyException.class)
     public final ResponseEntity<Object> handleAPIKeyNotFoundExceptions(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(), ResultComponent.Result.FAIL.getMessage(), request.getDescription(false));
+                new ExceptionResponse(new Date(), ResultComponent.Result.UNAUTHORIZED.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse,  HttpStatus.UNAUTHORIZED);
+    }
+
+    //204
+    @ExceptionHandler(NoResultWithHistoryKeywordException.class)
+    public final ResponseEntity<Object> handleNoResultWithHistoryKeywordExceptions(Exception ex, WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(), ResultComponent.Result.NO_CONTENT.getMessage(), request.getDescription(false));
+        return new ResponseEntity(exceptionResponse,  HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -58,7 +66,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 .stream()
                 .map(fieldError -> fieldError.getDefaultMessage())
                 .collect(Collectors.toList());
-        ArgumentNotValidData argumentNotValidData = new ArgumentNotValidData(HttpStatus.BAD_REQUEST, ResultComponent.Result.FAIL.getMessage(), errorList);
+        ArgumentNotValidData argumentNotValidData = new ArgumentNotValidData(HttpStatus.BAD_REQUEST, ResultComponent.Result.BAD_REQUEST.getMessage(), errorList);
         return handleExceptionInternal(ex, argumentNotValidData, headers, argumentNotValidData.getStatus(), request);
     }
 }

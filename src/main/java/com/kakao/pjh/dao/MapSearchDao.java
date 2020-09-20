@@ -10,4 +10,6 @@ public interface MapSearchDao {
     Map selectMapData(Long mapId);
     List<Keyword> selectPopularKeyword();
     void mergeIntoKeyword(Keyword keyword);
+
+    Boolean selectKeywordTotalCount(String keyword);
 }
