@@ -9,7 +9,6 @@ page = 1;
 listCnt = 0;
 additionalFlag = false;
 $(document).ready(function(){
-
     popularRequest();
     rankAnimate();
 })
@@ -142,7 +141,7 @@ function rankAnimate() {
 }
 
     function startPopularRank(){
-        setInterval(popularRequest, 20000)
+        setInterval(popularRequest, 40000)
     }
 
     function popularRequest() {
@@ -160,12 +159,11 @@ function rankAnimate() {
         });
     }
 
-    function rankRefresh(obj){
+    function rankRefresh(result){
         var html = "";
         $('#rank-list-id').empty();
-        for(var i = 0; i < obj.length; i++){
-            // alert(JSON.stringify(key));
-            html += '<li>' + parseInt(i+1) + '.  ' + obj[i] + '</li>'
+        for(var i = 0; i < result.length; i++){
+            html += '<li>' + parseInt(i+1) + '.  [' + result[i].keyword + '] count: ' + result[i].hitCnt + '</li>'
         }
         $('#rank-list-id').append(html);
         rankAnimate()

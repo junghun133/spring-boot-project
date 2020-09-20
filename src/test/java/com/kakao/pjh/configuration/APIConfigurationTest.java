@@ -18,8 +18,8 @@ public class APIConfigurationTest  {
 
     @Test
     public void whenFactoryProviedThenPropertiesInjectionToKakaoConfiguration(){
-        assertThat(kakaoLocalConfiguration.getUrl()).isEqualTo("https://dapi.kakao.com/v2/local/search/keyword.json/");
-        assertThat(kakaoLocalConfiguration.getApiKey()).isEqualTo("7822edec9750a048bde7fa98f9e796a3");
+        assertThat(kakaoLocalConfiguration.getUrl()).isEqualTo("https://dapi.kakao.com/v2/local/search/keyword.json");
+        assertThat(kakaoLocalConfiguration.getApiKey()).isEqualTo("KakaoAK 7822edec9750a048bde7fa98f9e796a3");
     }
 
     @Test

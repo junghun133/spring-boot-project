@@ -1,5 +1,6 @@
 package com.kakao.pjh.data.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kakao.pjh.data.dto.Request;
 import lombok.Builder;
@@ -36,5 +37,11 @@ public class UserDto implements Request {
         this.name = name;
         this.createAt = createAt;
         this.lastLoginAt = lastLoginAt;
+    }
+
+    @JsonCreator
+    public UserDto(String id, String password){
+        this.id = id;
+        this.password = password;
     }
 }

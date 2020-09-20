@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+import java.util.Date;
+
+@Service("LoginService")
 @Transactional
 public class LoginService implements APIService{
     @Autowired
@@ -42,6 +44,7 @@ public class LoginService implements APIService{
 
         //APIKey update
         selectedUser.setApikey(token);
+        selectedUser.setLastLoginAt(new Date());
 
         LoginResponseToUser responseToUser = LoginResponseToUser.builder()
                 .id(selectedUser.getId())

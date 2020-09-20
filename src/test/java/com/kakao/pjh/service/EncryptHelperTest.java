@@ -18,26 +18,6 @@ class EncryptHelperTest {
     public static void setUp(){
         encrypt = new EncryptHelper();
     }
-/*
-
-    private static Stream<Arguments> makePassword() { // argument source method
-        return Stream.of(
-                Arguments.of("user1", "user1password"),
-                Arguments.of("user2", "user2password"),
-                Arguments.of("user3", "user3password"),
-                Arguments.of("user4", "user4password"),
-                Arguments.of("user5", "user5password"),
-                Arguments.of("user6", "user6password")
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("makePassword")
-    public void makeUserPassword(String id, String password){
-        String encryptPassword = EncryptHelperTest.encrypt.encrypt(password);
-        System.out.printf("id = %s password = %s%n", id, encryptPassword);
-    }
-*/
 
     private static Stream<Arguments> isAvailablePasswordParameter() { // argument source method
         return Stream.of(

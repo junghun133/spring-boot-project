@@ -30,10 +30,10 @@ public class MapPopularKeywordService implements APIService{
 
         List<Keyword> topKeywords = mapSearchDao.selectPopularKeyword();
 
-        List<String> keywords = new ArrayList<>();
-        topKeywords.stream().forEach( t -> keywords.add(t.getKeyword()));
+//        List<String> keywords = new ArrayList<>();
+//        topKeywords.stream().forEach( t -> keywords.add(t.getKeyword()));
         PopularKeywordResponseToUser responseToUser = PopularKeywordResponseToUser.builder()
-                .popularKeywords(keywords)
+                .popularKeywords(topKeywords)
                 .build();
 
         responseToUser.setMessage(ResultComponent.Result.SUCC);
