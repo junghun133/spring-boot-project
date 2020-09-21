@@ -10,7 +10,7 @@
   * Deploy: Maven
   * Client: javascript, jquery, html
   * library: 
-        기본적인 spring boot dependency, APIKey 암호화 처리를 위한 jbcrypt , API Document 페이지 제공을 위한 swagger dependency
+        기본적인 spring boot dependency, 사용자  암호화 처리를 위한 jbcrypt , API Document 페이지 제공을 위한 swagger dependency
   * Configuration: YML 설정파일( application.yml, api_config.yml )
 ****
 
