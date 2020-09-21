@@ -7,7 +7,7 @@
   * IDE: intellij 2020.02
   * MDB: H2
   * JAVA: 1.8
-  * Deploy: Maven
+  * spring version: maven 기반의 spring boot 2.3.3 version 
   * Client: javascript, jquery, html
   * library: 
         기본적인 spring boot dependency, 사용자  암호화 처리를 위한 jbcrypt , API Document 페이지 제공을 위한 swagger dependency
