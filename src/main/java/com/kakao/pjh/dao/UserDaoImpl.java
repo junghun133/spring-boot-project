@@ -3,7 +3,7 @@ package com.kakao.pjh.dao;
 import com.kakao.pjh.data.entity.User;
 import com.kakao.pjh.exception.AccessDeniedAPIKeyException;
 import com.kakao.pjh.exception.UserNotFoundException;
-import com.kakao.pjh.repository.UserRepository;
+import com.kakao.pjh.db.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

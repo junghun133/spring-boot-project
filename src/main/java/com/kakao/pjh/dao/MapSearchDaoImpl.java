@@ -2,8 +2,8 @@ package com.kakao.pjh.dao;
 
 import com.kakao.pjh.data.entity.Keyword;
 import com.kakao.pjh.data.entity.Map;
-import com.kakao.pjh.repository.KeywordRepository;
-import com.kakao.pjh.repository.MapRepository;
+import com.kakao.pjh.db.KeywordRepository;
+import com.kakao.pjh.db.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

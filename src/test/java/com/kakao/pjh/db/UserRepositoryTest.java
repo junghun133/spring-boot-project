@@ -1,4 +1,4 @@
-package com.kakao.pjh.repository;
+package com.kakao.pjh.db;
 
 import com.kakao.pjh.data.entity.User;
 import org.junit.jupiter.api.BeforeAll;
