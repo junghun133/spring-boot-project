@@ -1,5 +1,5 @@
 
-## Kakao B2B API 서비스 개발 과제
+## Kakao B2B API 서비스 개발 코딩테스트
 
 ### 프로젝트 정보
   #### 1. Development environment
