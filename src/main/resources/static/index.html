@@ -29,7 +29,7 @@
             <input id="search" type="text" placeholder="What are you looking for?" />
           </div>
           <div class="input-field third-wrap">
-            <button id="find-btn" class="btn-search" type="button">찾기</button>
+            <button id="find-btn"  class="btn-search" type="button">찾기</button>
           </div>
         </div>
 
@@ -91,18 +91,23 @@
 
          <!-- Modal Header -->
          <div class="modal-header">
-           <h4 class="modal-title">Modal Heading</h4>
+           <h4 class="modal-title"><b id="Modal-head">Modal Heading</b></h4>
            <button type="button" class="close" data-dismiss="modal">&times;</button>
          </div>
 
          <!-- Modal body -->
          <div class="modal-body">
-           Modal body..
+           카테고리: <b id="category_name">category_name</b><br>
+           카테고리 그룹코드 <b id="category_group_code">category_group_code</b><br>
+           카테고리 그룹이름: <b id="category_group_name">category_group_name</b><br>
+           전화번호: <b id="phone">phone</b><br>
+           주소: <b id="address_name">address_name</b><br>
+           도로명 주소: <b id="road_address_name">road_address_name</b><br>
+           다음 지도 바로가기: <a id="place_url" >place_url</a><br>
          </div>
-
          <!-- Modal footer -->
          <div class="modal-footer">
-           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+           <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
          </div>
 
        </div>

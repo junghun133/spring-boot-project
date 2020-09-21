@@ -208,3 +208,11 @@ table.table td i {
     margin-top: 10px;
     font-size: 13px;
 }
+aside {
+    position: fixed;
+    overflow: hidden;
+    z-index: 500;
+    width: 20%;
+    height: 100%;
+    background: #1a1a1a;
+}
