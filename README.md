@@ -1,4 +1,4 @@
-# Project 명
+
 ## Kakao B2B API 서비스 개발 과제
 
 ### 프로젝트 정보
