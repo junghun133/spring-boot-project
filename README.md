@@ -10,7 +10,7 @@
   * spring version: maven 기반의 spring boot 2.3.3 version 
   * Client: javascript, jquery, html
   * library: 
-        기본적인 spring boot dependency, 사용자  암호화 처리를 위한 jbcrypt , API Document 페이지 제공을 위한 swagger dependency
+        기본적인 spring boot dependencies, 사용자  암호화 처리를 위한 jbcrypt , API Document 페이지 제공을 위한 swagger dependency
   * Configuration: YML 설정파일( application.yml, api_config.yml )
 ****
 
@@ -59,6 +59,7 @@
   
 ****
   #### 4. Uniqueness
+  * 로그인시 APIKey를 생성 및 유저DB에 저장하여 로그인 외 API요청시 header에 포함하여 요청합니다.
   * API 확장성을 위해 Abstract fatory pattern 구현, Request/Response 추상화를 통해 새로운 API 추가를 용이하도록 개발하였습니다.
   * Map 전체 데이터 요청 response 항목에 각 Map 별 상세조회 API url 을 함께 response에 전달하여 불필요한 통신을 줄였습니다.
   * Map 전체 데이터 요청시 결과가 존재하지 않는 키워드에 대해서 재요청시 DB 데이터 조회 후 response를 전달하여 카카오API를 호출하지않아 불필요한 통신을 줄였습니다.
