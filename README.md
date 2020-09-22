@@ -61,7 +61,7 @@
   #### 4. Uniqueness
   * API 확장성을 위해 Abstract fatory pattern 구현, Request/Response 추상화를 통해 새로운 API 추가를 용이하도록 개발하였습니다.
   * Map 전체 데이터 요청 response 항목에 각 Map 별 상세조회 API url 을 함께 response에 전달하여 불필요한 통신을 줄였습니다.
-  * Map 전체 데이터 요청시 결과가 존재하지 않는 키워드에 대해서 재요청시 DB 데이터 조회 후 response를 전달하기때문에 불필요한 통신을 줄였습니다.
+  * Map 전체 데이터 요청시 결과가 존재하지 않는 키워드에 대해서 재요청시 DB 데이터 조회 후 response를 전달하여 카카오API를 호출하지않아 불필요한 통신을 줄였습니다.
   * Swagger 구현으로 요구사항에 대해 자동 문서화가 가능하도록 구현하였습니다.
   
   
