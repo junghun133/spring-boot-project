@@ -23,7 +23,7 @@
        - install path\H2\bin\h2w.bat (mac경우 h2.sh) 실행으로 H2 데이터베이스 기동  
       
        - 데이터베이스 파일 생성(초기 하기의 정보를 입력 후 connect시 자동으로 DB file 생성됩니다)   
-           jdbcUrl: jdbc:h2:\~/map (이후 로그인시에는 jdbc:h2:tcp://localhost/~/map 으로 접속가능)    
+           jdbcUrl: jdbc:h2:~/map (이후 로그인시에는 jdbc:h2:tcp://localhost/~/map 으로 접속가능)    
            id: kakaobank  
            password: kakaobankgood  
   >    2-3 localhost port 8080 중복 확인 (8080 중복시 application.yml 의 port 변경)
