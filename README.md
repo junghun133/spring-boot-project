@@ -29,8 +29,7 @@
   >    2-3 localhost port 8080 중복 확인 (8080 중복시 application.yml 의 port 변경)
 ****
   #### 3. Initialize
-  >   3-1 KakaoMapApiApplication main class로 run
-  >   3-2 run시 기초 데이터 (자동 삽입)
+  >   3-1 run시 기초 데이터 (자동 삽입)
   
   id|password|name
   ---|---|---|
@@ -42,17 +41,23 @@
   user6|user6password|helen|
 
 ****
-
-  #### 4. How to run?
-  >4-1. Run configuration 설정 KakaoMapApiApplication main class로 실행  
-  >4-2. http://localhost:8080/login.html 로그인 화면 이동하여 상기 유저 정보 중 1개의 데이터로 로그인 
+  #### 4. Uniqueness
+  * API 확장성을 위해 Abstract fatory pattern 구현, Request/Response 추상화를 통해 새로운 API 추가를 용이하도록 개발하였습니다.
+  * Map 전체 데이터 각 Map 정보별 상세조회 API url 을 함께 response에 전달하여 불필요한 통신을 줄였습니다.
+  * Map 전체 데이터 요청시 결과가 존재하지 않는 키워드에 대해서 재요청시 DB 데이터 조회 후 response를 전달하기때문에 불필요한 통신을 줄였습니다.
+  * Swagger 구현으로 요구사항에 대해 자동 문서화가 가능하도록 구현하였습니다.
+  
+  
+  #### 5. How to run?
+  >5-1. Run configuration 설정 KakaoMapApiApplication main class로 실행  
+  >5-2. http://localhost:8080/login.html 로그인 화면 이동하여 상기 유저 정보 중 1개의 데이터로 로그인 
   ![kakao_login](https://user-images.githubusercontent.com/13414116/93765600-1fd72c80-fc50-11ea-9602-bb1ca135c81f.png)
-  >4-3. 로그인 성공 후 index.html 이동  
+  >5-3. 로그인 성공 후 index.html 이동  
   ![kakao_main](https://user-images.githubusercontent.com/13414116/93765716-50b76180-fc50-11ea-977a-7962236d94fb.png)
-  >4-4. 검색어 입력 후 찾기  
-  >4-5. 페이지 하단 검색 결과 확인  
-  >4-6. 15개 이상의 데이터라면 페이지 가장 하단으로 스크롤 다운하여 데이터 갱신(45개 까지)  
-  >4-7. 각 결과의 [더보기] 버튼 클릭하여 상세정보 확인  
+  >5-4. 검색어 입력 후 찾기  
+  >5-5. 페이지 하단 검색 결과 확인  
+  >5-6. 15개 이상의 데이터라면 페이지 가장 하단으로 스크롤 다운하여 데이터 갱신(45개 까지)  
+  >5-7. 각 결과의 [더보기] 버튼 클릭하여 상세정보 확인  
 
   ※주의사항: 로그인시 전달받는 데이터인 APIKey가 index 페이지의 전역변수로 사용하고 있어 페이지 갱신시 원활한 동작이 되지 않을 수 있습니다. 그럴 경우 다시 로그인부터 진행바랍니다.
 
