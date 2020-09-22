@@ -31,6 +31,8 @@
   #### 3. Initialize
   >   3-1 run시 기초 데이터 (자동 삽입)
   
+  >>TBL_User
+  
   id|password|name
   ---|---|---|
   user1|user1password|roy|
@@ -40,6 +42,21 @@
   user5|user5password|harry|
   user6|user6password|helen|
 
+  >>TBL_KEYWORD
+  
+  keyword|hitCount|
+  ---|---|
+  카카오뱅크|45|
+  박정훈|20|
+  카카오은행|13|
+  카카오|14|
+  카카오톡|12|
+  박정훈지원자|0|
+  카카오헤어|2|
+  카카오페이|1|
+  카카오게임|5|
+  카카오장보기|6|
+  
 ****
   #### 4. Uniqueness
   * API 확장성을 위해 Abstract fatory pattern 구현, Request/Response 추상화를 통해 새로운 API 추가를 용이하도록 개발하였습니다.
