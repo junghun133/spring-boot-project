@@ -67,7 +67,7 @@
   
   
   #### 5. How to run?
-  >5-1. Run configuration 설정 KakaoMapApiApplication main class로 실행  
+  >5-1. Run configuration 설정 KakaoMapApiApplication main class로 실행 / 프로젝트에 포함된 kakaobank_api_v1.0jar 파일실행 ($> java -jar kakaobank_api_v1.0.jar -Dfile.encoding=UTF-8)
   >5-2. http://localhost:8080/login.html 로그인 화면 이동하여 상기 유저 정보 중 1개의 데이터로 로그인 
   ![kakao_login](https://user-images.githubusercontent.com/13414116/93765600-1fd72c80-fc50-11ea-9602-bb1ca135c81f.png)
   >5-3. 로그인 성공 후 index.html 이동  
