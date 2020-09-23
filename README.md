@@ -23,7 +23,7 @@
        - install path\H2\bin\h2w.bat (mac경우 h2.sh) 실행으로 H2 데이터베이스 기동  
       
        - 데이터베이스 파일 생성(초기 하기의 정보를 입력 후 connect시 자동으로 DB file 생성됩니다)   
-           jdbcUrl: jdbc:h2:\~/map (이후 로그인시에는 jdbc:h2:tcp://localhost/~/map 으로 접속가능)    
+           jdbcUrl: jdbc:h2:~/map (이후 로그인시에는 jdbc:h2:tcp://localhost/~/map 으로 접속가능)    
            id: kakaobank  
            password: kakaobankgood  
   >    2-3 localhost port 8080 중복 확인 (8080 중복시 application.yml 의 port 변경)
@@ -59,15 +59,17 @@
   
 ****
   #### 4. Uniqueness
-  * 로그인시 APIKey를 생성 및 유저DB에 저장하여 로그인 외 API요청시 header에 포함하여 요청합니다.
+  * 로그인시 별도 APIKEY를 생성하여 유저DB에 저장합니다. 그후 지도 API 요청시 header에 포함하여 요청하도록 구현하였습니다.
   * API 확장성을 위해 API 관련 Abstract fatory pattern 구현, Request/Response 추상화를 통해 새로운 API 추가를 용이하도록 개발하였습니다.
-  * Map 전체 데이터 요청 response 항목에 각 Map 별 상세조회 API url 을 함께 response에 전달하여 불필요한 통신을 줄였습니다.
-  * Map 전체 데이터 요청시 결과가 존재하지 않는 키워드에 대해서 재요청시 DB 데이터 조회 후 response를 전달하여 카카오API를 호출하지않아 불필요한 통신을 줄였습니다.
+  * Map 전체 데이터 요청 response 항목에 각 Map 별 상세조회 API url 을 함께 response에 전달하여 불필요한 통신이나 클라이언트의 처리를 부담을 줄였습니다.
+  * Map 전체 데이터 요청시 결과가 존재하지 않는 키워드에 대해서 DB 저장을 하고, 재요청시 DB 데이터 조회하여 즉시 response를 전달하여 카카오API를 호출하지않습니다. 불필요한 통신을 줄였습니다.
   * Swagger 구현으로 요구사항에 대해 자동 문서화가 가능하도록 구현하였습니다.
   
   
   #### 5. How to run?
-  >5-1. Run configuration 설정 KakaoMapApiApplication main class로 실행  
+  >5-1.   
+        Run configuration 설정 KakaoMapApiApplication main class로 실행   
+        or 프로젝트에 포함된 kakaobank_api_v1.0jar 파일실행 ($> java -jar kakaobank_api_v1.0.jar -Dfile.encoding=UTF-8)  
   >5-2. http://localhost:8080/login.html 로그인 화면 이동하여 상기 유저 정보 중 1개의 데이터로 로그인 
   ![kakao_login](https://user-images.githubusercontent.com/13414116/93765600-1fd72c80-fc50-11ea-9602-bb1ca135c81f.png)
   >5-3. 로그인 성공 후 index.html 이동  
