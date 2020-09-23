@@ -39,6 +39,10 @@ public class UserControllerTest {
         UserDto userDto = UserDto.userBuilder().id("user1").password("user1password").build();
         String loginData =  objectMapper.writeValueAsString(userDto);
 
-        mockMvc.perform(post("/v1/user/login").accept(MediaType.APPLICATION_JSON).content(loginData).contentType(MediaType.APPLICATION_JSON)).andDo(print());
+        mockMvc.perform(post("/v1/user/login")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(loginData)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
     }
 }

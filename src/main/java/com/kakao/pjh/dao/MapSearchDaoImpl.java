@@ -4,6 +4,7 @@ import com.kakao.pjh.data.entity.Keyword;
 import com.kakao.pjh.data.entity.Map;
 import com.kakao.pjh.db.KeywordRepository;
 import com.kakao.pjh.db.MapRepository;
+import com.kakao.pjh.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +56,7 @@ public class MapSearchDaoImpl implements MapSearchDao{
         }
     }
 
+    //return false = exception
     @Override
     public Boolean selectKeywordTotalCount(String keyword) {
         Optional<Keyword> byKeyword = keywordRepository.findByKeyword(keyword);
@@ -62,7 +64,14 @@ public class MapSearchDaoImpl implements MapSearchDao{
         if(!byKeyword.isPresent())
             return true;
         else{ //TODO totalcount 0이고 데이터 갱신 날짜 (ex 86400) 비교필요
-            return byKeyword.get().getSearchedTotalCount() == 0 ? false : true;
+            return dateValidate(byKeyword.get());
         }
+    }
+    public boolean dateValidate(Keyword keyword){
+        int totalCount = keyword.getSearchedTotalCount();
+        if(totalCount == 0){
+            return DateUtil.compareDate(keyword.getSearchedDate());
+        }
+        return true;
     }
 }

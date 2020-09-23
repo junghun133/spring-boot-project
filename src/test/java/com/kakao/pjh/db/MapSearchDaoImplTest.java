@@ -27,6 +27,8 @@ class MapSearchDaoImplTest {
     KeywordRepository keywordRepository;
     @InjectMocks
     MapSearchDaoImpl mapSearchDao;
+    @Mock
+    MapSearchDaoImpl succ_mapSearchDao;
 
     final String SUCC_KEYWORD = "sc";
     final String SUCC_KEYWORD_BUT_COUNT_ZERO = "scZERO";
@@ -59,12 +61,15 @@ class MapSearchDaoImplTest {
         Keyword keywordTotalZero = new Keyword();
         keyword.setSearchedTotalCount(0);
         when(keywordRepository.findByKeyword(FAIL_KEYWORD)).thenReturn(Optional.ofNullable(null));
+
         when(keywordRepository.findByKeyword(SUCC_KEYWORD)).thenReturn(Optional.of(keyword));
         when(keywordRepository.findByKeyword(SUCC_KEYWORD_BUT_COUNT_ZERO)).thenReturn(Optional.of(keywordTotalZero));
-        assertThat(mapSearchDao.selectKeywordTotalCount(SUCC_KEYWORD)).isFalse();
+
+        when(succ_mapSearchDao.dateValidate(keyword)).thenReturn(true);
+        assertThat(succ_mapSearchDao.selectKeywordTotalCount(SUCC_KEYWORD)).isFalse();
+
         assertThat(mapSearchDao.selectKeywordTotalCount(FAIL_KEYWORD)).isTrue();
         //TODO Test중 발견 keyword가 있으나 total count가 0일경우 NPE발생 가능성 있음
         assertThrows(NullPointerException.class, () -> mapSearchDao.selectKeywordTotalCount(SUCC_KEYWORD_BUT_COUNT_ZERO));
     }
-
 }
