@@ -37,7 +37,6 @@ class MapSearchDaoImplTest {
     final Long SUCC_Long = Long.valueOf(1);
     final Long FAIL_Long = Long.valueOf(0);
 
-    @Disabled
     @Test
     void insertMapRowData() {
         Map failMap = new Map();

@@ -27,6 +27,8 @@ public class MapController {
     @Autowired
     MapPopularKeywordService mapPopularKeywordService;
 
+
+
     //전체 map 정보 조회
     @ApiOperation(value = "search")
     @ApiImplicitParams({

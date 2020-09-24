@@ -34,6 +34,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+
     //403
     @ExceptionHandler(MapDataNotFoundException.class)
     public final ResponseEntity<Object> handleMapDataNotFoundExceptions(Exception ex, WebRequest request){
@@ -48,6 +49,14 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(), ResultComponent.Result.UNAUTHORIZED.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse,  HttpStatus.UNAUTHORIZED);
+    }
+
+    //401
+    @ExceptionHandler(PasswordNotMatchException.class)
+    public final ResponseEntity<Object> handlePasswordNotFoundExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(), ResultComponent.Result.NOT_MATCH_PASSWORD.getMessage(), request.getDescription(false));
+        return new ResponseEntity(exceptionResponse, HttpStatus.UNAUTHORIZED);
     }
 
     //204

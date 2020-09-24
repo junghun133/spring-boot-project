@@ -99,7 +99,7 @@ public class MapControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$['place_url']", containsString("http://place.map.kakao.com/1857729")))
                 .andDo(print());
     }
-    //상세 지도 정보 조회 성공
+    //인기 검색순위
     @Test
     public void mapControllerPopularKeywordSuccTest() throws Exception {
         doNothing().when(userDao).apiKeyValidation("test");
