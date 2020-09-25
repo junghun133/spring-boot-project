@@ -1,6 +1,6 @@
 
 ## Kakao Map 연동 API구현
-
+Kakao 지도 API를 활용하여 RestAPI Server 구축 및 장소검색 web site 구현
 ### 프로젝트 정보
   #### 1. Development environment
   > 1-1 
