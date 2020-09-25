@@ -20,7 +20,7 @@ class HttpRestTemplateManagerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK 7822edec9750a048bde7fa98f9e796a3");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(BASE_URL).queryParam("query","카카오 뱅크");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(BASE_URL).queryParam("query","카카오");
         HttpEntity<?> entity = new HttpEntity<>(headers);
         ResponseEntity<SearchByKeywordResponseDtoFromKakaoAPI> exchange = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, SearchByKeywordResponseDtoFromKakaoAPI.class);
 

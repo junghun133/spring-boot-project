@@ -10,7 +10,7 @@ insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) v
 insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(8, '카카오은행', 13, sysdate);
 insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(7, '카카오', 14, sysdate);
 insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(6, '카카오톡', 12, sysdate);
-insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(5, '박정훈지원자', 0, sysdate);
+insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(5, '박정훈검색', 0, sysdate);
 insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(4, '카카오헤어', 2, sysdate);
 insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(3, '카카오페이', 1, sysdate);
 insert into tbl_keyword(hit_cnt, keyword, searched_total_count, searched_date) values(2, '카카오게임', 5, sysdate);

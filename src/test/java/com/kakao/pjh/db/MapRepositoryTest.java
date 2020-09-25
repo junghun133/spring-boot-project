@@ -27,11 +27,11 @@ class MapRepositoryTest {
     public static void setUp(){
         map = new Map();
         map.setAddress_name("경기도 용인시 수지구 죽전동");
-        map.setCategory_group_name("카카오뱅크 > 지원자 > 박정훈");
+        map.setCategory_group_name("카카오API >  박정훈");
         map.setCategory_group_code("BK9");
         map.setMapId(Long.parseLong("1234"));
         map.setPhone("01027075947");
-        map.setPlace_name("카카오뱅크");
+        map.setPlace_name("카카오");
         map.setPlace_url("www.kakaocorp.com");
         map.setRoad_address_name("경기도 용인시 수지구 죽전동 road");
 //        failMap = Mockito.mock(Map.class);

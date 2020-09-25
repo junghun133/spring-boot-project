@@ -17,8 +17,8 @@ import java.util.Set;
 @EnableSwagger2
 public class SwaggerConfiguration {
     private static final Contact DEFAULT_CONTACT = new Contact("Junghoon Park", "https://github.com/junghun133", "junghun5947@gmail.com");
-    private static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Kakaobank API test"
-    , "카카오뱅크 B2B API서비스 개발 및 운영 담당자 코딩테스트", "1.0", "urn:tos",
+    private static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Kakao API test"
+    , "카카오 API서비스 구현", "1.0", "urn:tos",
             DEFAULT_CONTACT, "jhpark 1.0", "https://github.com/junghun133", new ArrayList<>());
 
     private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES = new HashSet<>(Arrays.asList("application/json", "application/xml"));

@@ -1,5 +1,7 @@
 Server:
   port: 8080
+  tomcat:
+    uri-encoding: UTF-8
 
 logging:
   level:
@@ -10,8 +12,8 @@ spring:
     basename: messages
   datasource:
     url: jdbc:h2:tcp://localhost/~/map
-    username: kakaobank
-    password: kakaobankgood
+    username: kakaoapitest
+    password: kakaoapitest
     driver-class-name: org.h2.Driver
 #  security:
 #    user:

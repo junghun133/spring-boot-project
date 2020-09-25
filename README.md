@@ -15,7 +15,7 @@
 ****
 
   #### 2. Install
-  >   2-1 https://github.com/junghun133/Kakaobank_map clone 으로 프로젝트 가져오기(public)  
+  >   2-1 https://github.com/junghun133/Kakao_map_api clone 으로 프로젝트 가져오기(public)  
   >   2-2 H2 다운로드 및 설정  
   
        - https://www.h2database.com OS에 맞는 H2 다운로드  
@@ -24,8 +24,8 @@
       
        - 데이터베이스 파일 생성(초기 하기의 정보를 입력 후 connect시 자동으로 DB file 생성됩니다)   
            jdbcUrl: jdbc:h2:~/map (이후 로그인시에는 jdbc:h2:tcp://localhost/~/map 으로 접속가능)    
-           id: kakaobank  
-           password: kakaobankgood  
+           id: kakaoapitest  
+           password: kakaoapitest  
   >    2-3 localhost port 8080 중복 확인 (8080 중복시 application.yml 의 port 변경)
 ****
   #### 3. Initialize
@@ -51,7 +51,7 @@
   카카오은행|13|
   카카오|14|
   카카오톡|12|
-  박정훈지원자|0|
+  박정훈검색|0|
   카카오헤어|2|
   카카오페이|1|
   카카오게임|5|
@@ -69,7 +69,7 @@
   #### 5. How to run?
   >5-1.   
         Run configuration 설정 KakaoMapApiApplication main class로 실행   
-        or 프로젝트에 포함된 kakaobank_api_v1.0jar 파일실행 ($> java -jar kakaobank_api_v1.0.jar -Dfile.encoding=UTF-8)  
+        or 프로젝트에 포함된 kakao_api_v1.0jar 파일실행 ($> java -jar kakao_api_v1.0.jar -Dfile.encoding=UTF-8)  
   >5-2. http://localhost:8080/login.html 로그인 화면 이동하여 상기 유저 정보 중 1개의 데이터로 로그인 
   ![kakao_login](https://user-images.githubusercontent.com/13414116/93765600-1fd72c80-fc50-11ea-9602-bb1ca135c81f.png)
   >5-3. 로그인 성공 후 index.html 이동  

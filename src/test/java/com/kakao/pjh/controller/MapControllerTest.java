@@ -72,7 +72,7 @@ public class MapControllerTest {
     public void mapControllerRetrieveMapInfoNoResultFailTest() throws Exception {
         doNothing().when(userDao).apiKeyValidation("test");
 
-        mockMvc.perform(get("/v1/map/search/keyword?query=박정훈지원자")
+        mockMvc.perform(get("/v1/map/search/keyword?query=박정훈검색")
                 .header("Authorization", "test")
         )
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -110,7 +110,7 @@ public class MapControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$['message']", containsString("성공")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$['popularKeywords']", is(notNullValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$['popularKeywords']", hasSize(10)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$['popularKeywords'][0].keyword", containsString("카카오뱅크")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$['popularKeywords'][0].keyword", containsString("카카오")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$['popularKeywords'][0].searchedTotalCount", is(45)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$['popularKeywords'][0].hitCnt", is(10)))
                 .andDo(print());

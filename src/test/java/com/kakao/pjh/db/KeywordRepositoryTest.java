@@ -25,22 +25,22 @@ class KeywordRepositoryTest {
 
     private static Stream<Arguments> setupKeyword(){
         return Stream.of(
-                Arguments.of(Integer.toUnsignedLong(11), "카카오뱅크1", 123),
-                Arguments.of(Integer.toUnsignedLong(12), "카카오뱅크2", 1),
-                Arguments.of(Integer.toUnsignedLong(13), "카카오뱅크3", 2),
-                Arguments.of(Integer.toUnsignedLong(14), "카카오뱅크4", 23),
-                Arguments.of(Integer.toUnsignedLong(15), "카카오뱅크5", 23),
-                Arguments.of(Integer.toUnsignedLong(16), "카카오뱅크6", 3),
-                Arguments.of(Integer.toUnsignedLong(17), "카카오뱅크7", 4),
-                Arguments.of(Integer.toUnsignedLong(18), "카카오뱅크8", 5),
-                Arguments.of(Integer.toUnsignedLong(19), "카카오뱅크9", 6),
-                Arguments.of(Integer.toUnsignedLong(20), "카카오뱅크10", 7),
-                Arguments.of(Integer.toUnsignedLong(21), "카카오뱅크11", 8),
-                Arguments.of(Integer.toUnsignedLong(22), "카카오뱅크12", 9),
-                Arguments.of(Integer.toUnsignedLong(23), "카카오뱅크13", 10),
-                Arguments.of(Integer.toUnsignedLong(24), "카카오뱅크14", 11),
-                Arguments.of(Integer.toUnsignedLong(25), "카카오뱅크15", 12),
-                Arguments.of(Integer.toUnsignedLong(26), "카카오뱅크16", 13)
+                Arguments.of(Integer.toUnsignedLong(11), "카카오1", 123),
+                Arguments.of(Integer.toUnsignedLong(12), "카카오2", 1),
+                Arguments.of(Integer.toUnsignedLong(13), "카카오3", 2),
+                Arguments.of(Integer.toUnsignedLong(14), "카카오4", 23),
+                Arguments.of(Integer.toUnsignedLong(15), "카카오5", 23),
+                Arguments.of(Integer.toUnsignedLong(16), "카카오6", 3),
+                Arguments.of(Integer.toUnsignedLong(17), "카카오7", 4),
+                Arguments.of(Integer.toUnsignedLong(18), "카카오8", 5),
+                Arguments.of(Integer.toUnsignedLong(19), "카카오9", 6),
+                Arguments.of(Integer.toUnsignedLong(20), "카카오10", 7),
+                Arguments.of(Integer.toUnsignedLong(21), "카카오11", 8),
+                Arguments.of(Integer.toUnsignedLong(22), "카카오12", 9),
+                Arguments.of(Integer.toUnsignedLong(23), "카카오13", 10),
+                Arguments.of(Integer.toUnsignedLong(24), "카카오14", 11),
+                Arguments.of(Integer.toUnsignedLong(25), "카카오15", 12),
+                Arguments.of(Integer.toUnsignedLong(26), "카카오16", 13)
         );
     }
 
