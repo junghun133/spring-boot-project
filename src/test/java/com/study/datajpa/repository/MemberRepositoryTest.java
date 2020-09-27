@@ -206,9 +206,8 @@ class MemberRepositoryTest {
     @Test
     public void findMemberLazy(){
         //given
-        //mbmer1 -> teamA
-        //mbmer2 -> teamB
-
+        //memer1 -> teamA
+        //memer2 -> teamB
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
         teamRepository.save(teamA);
@@ -223,14 +222,15 @@ class MemberRepositoryTest {
         em.flush();
         em.clear();
 
-        List<Member> members = memberRepository.findAll();
+//        List<Member> members = memberRepository.findAll();
+        List<Member> members = memberRepository.findMemberFetchJoin();
+
 
         for (Member member : members) {
             System.out.println("member = " + member.getUsername()); //
-            System.out.println("member.team = " + member.getTeam()); // team 여기까지는 가짜객체 (proxy 객체)
-//            System.out.println("member.team.name = " + member.getTeam().getName()); // 여기서부터 실제 Team 조회함 (N +1 문제 발생)
+            System.out.println("member.team = " + member.getTeam()); // fetch 처리가 되어 있지 않으면 team 여기까지는 가짜객체 (proxy 객체)
+            System.out.println("member.team.name = " + member.getTeam().getName()); // 여기서부터 실제 Team 조회함 (N +1 문제 발생)
 
         }
-
     }
 }
