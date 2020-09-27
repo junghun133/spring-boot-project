@@ -1,20 +1,8 @@
-package com.study.datajpa.repository;
-
-import com.study.datajpa.dto.MemberDto;
-import com.study.datajpa.entity.Member;
-import com.study.datajpa.entity.Team;
-import com.study.datajpa.repository.springdatajpa.MemberRepository;
-import com.study.datajpa.repository.springdatajpa.TeamRepository;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Rollback;
+package com.study.datajpa.repository; import com.study.datajpa.dto.MemberDto; import com.study.datajpa.entity.Member; import com.study.datajpa.entity.Team; import com.study.datajpa.repository.springdatajpa.MemberRepository; import com.study.datajpa.repository.springdatajpa.TeamRepository; import org.junit.jupiter.api.Test; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.boot.test.context.SpringBootTest; import org.springframework.data.domain.Page; import org.springframework.data.domain.PageRequest; import org.springframework.data.domain.Sort; import org.springframework.data.jpa.repository.Modifying; import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +17,8 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
     @Autowired
     TeamRepository teamRepository;
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     public void testMember(){
@@ -111,7 +101,7 @@ class MemberRepositoryTest {
     @Test
     public void testQuery(){
         Member member1 = new Member("AAAA", 10);
-        Member member2 = new Member("AAAA", 20);
+        Member member2 = new Member("BBBB", 20);
 
         memberRepository.save(member1);
         memberRepository.save(member2);
@@ -187,7 +177,7 @@ class MemberRepositoryTest {
         //then
         List<Member> content = page.getContent();
         assertThat(content.size()).isEqualTo(3);
-        assertThat(page.getTotalElements()).isEqualTo(5);
+        assertThat(page.getTotalElements()).isEqualTo(7);
         //page index는 0부터
         assertThat(page.getNumber()).isEqualTo(0);
         assertThat(page.getTotalPages()).isEqualTo(2);
@@ -197,5 +187,50 @@ class MemberRepositoryTest {
         /*List<Member> content1 = page.getContent();
         assertThat(page.getNumber()).isEqualTo(1);
         assertThat(content1.size()).isEqualTo(2);*/
+    }
+
+    @Test
+    public void bulkUpdate(){
+        memberRepository.save(new Member("member3", 20));
+        memberRepository.save(new Member("member4", 21));
+        memberRepository.save(new Member("aaaa", 40));
+        int bulkUpdate = memberRepository.bulkAgePlus(20);
+        //상기 데이터는 실제 DB에 적용되지 않고 영속성G
+        //em.clear(); --> repository 에서 @Modifying(clearAutomatically = true) option을 주면 안써도됌
+
+        List<Member> result = memberRepository.findUser("aaaa",41);
+        System.out.println("member5 = " + result.get(0));
+    }
+
+    //fetch test
+    @Test
+    public void findMemberLazy(){
+        //given
+        //mbmer1 -> teamA
+        //mbmer2 -> teamB
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 10, teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        em.flush();
+        em.clear();
+
+        List<Member> members = memberRepository.findAll();
+
+        for (Member member : members) {
+            System.out.println("member = " + member.getUsername()); //
+            System.out.println("member.team = " + member.getTeam()); // team 여기까지는 가짜객체 (proxy 객체)
+//            System.out.println("member.team.name = " + member.getTeam().getName()); // 여기서부터 실제 Team 조회함 (N +1 문제 발생)
+
+        }
+
     }
 }
