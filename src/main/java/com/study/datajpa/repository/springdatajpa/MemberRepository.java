@@ -2,6 +2,7 @@ package com.study.datajpa.repository.springdatajpa;
 
 import com.study.datajpa.dto.MemberDto;
 import com.study.datajpa.entity.Member;
+import com.study.datajpa.repository.MemberRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -11,7 +12,7 @@ import javax.persistence.QueryHint;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
     // spring data jpa가 자동으로 injection
 
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);

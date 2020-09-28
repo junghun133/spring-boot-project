@@ -225,7 +225,6 @@ class MemberRepositoryTest {
 //        List<Member> members = memberRepository.findAll();
         List<Member> members = memberRepository.findMemberFetchJoin();
 
-
         for (Member member : members) {
             System.out.println("member = " + member.getUsername()); //
             System.out.println("member.team = " + member.getTeam()); // fetch 처리가 되어 있지 않으면 team 여기까지는 가짜객체 (proxy 객체)
