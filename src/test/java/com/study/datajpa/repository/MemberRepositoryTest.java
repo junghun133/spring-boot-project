@@ -233,4 +233,17 @@ class MemberRepositoryTest {
 
         }
     }
+
+    @Test
+    public void queryHint(){
+        //given
+        Member member1 = new Member("member1", 10);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        Member member = memberRepository.findReadOnlyByUsername("member1");
+        member.setUsername("member2"); // hint로 read only가 적용되어 캐싱 오브젝트(영속성 컨텍스트)가 생성되지 않음, dirty checking 되지 않음
+    }
+
 }
