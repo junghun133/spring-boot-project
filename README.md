@@ -82,5 +82,5 @@ Kakao 지도 API를 활용하여 RestAPI Server 구축 및 장소검색 web site
   ※주의사항: 로그인시 전달받는 데이터인 APIKey가 index 페이지의 전역변수로 사용하고 있어 페이지 갱신시 원활한 동작이 되지 않을 수 있습니다. 그럴 경우 다시 로그인부터 진행바랍니다.
 
 
-  swagger url -> http://localhost:8080/swagger-ui.htm
+  swagger url -> http://localhost:8080/swagger-ui.html
   
