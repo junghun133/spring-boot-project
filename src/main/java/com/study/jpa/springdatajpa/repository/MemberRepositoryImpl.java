@@ -1,4 +1,4 @@
-package com.study.datajpa.repository;
+package com.study.jpa.springdatajpa.repository;
 
 import lombok.RequiredArgsConstructor;
 

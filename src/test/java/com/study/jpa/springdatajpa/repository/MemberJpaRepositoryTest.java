@@ -1,7 +1,7 @@
-package com.study.datajpa.repository;
+package com.study.jpa.springdatajpa.repository;
 
-import com.study.datajpa.entity.Member;
-import com.study.datajpa.repository.jpa.MemberJpaRepository;
+import com.study.jpa.springdatajpa.entity.Member;
+import com.study.jpa.springdatajpa.repository.jpa.MemberJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

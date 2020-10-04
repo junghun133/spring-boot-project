@@ -1,7 +1,7 @@
-package com.study.datajpa.repository.springdatajpa;
+package com.study.jpa.springdatajpa.repository.springdatajpa;
 
-import com.study.datajpa.dto.MemberDto;
-import com.study.datajpa.entity.Member;
+import com.study.jpa.springdatajpa.dto.MemberDto;
+import com.study.jpa.springdatajpa.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -29,7 +29,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
     @Query("select m from Member m where m.username = :username and m.age = :age")
     List<Member> findUser(@Param("username") String username, @Param("age") int age);
 
-    @Query("select new com.study.datajpa.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
+    @Query("select new com.study.jpa.springdatajpa.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
     List<MemberDto> findMemberDto();
 
     @Query("select m from Member m where m.username in :names")

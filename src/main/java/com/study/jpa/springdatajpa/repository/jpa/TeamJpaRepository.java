@@ -1,7 +1,7 @@
-package com.study.datajpa.repository.jpa;
+package com.study.jpa.springdatajpa.repository.jpa;
 
-import com.study.datajpa.entity.Member;
-import com.study.datajpa.entity.Team;
+import com.study.jpa.springdatajpa.entity.Member;
+import com.study.jpa.springdatajpa.entity.Team;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

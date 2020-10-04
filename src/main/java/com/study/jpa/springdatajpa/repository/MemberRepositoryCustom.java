@@ -1,6 +1,6 @@
-package com.study.datajpa.repository;
+package com.study.jpa.springdatajpa.repository;
 
-import com.study.datajpa.entity.Member;
+import com.study.jpa.springdatajpa.entity.Member;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.study.datajpa.entity;
+package com.study.jpa.springdatajpa.entity;
 
 import lombok.*;
 

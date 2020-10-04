@@ -1,4 +1,4 @@
-package com.study.datajpa.dto;
+package com.study.jpa.springdatajpa.dto;
 
 import lombok.Data;
 

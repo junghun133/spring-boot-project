@@ -1,6 +1,6 @@
-package com.study.datajpa.repository.springdatajpa;
+package com.study.jpa.springdatajpa.repository.springdatajpa;
 
-import com.study.datajpa.entity.Team;
+import com.study.jpa.springdatajpa.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 //@Repository 생략 가능

@@ -1,6 +1,7 @@
-package com.study.datajpa.repository; import com.study.datajpa.dto.MemberDto; import com.study.datajpa.entity.Member; import com.study.datajpa.entity.Team; import com.study.datajpa.repository.springdatajpa.MemberRepository; import com.study.datajpa.repository.springdatajpa.TeamRepository;
+package com.study.jpa.springdatajpa.repository; import com.study.jpa.springdatajpa.dto.MemberDto; import com.study.jpa.springdatajpa.entity.Member; import com.study.jpa.springdatajpa.entity.Team; import com.study.jpa.springdatajpa.repository.springdatajpa.MemberRepository; import com.study.jpa.springdatajpa.repository.springdatajpa.TeamRepository;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.boot.test.context.SpringBootTest; import org.springframework.data.domain.Page; import org.springframework.data.domain.PageRequest; import org.springframework.data.domain.Sort; import org.springframework.data.jpa.repository.Modifying; import org.springframework.test.annotation.Rollback;
+import org.junit.jupiter.api.Test; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.boot.test.context.SpringBootTest; import org.springframework.data.domain.Page; import org.springframework.data.domain.PageRequest; import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
