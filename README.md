@@ -1,6 +1,5 @@
-# 인프런으로 공부하는 spring data jpa 
-
-- ORM 관련 공부
+# 인프런 spring data jpa 강좌
+- JPA 등장 배경 및 장단점
 - 순수 jpa 와 spring data jpa 차이비교
 - queryDSL 사용
 - jpql 사용
