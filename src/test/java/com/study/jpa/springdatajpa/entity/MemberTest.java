@@ -45,7 +45,7 @@ class MemberTest {
         //cache clear
         em.clear();
 
-        List<Member> members = em.createQuery("select m from ShopMember m", Member.class).getResultList();
+        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
 
         for(Member m : members){
             System.out.print("member = " + m);
