@@ -15,12 +15,12 @@ public class hibernateJpaMain {
         tx.begin();
 
         // 비영속
-        Member member = new Member();
-        member.setId(100L);
-        member.setName("Name");
+//        Member member = new Member();
+//        member.setId(100L);
+//        member.setName("Name");
 
         // 영속
-        em.persist(member);
+//        em.persist(member);
         // 준영속
 //        em.detach(member);
 
