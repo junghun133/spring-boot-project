@@ -1,12 +1,12 @@
 package com.study.jpa.shop.domain;
 
-import jdk.jfr.DataAmount;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -17,9 +17,6 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-//    @Column(name = "MEMBER_ID")
-//    private Long memberId;
-
     @ManyToOne
     @JoinColumn(name = "SHOP_MEMBER_ID")
     private ShopMember shopMember;
@@ -27,4 +24,7 @@ public class Order {
     private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 }
