@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class ShopMember {
     @Id
     @GeneratedValue
-    @Column(name = "MEMBER_ID")
+    @Column(name = "SHOP_MEMBER_ID")
     private Long id;
 
     private String name;
