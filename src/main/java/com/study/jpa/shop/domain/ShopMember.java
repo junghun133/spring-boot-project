@@ -1,7 +1,6 @@
 package com.study.jpa.shop.domain;
 
 import lombok.Data;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +14,7 @@ public class ShopMember {
     @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
+
     private String name;
     private String city;
     private String street;
