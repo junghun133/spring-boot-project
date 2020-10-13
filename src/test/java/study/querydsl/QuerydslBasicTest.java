@@ -12,6 +12,8 @@ import study.querydsl.entity.Team;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static study.querydsl.entity.QMember.member;
 
@@ -22,8 +24,12 @@ public class QuerydslBasicTest {
     @Autowired
     EntityManager em;
 
+    JPAQueryFactory jpaQueryFactory;
+
     @BeforeEach
     public void before(){
+        jpaQueryFactory = new JPAQueryFactory(em); // field로 선언해도된다 동시성이슈(x)
+
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
 
@@ -57,12 +63,33 @@ public class QuerydslBasicTest {
 
     @Test
     public void startQuerydsl(){
-        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em); // field로 선언해도된다 동시성이슈(x)
 //        QMember member = new QMember("m"); static 변수로 사용
         Member findMember = jpaQueryFactory
                 .select(member)
                 .from(member)
                 .where(member.username.eq("member1")) //파라미터 바인딩 처리
+                .fetchOne();
+
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void search(){
+        Member findMember = jpaQueryFactory
+                .selectFrom(member)
+                .where(member.username.eq("member1")
+                        .and(member.age.between(10, 30)))
+                .fetchOne();
+
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void searchAndParam(){
+        Member findMember = jpaQueryFactory
+                .selectFrom(member)
+                .where(member.username.eq("member1"), //and 인경우 이렇게 표현가능
+                        (member.age.between(10, 30)))
                 .fetchOne();
 
         assertThat(findMember.getUsername()).isEqualTo("member1");
