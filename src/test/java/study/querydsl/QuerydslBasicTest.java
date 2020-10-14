@@ -1,5 +1,6 @@
 package study.querydsl;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,4 +95,16 @@ public class QuerydslBasicTest {
 
         assertThat(findMember.getUsername()).isEqualTo("member1");
     }
+
+    @Test
+    public void queryResultSearch(){
+        //페이징에서 사용
+        //성능 중요한 페이징쿼리에서는 사용하지않는다
+        QueryResults<Member> result = jpaQueryFactory
+                .selectFrom(member)
+                .fetchResults();
+
+
+    }
+
 }
