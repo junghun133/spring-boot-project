@@ -2,6 +2,7 @@ package study.querydsl;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import study.querydsl.entity.QMember;
 import study.querydsl.entity.Team;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 import java.util.List;
 
@@ -20,6 +23,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static study.querydsl.entity.QMember.member;
 import static study.querydsl.entity.QTeam.team;
 
+/**
+ * queryDSL 표현식
+ * // comparison
+ * expr lt 5  				-> expr < 5
+ * expr loe 5 				-> expr <= 5
+ * expr gt 5 				-> expr > 5
+ * expr goe 5 				-> expr >= 5
+ * expr notBetween(2,6) 	-> expr not between (2,6)
+ *
+ * // numeric
+ * expr add 3 		-> expr + 3
+ * expr subtract 3 -> expr - 3
+ * expr divide 3 	-> expr / 3
+ * expr multiply 3 -> expr * 3
+ * expr mod 5 		-> expr % 5
+ */
 @SpringBootTest
 @Transactional
 public class QuerydslBasicTest {
@@ -179,7 +198,11 @@ public class QuerydslBasicTest {
      *  연관관계 없는 엔티티 외부 조인
      *  회원의 이름이 팀 이름과 같은 대상 외부 조인
      *
-     *  left join에 team만
+     *  하이버네이트 5.1부터 on 을 사용해서 서로 관계가 없는 필드로 외부 조인하는 기능이 추가되었다. 물론 내
+     * 부 조인도 가능하다.
+     * 주의! 문법을 잘 봐야 한다. leftJoin() 부분에 일반 조인과 다르게 엔티티 하나만 들어간다.
+     * 일반조인: leftJoin(member.team, team)
+     * on조인: from(member).leftJoin(team).on(xxx)
      */
     @Test
     public void join_on_no_relation(){
@@ -198,4 +221,60 @@ public class QuerydslBasicTest {
         }
     }
 
+    /**
+     *  fetch join
+     */
+    @PersistenceUnit
+    EntityManagerFactory emf;
+    @Test
+    public void fetchJoinNo() throws Exception {
+        em.flush();
+        em.clear();
+        Member findMember = jpaQueryFactory
+                .selectFrom(member)
+                .where(member.username.eq("member1"))
+                .fetchOne();
+        boolean loaded =
+                emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+        assertThat(loaded).as("페치 조인 미적용").isFalse();
+    }
+
+    /**
+     * 즉시 로딩
+     */
+    @Test
+    public void fetchJoinUse() throws Exception {
+        em.flush();
+        em.clear();
+        Member findMember = jpaQueryFactory
+                .selectFrom(member)
+                .join(member.team, team).fetchJoin()
+                .where(member.username.eq("member1"))
+                .fetchOne();
+        boolean loaded =
+                emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+        assertThat(loaded).as("페치 조인 적용").isTrue();
+    }
+
+
+    /**
+     * 서브쿼리 사용법
+     * 나이가 가장 많은 회원 조회
+     */
+    @Test
+    public void subQuery() throws Exception {
+        //Qtype이 중복되면 안되니 sub용 Qtype 생성
+        QMember memberSub = new QMember("memberSub");
+
+        List<Member> result = jpaQueryFactory
+                .selectFrom(member)
+                .where(member.age.eq(
+                        JPAExpressions
+                                .select(memberSub.age.max())
+                                .from(memberSub)
+                ))
+                .fetch();
+        assertThat(result).extracting("age")
+                .containsExactly(40);
+    }
 }
