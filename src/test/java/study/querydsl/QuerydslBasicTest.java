@@ -155,21 +155,7 @@ public class QuerydslBasicTest {
         assertThat(teamB.get(team.name)).isEqualTo("teamB");
     }
 
-    /**
-     * 팀 A에 소속된 모든 회원
-     */
-    @Test
-    public void join(){
-        List<Member> result = jpaQueryFactory
-                .selectFrom(member)
-                .join(member.team, team)
-                .where(team.name.eq("teamA"))
-                .fetch();
 
-        assertThat(result)
-                .extracting("username")
-                .containsExactly("member1", "member2");
-    }
 
     /**
      * 예) 회원과 팀을 조인하면서, 팀 이름이 teamA인 팀만 조인
@@ -181,11 +167,35 @@ public class QuerydslBasicTest {
         List<Tuple> result = jpaQueryFactory
                 .select(member, team)
                 .from(member)
-                .leftJoin(member.team, team).on(team.name.eq("teamA")) //where(team.name.eq("teamA")) 와 결과가 동일하다
+                .leftJoin(member.team, team).on(team.name.eq("teamA"))
+                //leftjoin -> join 으로 변경시 where(team.name.eq("teamA")) 와 결과가 동일하다
                 .fetch();
 
         for (Tuple tuple : result) {
             System.out.println("tuple = " + tuple);
         }
     }
+    /**
+     *  연관관계 없는 엔티티 외부 조인
+     *  회원의 이름이 팀 이름과 같은 대상 외부 조인
+     *
+     *  left join에 team만
+     */
+    @Test
+    public void join_on_no_relation(){
+        em.persist(new Member("teamA"));
+        em.persist(new Member("teamB"));
+        em.persist(new Member("teamC"));
+
+        List<Tuple> result = jpaQueryFactory
+                .select(member, team)
+                .from(member)
+                .leftJoin(team).on(member.username.eq(team.name))
+                .fetch();
+
+        for (Tuple tuple : result) {
+            System.out.println("tuple = " + tuple);
+        }
+    }
+
 }
