@@ -2,7 +2,10 @@ package study.querydsl;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import study.querydsl.entity.AnotherMember;
 import study.querydsl.entity.Member;
 import study.querydsl.entity.QMember;
 import study.querydsl.entity.Team;
@@ -313,4 +317,106 @@ public class QuerydslBasicTest {
                 .from(member)
                 .fetch();
     }
+
+    /**
+     * 예를 들어서 다음과 같은 임의의 순서로 회원을 출력하고 싶다면?
+     * 1. 0 ~ 30살이 아닌 회원을 가장 먼저 출력
+     * 2. 0 ~ 20살 회원 출력
+     * 3. 21 ~ 30살 회원 출력
+     */
+    @Test
+    public void exampleComplexCase(){
+        NumberExpression<Integer> rankPath = new CaseBuilder()
+                .when(member.age.between(0, 20)).then(2)
+                .when(member.age.between(21, 30)).then(1)
+                .otherwise(3);
+        List<Tuple> result = jpaQueryFactory
+                .select(member.username, member.age, rankPath)
+                .from(member)
+                .orderBy(rankPath.desc())
+                .fetch();
+        for (Tuple tuple : result) {
+            String username = tuple.get(member.username);
+            Integer age = tuple.get(member.age);
+            Integer rank = tuple.get(rankPath);
+            System.out.println("username = " + username + " age = " + age + " rank = "
+                    + rank);
+        }
+    }
+
+    /**
+     * 상수 더하기
+     */
+    @Test
+    public void expression(){
+        Tuple result = jpaQueryFactory
+                .select(member.username, Expressions.constant("A"))
+                .from(member)
+                .fetchFirst();
+    }
+
+    /**
+     * 문자더하기
+     *
+     * output: member1_10
+     * member.age.stringValue() 부분이 중요한데, 문자가 아닌 다른 타입들은 stringValue() 로 문자로 변환할 수 있다. 이 방법은 ENUM을 처리할 때도 자주 사용한다
+     */
+    @Test
+    public void concat(){
+        String result = jpaQueryFactory
+                .select(member.username.concat("_").concat(member.age.stringValue())) //casting 됌
+                .from(member)
+                .where(member.username.eq("member1"))
+                .fetchOne();
+
+        System.out.println("result = " + result);
+    }
+
+
+    /**
+     * JPQL에서 dto로 받는 소스(생성자 방식만 지원, DTO의 package 이름을 다 적어줘야해서 지저분)
+     *
+     * List<MemberDto> result = em.createQuery(
+     *  "select new study.querydsl.dto.MemberDto(m.username, m.age) from Member m", MemberDto.class)
+     *  .getResultList();
+     */
+    //setter를 활용한 방법
+    @Test
+    public void findDtoBySetter(){
+        List<AnotherMember> result = jpaQueryFactory
+                .select(Projections.bean(AnotherMember.class,
+                        member.username,
+                        member.age))
+                .from(member)
+                .fetch();
+    }
+    //field에 injection하는 방법
+    @Test
+    public void findDtoByField(){
+        List<AnotherMember> result = jpaQueryFactory
+                .select(Projections.fields(AnotherMember.class,
+                        member.username,
+                        //member.username.as("name"), 별칭 맞출때
+                        member.age))
+                /** 혹은 서브 쿼리
+                 * ExpressionUtils.as(
+                 *  JPAExpressions
+                 *  .select(memberSub.age.max())
+                 *  .from(memberSub), "age")
+                 *  )
+                 */
+                .from(member)
+                .fetch();
+    }
+    //Constructor 활용한 방법
+    @Test
+    public void findDtoByConttrutor(){
+        List<AnotherMember> result = jpaQueryFactory
+                .select(Projections.constructor(AnotherMember.class,
+                        member.username,
+                        member.age))
+                .from(member)
+                .fetch();
+    }
+
 }
