@@ -260,6 +260,11 @@ public class QuerydslBasicTest {
     /**
      * 서브쿼리 사용법
      * 나이가 가장 많은 회원 조회
+     *
+     * from 절에 서브쿼리는 지원하지 않는다.
+     * 1. 서브쿼리를 join으로 변경한다
+     * 2. 애플리케이션에서 2번 호출한다
+     * 3. native query를 사용한다
      */
     @Test
     public void subQuery() throws Exception {
@@ -269,6 +274,7 @@ public class QuerydslBasicTest {
         List<Member> result = jpaQueryFactory
                 .selectFrom(member)
                 .where(member.age.eq(
+//                        .where(member.age.in(
                         JPAExpressions
                                 .select(memberSub.age.max())
                                 .from(memberSub)
