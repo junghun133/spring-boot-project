@@ -13,10 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import study.querydsl.entity.AnotherMember;
-import study.querydsl.entity.Member;
-import study.querydsl.entity.QMember;
-import study.querydsl.entity.Team;
+import study.querydsl.entity.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -415,6 +412,19 @@ public class QuerydslBasicTest {
                 .select(Projections.constructor(AnotherMember.class,
                         member.username,
                         member.age))
+                .from(member)
+                .fetch();
+    }
+
+
+    /**
+     * QueryProjection
+     constructor와 비슷하지만 생성자 오류를 컴파일단계에서 막을수 있는 이점이 있다
+     */
+    @Test
+    public void findDtoByQueryProjection(){
+        List<AnotherMember> result = jpaQueryFactory
+                .select(new QAnotherMember(member.username, member.age))
                 .from(member)
                 .fetch();
     }
