@@ -461,6 +461,8 @@ public class QuerydslBasicTest {
     }
 
     //where 조건에 BooleanExpression으로 null이 반환되면 무시된다
+    //isServiceable (usernameEq + ageEq) 처럼 조합이 가능한 장점이 있음
+
     @Test
     public void 동적쿼리_WhereParam() throws Exception {
         String usernameParam = "member1";
@@ -480,5 +482,30 @@ public class QuerydslBasicTest {
     private BooleanExpression ageEq(Integer ageCond) {
         return ageCond != null ? member.age.eq(ageCond) : null;
     }
-}
 
+
+    //쿼리 한번으로 대량 데이터 수정
+/*    long count = queryFactory
+            .update(member)
+            .set(member.username, "비회원")
+            .where(member.age.lt(28))
+            .execute();
+
+
+ */
+    //기존 숫자에 1 더하기
+/**    long count = queryFactory
+            .update(member)
+            .set(member.age, member.age.add(1))
+            .execute();
+   곱하기: multiply(x)
+    update member set age = age + 1
+
+   //쿼리 한번으로 대량 데이터 삭제
+    long count = queryFactory
+            .delete(member)
+            .where(member.age.gt(18))
+            .execute();
+}*/
+
+}
