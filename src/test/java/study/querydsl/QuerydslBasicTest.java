@@ -508,4 +508,18 @@ public class QuerydslBasicTest {
             .execute();
 }*/
 
+    //SQL Function 호출 예제
+    // 직접 function을 구현시에는 direct 의 function 관련 구현을 하고 사용하자
+    @Test
+    private void sqlFunction(){
+        List<String> result = jpaQueryFactory
+                .select(Expressions.stringTemplate("function('replace', {0}, {1},{2})", member.username, "member", "M"))
+                .from(member)
+                .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+
+    }
 }
