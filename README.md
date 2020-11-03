@@ -1,5 +1,5 @@
 
-## Kakao Map 연동 API구현
+## Kakao Map 연동 API구현 
 Kakao 지도 API를 활용하여 RestAPI Server 구축 및 장소검색 web site 구현
 ### 프로젝트 정보
   #### 1. Development environment
@@ -79,7 +79,7 @@ Kakao 지도 API를 활용하여 RestAPI Server 구축 및 장소검색 web site
   >5-6. 15개 이상의 데이터라면 페이지 가장 하단으로 스크롤 다운하여 데이터 갱신(45개 까지)  
   >5-7. 각 결과의 [더보기] 버튼 클릭하여 상세정보 확인  
 
-  ※주의사항: 로그인시 전달받는 데이터인 APIKey가 index 페이지의 전역변수로 사용하고 있어 페이지 갱신시 원활한 동작이 되지 않을 수 있습니다. 그럴 경우 다시 로그인부터 진행바랍니다.
+  ※주의사항: 로그인시 전달받는 데이터인 APIKey가 index 페이지의 전역변수로 사용하고 있어 페이지 갱신시 원활한 동작이 되지 않을 수 있습니다. 그럴 경우 다시 로그인부터 진행 
 
 
   swagger url -> http://localhost:8080/swagger-ui.html
