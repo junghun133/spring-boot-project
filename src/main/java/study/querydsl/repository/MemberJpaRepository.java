@@ -1,13 +1,16 @@
 package study.querydsl.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 import study.querydsl.entity.*;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.util.StringUtils.hasText;
 import static study.querydsl.entity.QMember.member;
 import static study.querydsl.entity.QTeam.team;
 
@@ -49,6 +52,24 @@ public class MemberJpaRepository {
     }
 
     public List<MemberTeamDto> searchByBuilder(MemberSearchCondition memberSearchCondition){
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (hasText(memberSearchCondition.getUsername())) {
+            builder.and(member.username.eq(memberSearchCondition.getUsername()));
+        }
+
+        if (hasText(memberSearchCondition.getTeamName())) {
+            builder.and(team.name.eq(memberSearchCondition.getTeamName()));
+        }
+
+        if (memberSearchCondition.getAgeGoe() != null) {
+            builder.and(member.age.goe(memberSearchCondition.getAgeGoe()));
+        }
+
+        if (memberSearchCondition.getAgeLoe() != null) {
+            builder.and(member.age.loe(memberSearchCondition.getAgeLoe()));
+        }
+
         return queryFactory
                 .select(new QMemberTeamDto(
                         member.id.as("memberId"),
@@ -59,6 +80,7 @@ public class MemberJpaRepository {
                 ))
                 .from(member)
                 .leftJoin(member.team, team)
+                .where(builder)
                 .fetch();
     }
 }
