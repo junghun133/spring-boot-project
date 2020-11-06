@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
 public class InitMember {
     private final InitMemberService initMemberService;
 
+    //@Transactional lifecycle관련 중복되지않아 inner class로 구현
     @PostConstruct
     public void init() {
         initMemberService.init();
@@ -26,6 +27,7 @@ public class InitMember {
     static class InitMemberService {
         @PersistenceContext
         EntityManager em;
+
         @Transactional
         public void init() {
             Team teamA = new Team("teamA");
