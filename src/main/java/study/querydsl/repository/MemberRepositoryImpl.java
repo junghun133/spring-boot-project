@@ -2,6 +2,7 @@ package study.querydsl.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import study.querydsl.entity.*;
 
 import javax.persistence.EntityManager;
@@ -12,10 +13,11 @@ import static study.querydsl.entity.QMember.member;
 import static study.querydsl.entity.QTeam.team;
 
 //Impl 규칙
-public class MemberRepositoryImpl implements MemberRepositoryCustom{
+public class MemberRepositoryImpl extends QuerydslRepositorySupport implements MemberRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
     public MemberRepositoryImpl(EntityManager em) {
+        super(Member.class);
         this.queryFactory = new JPAQueryFactory(em);
     }
     @Override
@@ -36,6 +38,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         ageLoe(condition.getAgeLoe()))
                 .fetch();
     }
+
+    //querydslRepositorySupport
+    //page 처리는 용이하나, sorting이 안됨....
+    public void selectSupport(){
+        from(member)
+                .where(member.username.eq("team1"))
+                .select(member);
+    }
+
     private BooleanExpression usernameEq(String username) {
         return isEmpty(username) ? null : member.username.eq(username);
     }
