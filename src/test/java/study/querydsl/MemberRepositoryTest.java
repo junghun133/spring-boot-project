@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.entity.Member;
+import study.querydsl.entity.QMember;
 import study.querydsl.repository.MemberRepository;
 
 import javax.persistence.EntityManager;
@@ -32,4 +33,12 @@ public class MemberRepositoryTest {
         assertThat(result2).containsExactly(member);
     }
 
+    @Test
+    public void querydslPredicateExecutorTest(){
+        QMember member = QMember.member;
+        Iterable<Member> member1 = memberRepository.findAll(member.age.between(20, 40).and(member.username.eq("member1")));
+        for (Member member2 : member1) {
+            System.out.println("member2 = " + member2);
+        }
+    }
 }
