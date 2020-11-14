@@ -25,4 +25,5 @@ public class Category {
                 inverseJoinColumns = @JoinColumn(name = "ITEM_ID")
     )
     private List<Item> items = new ArrayList<>();
+
 }
