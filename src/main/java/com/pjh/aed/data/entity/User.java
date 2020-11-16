@@ -5,24 +5,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pjh.aed.data.response.Response;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 @Entity
-@JsonFilter("UserFilter")
+@Table(name = "TBL_USER")
+@ToString(of = {"id", "name"})
 public class User extends Response {
     @Id
     @GeneratedValue
     @NotNull
-    @JsonIgnore
     Long userCode;
 
     @NotNull
@@ -30,4 +28,7 @@ public class User extends Response {
 
     @NotNull
     String id;
+
+    @OneToMany(mappedBy = "user") //UserAuthentication 이 연관관계 주인
+    List<UserAuthentication> userAuthenticationList = new ArrayList<>();
 }

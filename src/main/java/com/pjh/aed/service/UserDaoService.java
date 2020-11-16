@@ -1,6 +1,6 @@
 package com.pjh.aed.service;
 
-import com.pjh.aed.data.dto.UserDto;
+import com.pjh.aed.data.dto.UserBindData;
 import com.pjh.aed.data.entity.User;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.jpa.UserRepository;
@@ -14,19 +14,19 @@ public class UserDaoService implements DaoService{
     @Autowired
     private UserRepository userRepository;
 
-    public UserDto createUser(UserDto userDto) {
+    public UserBindData createUser(UserBindData userBindData) {
         User user = new User();
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
+        user.setId(userBindData.getId());
+        user.setName(userBindData.getName());
         User save = userRepository.save(user);
 
-        UserDto savedUser = new UserDto();
+        UserBindData savedUser = new UserBindData();
         savedUser.setId(save.getId());
         savedUser.setName(save.getName());
         return savedUser;
     }
 
-    public UserDto findOne(String id) throws UserNotFoundException {
+    public UserBindData findOne(String id) throws UserNotFoundException {
         if(id == null)
             throw new UserNotFoundException();
 
@@ -34,9 +34,9 @@ public class UserDaoService implements DaoService{
         Optional<User> selectedUser = userRepository.findById(Long.parseLong(id));
         User user = selectedUser.orElse(null);
 
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        return userDto;
+        UserBindData userBindData = new UserBindData();
+        userBindData.setId(user.getId());
+        userBindData.setName(user.getName());
+        return userBindData;
     }
 }

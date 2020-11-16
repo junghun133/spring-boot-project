@@ -8,7 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-public class UserDto extends Response {
+public class UserBindData extends Response {
     String id;
     String name;
+    
 }

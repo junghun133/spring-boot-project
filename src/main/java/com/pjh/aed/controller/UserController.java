@@ -1,23 +1,16 @@
 package com.pjh.aed.controller;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.pjh.aed.data.entity.DataField;
-import com.pjh.aed.data.entity.EntityFilter;
-import com.pjh.aed.data.entity.Result;
+import com.pjh.aed.data.dto.UserBindData;
+import com.pjh.aed.data.entity.*;
 import com.pjh.aed.data.entity.User;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -36,8 +29,13 @@ public class UserController {
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Fail_NotFoundUser;
 
+        UserBindData userBindData = new UserBindData();
+        userBindData.setName(user.getName());
+        userBindData.setId(user.getId());
         //create user
-        User savedUser = userDaoService.createUser(user);
+        userDaoService.createUser(userBindData);
+
+        User savedUser = new User();
         savedUser.setCode(code.getValue());
         savedUser.setMessage(message.getCause());
         Resource<User> resource = new Resource<>(savedUser);
@@ -49,13 +47,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     public MappingJacksonValue searchUser(@PathVariable String id) throws UserNotFoundException {
-        User foundUser = userDaoService.findOne(id);
+        UserBindData foundUser = userDaoService.findOne(id);
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Fail_NotFoundUser;
 
         if (foundUser == null) {
-            foundUser = new User();
             //throw new UserNotFoundException(String.format("[ID %d] not found", id));
+            foundUser = new UserBindData();
             code = Result.Code.FAIL;
             message = Result.DetailMessage.Fail_NotFoundUser;
         }
