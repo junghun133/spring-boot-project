@@ -1,23 +1,22 @@
 package com.pjh.aed.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pjh.aed.data.response.Response;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "TBL_USER")
 @ToString(of = {"id", "name"})
-public class User extends Response {
+public class User {
     @Id
     @GeneratedValue
     @NotNull

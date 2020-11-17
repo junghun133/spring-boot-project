@@ -1,19 +1,19 @@
 package com.pjh.aed.controller;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.pjh.aed.data.DataField;
+import com.pjh.aed.data.EntityFilter;
+import com.pjh.aed.data.Result;
 import com.pjh.aed.data.dto.UserBindData;
-import com.pjh.aed.data.entity.*;
-import com.pjh.aed.data.entity.User;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/user/v1")
@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     EntityFilter entityFilter;
 
-    @PostMapping("/create")
+   /* @PostMapping("/create")
     public Resource<User> createUser(@RequestBody User user) throws UserNotFoundException {
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Fail_NotFoundUser;
@@ -36,14 +36,14 @@ public class UserController {
         userDaoService.createUser(userBindData);
 
         User savedUser = new User();
-        savedUser.setCode(code.getValue());
-        savedUser.setMessage(message.getCause());
+//        savedUser.setCode(code.getValue());
+//        savedUser.setMessage(message.getCause());
         Resource<User> resource = new Resource<>(savedUser);
         ControllerLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(user.getId()));
         resource.add(controllerLinkBuilder.withRel("searchUser"));
 
         return resource;
-    }
+    }*/
 
     @GetMapping("/{id}")
     public MappingJacksonValue searchUser(@PathVariable String id) throws UserNotFoundException {

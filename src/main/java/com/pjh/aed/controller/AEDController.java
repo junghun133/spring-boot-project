@@ -1,9 +1,8 @@
 package com.pjh.aed.controller;
 
-import com.pjh.aed.data.entity.AEDLocation;
+import com.pjh.aed.data.dto.AEDLocation;
 import com.pjh.aed.service.AEDService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +33,7 @@ public class AEDController {
     }
 
     //AED 지역 조회 데이터와 응급의료 전달
-    @GetMapping("/find/{authId}/list/ermct")
+    /*@GetMapping("/find/{authId}/list/ermct")
     public Resource<AEDLocation> findAEDInfoPageWithErmctInfo(@PathVariable String authId){
         AEDLocation aedLocations = new AEDLocation();
         Resource<AEDLocation> resource = new Resource<>(aedLocations);
@@ -42,5 +41,5 @@ public class AEDController {
         //ControllerLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).findByAddressToAEDDetailList(authId,null));
         //resource.add(controllerLinkBuilder.withRel("detail-location"));
         return resource;
-    }
+    }*/
 }

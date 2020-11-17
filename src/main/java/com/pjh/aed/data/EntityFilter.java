@@ -1,4 +1,4 @@
-package com.pjh.aed.data.entity;
+package com.pjh.aed.data;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;

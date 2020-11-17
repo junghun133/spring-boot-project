@@ -1,13 +1,12 @@
 package com.pjh.aed.controller;
 
-import com.pjh.aed.data.entity.AEDLocation;
-import com.pjh.aed.data.entity.Location;
+import com.pjh.aed.data.dto.AEDLocation;
+import com.pjh.aed.data.dto.Location;
 import com.pjh.aed.service.ErmctService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 
 @RestController
