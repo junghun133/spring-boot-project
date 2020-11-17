@@ -1,9 +1,9 @@
 package com.pjh.aed.jpa.querydsl;
 
-import com.pjh.aed.data.dto.UserBindData;
+import com.pjh.aed.data.entity.User;
 
 import java.util.List;
 
 public interface UserRepositoryQD {
-    List<UserBindData> userList(UserBindData userBindData);
+    List<User> userList(User user);
 }
