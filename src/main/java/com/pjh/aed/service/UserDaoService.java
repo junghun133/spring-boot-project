@@ -15,18 +15,12 @@ public class UserDaoService implements DaoService{
     @Autowired
     private UserRepository userRepository;
 
-    public UserBindData createUser(UserBindData userBindData) {
-        User user = new User();
-        user.setId(userBindData.getId());
-        user.setName(userBindData.getName());
-        User save = userRepository.save(user);
-
-        UserBindData savedUser = new UserBindData();
-        savedUser.setId(save.getId());
-        savedUser.setName(save.getName());
-        return savedUser;
+    @Override
+    public void createUser(User user) {
+        userRepository.save(user);
     }
 
+    @Override
     public UserBindData findOne(String id) throws UserNotFoundException {
         if(id == null)
             throw new UserNotFoundException();
