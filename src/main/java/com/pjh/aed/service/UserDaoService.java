@@ -1,6 +1,7 @@
 package com.pjh.aed.service;
 
 import com.pjh.aed.data.dto.UserBindData;
+import com.pjh.aed.data.dto.res.UserProcessResponse;
 import com.pjh.aed.data.entity.User;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.jpa.UserRepository;
@@ -21,7 +22,7 @@ public class UserDaoService implements DaoService{
     }
 
     @Override
-    public UserBindData findOne(String id) throws UserNotFoundException {
+    public UserProcessResponse findOne(String id) throws UserNotFoundException {
         if(id == null)
             throw new UserNotFoundException();
 
@@ -29,7 +30,7 @@ public class UserDaoService implements DaoService{
         Optional<User> selectedUser = userRepository.findById(Long.parseLong(id));
         User user = selectedUser.orElse(null);
 
-        UserBindData userBindData = new UserBindData();
+        UserProcessResponse userBindData = new UserProcessResponse();
         userBindData.setId(user.getId());
         userBindData.setName(user.getName());
         return userBindData;
