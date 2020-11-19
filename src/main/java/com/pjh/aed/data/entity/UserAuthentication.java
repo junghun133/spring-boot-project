@@ -14,10 +14,11 @@ import javax.persistence.*;
 public class UserAuthentication {
     @Id @GeneratedValue
     @Column(name = "auth_id")
-    private Long authKey;
+    private Long authId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    private String authData;
+    private String token;
+    private Boolean use;
 }
