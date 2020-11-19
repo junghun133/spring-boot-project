@@ -1,7 +1,6 @@
 package com.pjh.aed.data.response;
 
 import com.pjh.aed.data.Result;
-import com.pjh.aed.data.response.Response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

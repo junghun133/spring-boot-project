@@ -1,6 +1,5 @@
 package com.pjh.aed.jpa.querydsl;
 
-import com.pjh.aed.data.entity.QUser;
 import com.pjh.aed.data.entity.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -11,9 +10,11 @@ import static com.pjh.aed.data.entity.QUser.user;
 
 public class UserRepositoryQDImpl implements UserRepositoryQD{
     private final JPAQueryFactory jpaQueryFactory;
+    private EntityManager em;
 
     public UserRepositoryQDImpl(EntityManager em) {
         this.jpaQueryFactory = new JPAQueryFactory(em);
+        this.em = em;
     }
 
     @Override

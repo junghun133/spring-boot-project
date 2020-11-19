@@ -26,6 +26,9 @@ public class User {
     String name;
 
     @NotNull
+    String password;
+
+    @NotNull
     String id;
 
     @OneToMany(mappedBy = "user") //UserAuthentication 이 연관관계 주인

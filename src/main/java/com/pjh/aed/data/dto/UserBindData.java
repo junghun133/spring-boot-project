@@ -1,6 +1,5 @@
 package com.pjh.aed.data.dto;
 
-import com.pjh.aed.data.response.Response;
 import lombok.*;
 
 @Setter
@@ -11,4 +10,5 @@ import lombok.*;
 public class UserBindData {
     String id;
     String name;
+    String password;
 }

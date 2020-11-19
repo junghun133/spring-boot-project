@@ -20,5 +20,5 @@ public class UserAuthentication {
     private User user;
 
     private String token;
-    private Boolean use;
+    private String use;
 }
