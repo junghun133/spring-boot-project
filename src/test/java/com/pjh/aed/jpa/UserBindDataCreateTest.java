@@ -24,7 +24,7 @@ public class UserBindDataCreateTest {
         user.setName("userName1");
 
         userRepository.save(user);
-        List<User> selectUser = userRepository.userList(user);
+        List<User> selectUser = userRepository.selectAllUserList(user);
         for (User u : selectUser) {
             System.out.println("user = " + u);
         }

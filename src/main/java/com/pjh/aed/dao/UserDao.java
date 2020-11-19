@@ -6,7 +6,7 @@ import com.pjh.aed.jpa.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -21,17 +21,21 @@ public class UserDao {
         if(id == null)
             throw new UserNotFoundException();
 
-        //id가 아니라 usercode로 조회해야함
-        Optional<User> selectedUser = userRepository.findById(id);
-        return selectedUser.orElse(null);
+        List<User> user = userRepository.selectUserId(id);
+        if(user.isEmpty())
+            throw new UserNotFoundException();
+
+        return user.get(0);
     }
 
-    public User loginUser(String id) throws UserNotFoundException {
+    public User loginUser(String id, String password) throws UserNotFoundException {
         if(id == null)
             throw new UserNotFoundException();
 
-        //id가 아니라 usercode로 조회해야함
-        Optional<User> selectedUser = userRepository.findById(id);
-        return selectedUser.orElse(null);
+        List<User> user = userRepository.selectUserIdAndPassword(id, password);
+        if(user.isEmpty())
+            throw new UserNotFoundException();
+
+        return user.get(0);
     }
 }

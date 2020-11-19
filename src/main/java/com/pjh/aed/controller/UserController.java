@@ -44,6 +44,7 @@ public class UserController {
         User userDto = new User();
         userDto.setName(userBindData.getName());
         userDto.setId(userBindData.getId());
+        userDto.setPassword(userBindData.getPassword());
         //create user
         userDao.createUser(userDto);
 
@@ -83,7 +84,7 @@ public class UserController {
 
     @PostMapping("/create/token")
     public EntityModel<UserProcessResponse> createAPIKey(@RequestBody UserBindData userBindData) throws UserNotFoundException {
-        User foundUser = userDao.isUser(userBindData.getId());
+        User foundUser = userDao.loginUser(userBindData.getId(), userBindData.getPassword());
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
 
