@@ -6,6 +6,7 @@ import com.pjh.aed.data.EntityFilter;
 import com.pjh.aed.data.Result;
 import com.pjh.aed.data.dto.UserBindData;
 import com.pjh.aed.data.entity.User;
+import com.pjh.aed.data.entity.UserAuthentication;
 import com.pjh.aed.data.response.UserProcessResponse;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.jwt.JWTService;
@@ -16,6 +17,9 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -54,8 +58,11 @@ public class UserController {
         savedUser.setId(userDto.getId());
         savedUser.setName(userDto.getName());
         EntityModel<UserProcessResponse> resource = new EntityModel<UserProcessResponse>(savedUser);
-        WebMvcLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(savedUser.getId()));
-        resource.add(controllerLinkBuilder.withRel("searchUser"));
+
+        WebMvcLinkBuilder searchUserLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(savedUser.getId()));
+        WebMvcLinkBuilder createTokenLinkBuilder = linkTo(methodOn(this.getClass()).createAPIKey(null));
+        resource.add(searchUserLinkBuilder.withRel("searchUser"));
+        resource.add(createTokenLinkBuilder.withRel("createToken"));
 
         return resource;
     }
@@ -99,8 +106,20 @@ public class UserController {
         String token = jwtService.create(userBindData.getId());
         authDao.createToken(token, foundUser);
 
+        User user = userDao.loginUser(userBindData.getId(), userBindData.getPassword());
+
         UserProcessResponse userProcessResponse = new UserProcessResponse();
         userProcessResponse.setResult(code, message);
+        userProcessResponse.setId(foundUser.getId());
+        userProcessResponse.setName(foundUser.getName());
+
+        List<UserAuthentication> userAuthenticationList = user.getUserAuthenticationList();
+        List<String> tokens = new ArrayList<>();
+        for (UserAuthentication ua : userAuthenticationList) {
+            tokens.add(ua.getToken());
+        }
+
+        userProcessResponse.setToken(tokens);
         return new EntityModel<>(userProcessResponse);
     }
 }
