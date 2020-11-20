@@ -17,7 +17,10 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +44,7 @@ public class UserController {
     JWTService jwtService;
 
     @PostMapping("/create/user")
-    public EntityModel<UserProcessResponse> createUser(@RequestBody UserBindData userBindData) throws UserNotFoundException {
+    public EntityModel<UserProcessResponse> createUser(@RequestBody @Valid UserBindData userBindData){
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
 
@@ -52,11 +55,12 @@ public class UserController {
         //create user
         userDao.createUser(userDto);
 
-        UserProcessResponse savedUser = new UserProcessResponse();
-        savedUser.setCode(code.getValue());
-        savedUser.setMessage(message.getCause());
-        savedUser.setId(userDto.getId());
-        savedUser.setName(userDto.getName());
+        UserProcessResponse savedUser = UserProcessResponse.userProcessResponseBuilder()
+                .id(userDto.getId())
+                .name(userDto.getName())
+                .build();
+        savedUser.setResult(code, message);
+
         EntityModel<UserProcessResponse> resource = new EntityModel<UserProcessResponse>(savedUser);
 
         WebMvcLinkBuilder searchUserLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(savedUser.getId()));
@@ -68,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping("/search/{id}")
-    public MappingJacksonValue searchUser(@PathVariable String id) throws UserNotFoundException {
+    public MappingJacksonValue searchUser(@PathVariable String id) {
         User foundUser = userDao.isUser(id);
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
@@ -80,17 +84,19 @@ public class UserController {
         }
         FilterProvider filters =  entityFilter.filter("UserFilter", DataField.User.id.name(), DataField.User.name.name());
 
-        UserProcessResponse userProcessResponse = new UserProcessResponse();
+        UserProcessResponse userProcessResponse = UserProcessResponse.userProcessResponseBuilder()
+                .id(foundUser.getId())
+                .name(foundUser.getName())
+                .build();
         userProcessResponse.setResult(code, message);
-        userProcessResponse.setId(foundUser.getId());
-        userProcessResponse.setName(foundUser.getName());
+
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userProcessResponse);
         mappingJacksonValue.setFilters(filters);
         return mappingJacksonValue;
     }
 
     @PostMapping("/create/token")
-    public EntityModel<UserProcessResponse> createAPIKey(@RequestBody UserBindData userBindData) throws UserNotFoundException {
+    public EntityModel<UserProcessResponse> createAPIKey(@RequestBody UserBindData userBindData) {
         User foundUser = userDao.loginUser(userBindData.getId(), userBindData.getPassword());
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
@@ -108,10 +114,11 @@ public class UserController {
 
         User user = userDao.loginUser(userBindData.getId(), userBindData.getPassword());
 
-        UserProcessResponse userProcessResponse = new UserProcessResponse();
+        UserProcessResponse userProcessResponse = UserProcessResponse.userProcessResponseBuilder()
+                .id(foundUser.getId())
+                .name(foundUser.getName())
+                .build();
         userProcessResponse.setResult(code, message);
-        userProcessResponse.setId(foundUser.getId());
-        userProcessResponse.setName(foundUser.getName());
 
         List<UserAuthentication> userAuthenticationList = user.getUserAuthenticationList();
         List<String> tokens = new ArrayList<>();
