@@ -11,6 +11,7 @@
 - Spring boot 2.2
 - Exception handling
 - H2 
+- JWT
 
 >시나리오
 
