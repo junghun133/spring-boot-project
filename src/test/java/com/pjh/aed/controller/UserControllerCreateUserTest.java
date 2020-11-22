@@ -76,6 +76,7 @@ public class UserControllerCreateUserTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0]", containsString("must not be null")))
                 .andDo(print());
     }
+
     @org.junit.Test
     public void createUserPasswordParamFailTest() throws Exception {
         mockMvc.perform(post("/user/v1/create/user")
