@@ -1,6 +1,6 @@
 package com.pjh.aed.jpa.querydsl;
 
-import com.pjh.aed.data.entity.User;
+import com.pjh.aed.data.domain.User;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.util.StringUtils;
@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.pjh.aed.data.entity.QUser.user;
+import static com.pjh.aed.data.domain.QUser.user;
 
 public class UserRepositoryImpl implements UserRepositoryQD{
     private final JPAQueryFactory jpaQueryFactory;

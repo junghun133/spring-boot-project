@@ -1,8 +1,7 @@
 package com.pjh.aed.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pjh.aed.data.dto.UserBindData;
+import com.pjh.aed.data.request.UserRequestData;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +37,9 @@ public class UserControllerTest {
         mockMvc = webAppContextSetup(webApplicationContext)
                 .build();
 
-        UserBindData succ_login = UserBindData.userBindDataBuilder().id("pjh").name("junghoon").password("1234").build();
+        UserRequestData succ_login = UserRequestData.userBindDataBuilder().id("pjh").name("junghoon").password("1234").build();
         succ_loginData =  objectMapper.writeValueAsString(succ_login);
-        UserBindData fail_login = UserBindData.userBindDataBuilder().id("pjh").name("junghoon").password("1234").build();
+        UserRequestData fail_login = UserRequestData.userBindDataBuilder().id("pjh").name("junghoon").password("1234").build();
         fail_loginData =  objectMapper.writeValueAsString(fail_login);
 
         mockMvc.perform(post("/user/v1/create/user")
@@ -73,10 +72,10 @@ public class UserControllerTest {
     //유저 토큰 생성 API 테스트
     @org.junit.Test
     public void userCreateTokenTest() throws Exception {
-        UserBindData userBindData = new UserBindData();
-        userBindData.setId("pjh");
-        userBindData.setPassword("1234");
-        String loginData = objectMapper.writeValueAsString(userBindData);
+        UserRequestData userRequestData = new UserRequestData();
+        userRequestData.setId("pjh");
+        userRequestData.setPassword("1234");
+        String loginData = objectMapper.writeValueAsString(userRequestData);
         mockMvc.perform(post("/user/v1/create/token")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(loginData)

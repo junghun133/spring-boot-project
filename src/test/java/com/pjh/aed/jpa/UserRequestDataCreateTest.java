@@ -1,6 +1,6 @@
 package com.pjh.aed.jpa;
 
-import com.pjh.aed.data.entity.User;
+import com.pjh.aed.data.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 @Rollback(false)
-public class UserBindDataCreateTest {
+public class UserRequestDataCreateTest {
     @Autowired
     UserRepository userRepository;
 

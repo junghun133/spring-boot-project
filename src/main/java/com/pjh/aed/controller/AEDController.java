@@ -1,6 +1,6 @@
 package com.pjh.aed.controller;
 
-import com.pjh.aed.data.dto.AEDLocation;
+import com.pjh.aed.data.request.AEDLocationRequestData;
 import com.pjh.aed.service.AEDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +20,16 @@ public class AEDController {
 
     //AED 전체 목록
     @GetMapping("/find/{authId}/all")
-    public List<AEDLocation> findAEDInfoAll(@PathVariable String authId){
+    public List<AEDLocationRequestData> findAEDInfoAll(@PathVariable String authId){
         return null;
     }
 
     //AED 지역 조회
     @GetMapping("/find/{authId}/list")
-    public List<AEDLocation> findAEDInfoPage(@PathVariable String authId){
-        AEDLocation aedLocation = new AEDLocation();
-        List<AEDLocation> aedLocations = new ArrayList<>();
-        return aedLocations;
+    public List<AEDLocationRequestData> findAEDInfoPage(@PathVariable String authId){
+        AEDLocationRequestData aedLocationRequestData = new AEDLocationRequestData();
+        List<AEDLocationRequestData> aedLocationRequestData = new ArrayList<>();
+        return aedLocationRequestData;
     }
 
     //AED 지역 조회 데이터와 응급의료 전달

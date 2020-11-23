@@ -1,4 +1,4 @@
-package com.pjh.aed.data.dto;
+package com.pjh.aed.data.request;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class UserBindData {
+public class UserRequestData extends CommonRequestData {
 
     @NotNull
     String id;
@@ -17,7 +17,7 @@ public class UserBindData {
     String password;
 
     @Builder(builderMethodName = "userBindDataBuilder")
-    public UserBindData(String id, String name, String password){
+    public UserRequestData(String id, String name, String password){
         this.id = id;
         this.name = name;
         this.password = password;

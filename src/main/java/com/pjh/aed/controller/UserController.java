@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.pjh.aed.data.DataField;
 import com.pjh.aed.data.EntityFilter;
 import com.pjh.aed.data.Result;
-import com.pjh.aed.data.dto.UserBindData;
-import com.pjh.aed.data.entity.User;
-import com.pjh.aed.data.entity.UserAuthentication;
+import com.pjh.aed.data.request.UserRequestData;
+import com.pjh.aed.data.domain.User;
+import com.pjh.aed.data.domain.UserAuthentication;
 import com.pjh.aed.data.response.UserProcessResponse;
-import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.jwt.JWTService;
 import com.pjh.aed.dao.AuthDao;
 import com.pjh.aed.dao.UserDao;
@@ -17,8 +16,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -44,14 +41,14 @@ public class UserController {
     JWTService jwtService;
 
     @PostMapping("/create/user")
-    public EntityModel<UserProcessResponse> createUser(@RequestBody @Valid UserBindData userBindData){
+    public EntityModel<UserProcessResponse> createUser(@RequestBody @Valid UserRequestData userRequestData){
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
 
         User userDto = new User();
-        userDto.setName(userBindData.getName());
-        userDto.setId(userBindData.getId());
-        userDto.setPassword(userBindData.getPassword());
+        userDto.setName(userRequestData.getName());
+        userDto.setId(userRequestData.getId());
+        userDto.setPassword(userRequestData.getPassword());
         //create user
         userDao.createUser(userDto);
 
@@ -96,8 +93,8 @@ public class UserController {
     }
 
     @PostMapping("/create/token")
-    public EntityModel<UserProcessResponse> createAPIKey(@RequestBody UserBindData userBindData) {
-        User foundUser = userDao.loginUser(userBindData.getId(), userBindData.getPassword());
+    public EntityModel<UserProcessResponse> createAPIKey(@RequestBody UserRequestData userRequestData) {
+        User foundUser = userDao.loginUser(userRequestData.getId(), userRequestData.getPassword());
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
 
@@ -109,10 +106,10 @@ public class UserController {
             userProcessResponse.setResult(code, message);
             return new EntityModel<>(userProcessResponse);
         }
-        String token = jwtService.create(userBindData.getId());
+        String token = jwtService.create(userRequestData.getId());
         authDao.createToken(token, foundUser);
 
-        User user = userDao.loginUser(userBindData.getId(), userBindData.getPassword());
+        User user = userDao.loginUser(userRequestData.getId(), userRequestData.getPassword());
 
         UserProcessResponse userProcessResponse = UserProcessResponse.userProcessResponseBuilder()
                 .id(foundUser.getId())

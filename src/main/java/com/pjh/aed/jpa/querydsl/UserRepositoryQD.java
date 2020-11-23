@@ -1,6 +1,6 @@
 package com.pjh.aed.jpa.querydsl;
 
-import com.pjh.aed.data.entity.User;
+import com.pjh.aed.data.domain.User;
 
 import java.util.List;
 

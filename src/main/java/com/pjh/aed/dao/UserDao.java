@@ -1,6 +1,6 @@
 package com.pjh.aed.dao;
 
-import com.pjh.aed.data.entity.User;
+import com.pjh.aed.data.domain.User;
 import com.pjh.aed.exception.UserNotFoundException;
 import com.pjh.aed.jpa.UserRepository;
 import lombok.AllArgsConstructor;

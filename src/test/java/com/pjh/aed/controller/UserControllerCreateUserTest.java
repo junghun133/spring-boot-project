@@ -2,7 +2,7 @@ package com.pjh.aed.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pjh.aed.data.dto.UserBindData;
+import com.pjh.aed.data.request.UserRequestData;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +37,11 @@ public class UserControllerCreateUserTest {
         mockMvc = webAppContextSetup(webApplicationContext)
                 .build();
 
-        UserBindData succ_login = UserBindData.userBindDataBuilder().id("pjh").name("junghoon").password("1234").build();
+        UserRequestData succ_login = UserRequestData.userBindDataBuilder().id("pjh").name("junghoon").password("1234").build();
         succ_userData =  objectMapper.writeValueAsString(succ_login);
 
-        UserBindData fail_login_withoutId = UserBindData.userBindDataBuilder().name("junghoon").password("1234").build();
-        UserBindData fail_login_withoutPassword = UserBindData.userBindDataBuilder().id("pjh").name("junghoon").build();
+        UserRequestData fail_login_withoutId = UserRequestData.userBindDataBuilder().name("junghoon").password("1234").build();
+        UserRequestData fail_login_withoutPassword = UserRequestData.userBindDataBuilder().id("pjh").name("junghoon").build();
         fail_userData_emptyParam_id =  objectMapper.writeValueAsString(fail_login_withoutId);
         fail_userData_emptyParam_password =  objectMapper.writeValueAsString(fail_login_withoutPassword);
     }

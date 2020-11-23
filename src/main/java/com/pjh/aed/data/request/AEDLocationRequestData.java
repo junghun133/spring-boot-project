@@ -1,4 +1,4 @@
-package com.pjh.aed.data.dto;
+package com.pjh.aed.data.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AEDLocation {
+public class AEDLocationRequestData extends CommonRequestData {
     @Id
     Long locationId;
     String address;

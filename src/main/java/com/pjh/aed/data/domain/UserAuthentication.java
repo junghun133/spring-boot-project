@@ -1,4 +1,4 @@
-package com.pjh.aed.data.entity;
+package com.pjh.aed.data.domain;
 
 import lombok.*;
 

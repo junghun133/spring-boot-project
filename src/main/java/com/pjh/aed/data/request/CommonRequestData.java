@@ -1,10 +1,9 @@
-package com.pjh.aed.data.dto;
+package com.pjh.aed.data.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class CommonRequestData {
 }

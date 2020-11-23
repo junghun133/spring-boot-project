@@ -2,7 +2,6 @@ package com.pjh.aed.data.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pjh.aed.data.Result;
-import com.pjh.aed.data.entity.UserAuthentication;
 import lombok.*;
 
 import java.util.List;
