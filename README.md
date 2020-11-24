@@ -1,8 +1,8 @@
 # AEDAPI
 
 자동심장충격 관리정보 조회 API(정부데이터 data.go.kr) API 연동 Toy project
+https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15000652
 
-https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15000652(
 - RestAPI
 - JPA
 - Querydsl
