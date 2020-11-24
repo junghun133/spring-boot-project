@@ -1,7 +1,11 @@
 package com.pjh.aed.controller;
 
 import com.pjh.aed.data.request.AEDLocationRequestData;
-import com.pjh.aed.service.AEDService;
+import com.pjh.aed.service.AEDFullDownServiceRunner;
+import com.pjh.aed.service.executor.ServiceRequest;
+import com.pjh.aed.service.executor.ServiceRunnerExecutor;
+import com.pjh.aed.service.executor.ServiceRunnerType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,22 +18,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/aed/v1")
+@RequiredArgsConstructor
 public class AEDController {
-    @Autowired
-    AEDService aedService;
+    AEDFullDownServiceRunner aedFullDownServiceRunner;
+    private ServiceRunnerExecutor serviceExecutor;
 
     //AED 전체 목록
-    @GetMapping("/find/{authId}/all")
-    public List<AEDLocationRequestData> findAEDInfoAll(@PathVariable String authId){
-        return null;
+    @GetMapping("/find/{token}/all")
+    public String findAEDInfoAll(@PathVariable String token){
+        ServiceRequest request = ServiceRequest.createServiceRequest(
+                AEDLocationRequestData.AEDLocationRequestDataBuilder().token(token).build(),
+                ServiceRunnerType.find(ServiceRunnerType.AED_FULLDOWN)
+                );
+
+        return serviceExecutor.execute(request);
     }
 
     //AED 지역 조회
-    @GetMapping("/find/{authId}/list")
-    public List<AEDLocationRequestData> findAEDInfoPage(@PathVariable String authId){
+    @GetMapping("/find/{token}/list")
+    public String findAEDInfoPage(@PathVariable String token){
         AEDLocationRequestData aedLocationRequestData = new AEDLocationRequestData();
-        List<AEDLocationRequestData> aedLocationRequestData = new ArrayList<>();
-        return aedLocationRequestData;
+        return null;
     }
 
     //AED 지역 조회 데이터와 응급의료 전달

@@ -5,12 +5,17 @@ api-info:
   data:
     #자동심장충격 관리정보를 시도/시군구별 조회할 수 있다.
     # aed-manage-info:
-    - name: "getEgytAedManageInfoInqire"
+    - name: getEgytAedManageInfoInqire
       max-size: 4000
 
     #자동심장충격기 정보를 경도/위도별 반경내 정보를 조회할 수 있다.
     # aed-location-info:
-    - name: "getAedLcinfoInquire"
+    - name: getAedLcinfoInquire
+      max-size: 4000
+
+    #자동심장충격기 정보를 경도/위도별 반경내 정보를 조회할 수 있다.
+    # aed-location-info:
+    - name: getAedFullDown
       max-size: 4000
 
 #경/위도를 기준으로 외상센터 위치정보를 조회하는 외상센터 위치정보 조회 기능제공
@@ -20,5 +25,5 @@ ermct-info:
   dataformat: xml
   data:
     #emergency-location:
-    -  name: "getEgytAedManageInfoInqire"
+    -  name: getEgytAedManageInfoInqire
        max-size: 4000

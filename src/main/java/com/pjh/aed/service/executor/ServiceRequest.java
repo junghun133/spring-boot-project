@@ -15,7 +15,7 @@ public class ServiceRequest {
 	private Class<?>  clz;
 	
 	public static ServiceRequest createServiceRequest(CommonRequestData request, Class<?> clz) {
-		if (null == request)  request = new CommonRequestData();
+		if (null == request)  request =  new CommonRequestData();
 		return ServiceRequest.builder().request(request).clz(clz).build();
 	}
 }

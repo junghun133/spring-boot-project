@@ -1,9 +1,9 @@
 package com.pjh.aed.data.request;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class CommonRequestData {
+    String token;
 }

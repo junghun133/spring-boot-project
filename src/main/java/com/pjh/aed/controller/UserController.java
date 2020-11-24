@@ -1,16 +1,18 @@
 package com.pjh.aed.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.pjh.aed.dao.AuthDao;
+import com.pjh.aed.dao.UserDao;
 import com.pjh.aed.data.DataField;
 import com.pjh.aed.data.EntityFilter;
 import com.pjh.aed.data.Result;
-import com.pjh.aed.data.request.UserRequestData;
 import com.pjh.aed.data.domain.User;
 import com.pjh.aed.data.domain.UserAuthentication;
+import com.pjh.aed.data.request.UserRequestData;
 import com.pjh.aed.data.response.UserProcessResponse;
 import com.pjh.aed.jwt.JWTService;
-import com.pjh.aed.dao.AuthDao;
-import com.pjh.aed.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -40,8 +42,11 @@ public class UserController {
     @Autowired
     JWTService jwtService;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @PostMapping("/create/user")
-    public EntityModel<UserProcessResponse> createUser(@RequestBody @Valid UserRequestData userRequestData){
+    public EntityModel<UserProcessResponse> createUser(@RequestBody @Valid UserRequestData userRequestData) throws JsonProcessingException {
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
 
