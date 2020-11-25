@@ -6,10 +6,7 @@ import com.pjh.aed.service.executor.ServiceRequest;
 import com.pjh.aed.service.executor.ServiceRunnerExecutor;
 import com.pjh.aed.service.executor.ServiceRunnerType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,10 +28,17 @@ public class AEDController {
     }
 
     //AED 지역 조회
-    @GetMapping("/find/{token}/list")
-    public String findAEDInfoPage(@PathVariable String token){
-        AEDLocationRequestData aedLocationRequestData = new AEDLocationRequestData();
-        return null;
+    @GetMapping("/find/{token}/address")
+    public String findAEDInfoPage(@PathVariable String token,
+                                  @RequestParam(required = true, value = "state") String state,
+                                  @RequestParam(required = true, value = "county") String county
+                                  ){
+        ServiceRequest request = ServiceRequest.createServiceRequest(
+                AEDLocationRequestData.AEDLocationRequestDataBuilder().token(token).state(state).county(county).build(),
+                ServiceRunnerType.find(ServiceRunnerType.AED_LOCATION_INQUIRE)
+        );
+
+        return serviceExecutor.execute(request);
     }
 
     //AED 지역 조회 데이터와 응급의료 전달
