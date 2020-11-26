@@ -1,20 +1,20 @@
 package com.pjh.aed.controller;
 
 import com.pjh.aed.data.request.AEDLocationRequestData;
-import com.pjh.aed.service.AEDFullDownServiceRunner;
 import com.pjh.aed.service.executor.ServiceRequest;
 import com.pjh.aed.service.executor.ServiceRunnerExecutor;
 import com.pjh.aed.service.executor.ServiceRunnerType;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/aed/v1")
-@RequiredArgsConstructor
 public class AEDController {
-    AEDFullDownServiceRunner aedFullDownServiceRunner;
-    private ServiceRunnerExecutor serviceExecutor;
+    private final ServiceRunnerExecutor serviceExecutor;
+
+    public AEDController(ServiceRunnerExecutor serviceExecutor) {
+        this.serviceExecutor = serviceExecutor;
+    }
 
     //AED 전체 목록
     @GetMapping("/find/{token}/all")

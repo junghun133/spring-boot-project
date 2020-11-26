@@ -17,6 +17,7 @@ public interface Result {
     enum DetailMessage{
         Fail_Default("요청에 실패 하였습니다. 관리자에게 문의바랍니다"),
         Fail_NotFoundUser("조회된 유저가 없습니다."),
+        Fail_InvalidToken("유효한 토큰정보가 아닙니다."),
         Success("");
 
         String cause;
