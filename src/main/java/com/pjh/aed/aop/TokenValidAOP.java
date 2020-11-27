@@ -2,12 +2,10 @@ package com.pjh.aed.aop;
 
 import com.pjh.aed.dao.AuthDao;
 import com.pjh.aed.service.executor.ServiceRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 

@@ -16,7 +16,6 @@ import java.net.URI;
 @Component
 @RequiredArgsConstructor
 public class HttpRestTemplateManager {
-
     RestTemplate restTemplate;
 
     public ResponseEntity sendGet(APIInfo apiInfo) {

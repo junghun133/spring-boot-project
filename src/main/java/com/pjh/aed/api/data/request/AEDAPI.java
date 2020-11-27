@@ -1,6 +1,6 @@
 package com.pjh.aed.api.data.request;
 
-import com.pjh.aed.api.API;
+import com.pjh.aed.api.APICaller;
 import com.pjh.aed.api.APIInfo;
 import com.pjh.aed.api.HttpRestTemplateManager;
 import com.pjh.aed.api.data.response.ResponseData;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AEDAPI implements API {
+public class AEDAPI implements APICaller {
     @Autowired
     HttpRestTemplateManager httpRestTemplateManager;
 
