@@ -12,6 +12,6 @@ public class APIInfo {
     APICaller.APIs apiType;
     String url;
 
-    AEDRequestData request;
-    AEDResponseData AEDResponseData;
+    AEDRequestData aedRequestData;
+    AEDResponseData aedResponseData;
 }

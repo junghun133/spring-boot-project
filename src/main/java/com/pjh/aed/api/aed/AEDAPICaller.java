@@ -4,13 +4,15 @@ import com.pjh.aed.api.APICaller;
 import com.pjh.aed.api.APIInfo;
 import com.pjh.aed.api.HttpRestTemplateManager;
 import com.pjh.aed.api.data.response.AEDResponseData;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-@RequiredArgsConstructor
+@Service
 public class AEDAPICaller implements APICaller {
-    HttpRestTemplateManager restTemplate;
+    final HttpRestTemplateManager restTemplate;
+
+    public AEDAPICaller(HttpRestTemplateManager restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public <R extends AEDResponseData> R APICall(APIInfo apiInfo) {
