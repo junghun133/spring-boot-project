@@ -1,6 +1,6 @@
 package com.pjh.aed.api;
 
-import com.pjh.aed.api.data.response.ResponseData;
+import com.pjh.aed.api.data.response.AEDResponseData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,11 +26,11 @@ public class HttpRestTemplateManager {
         MultiValueMap<String, String> params = MultiValueMapConverter.convert(apiInfo.getRequest());
         URI uri = UriComponentsBuilder.fromUriString(apiInfo.url).queryParams(params).build().encode().toUri();
 
-        ResponseEntity<? extends ResponseData> response = restTemplate.exchange(
+        ResponseEntity<? extends AEDResponseData> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 httpEntity,
-                apiInfo.getResponseData().getClass());
+                apiInfo.getAEDResponseData().getClass());
 
         return response;
     }

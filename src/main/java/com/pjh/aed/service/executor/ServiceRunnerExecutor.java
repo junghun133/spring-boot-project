@@ -14,7 +14,7 @@ public class ServiceRunnerExecutor implements ServiceExecutorInterface<String> {
 	}
 	@Override
 	public String execute(ServiceRequest request) {
-		
+
 		return serviceRunnerFactory.findRunner(request.getClz()).runService(request);
 	}
 }

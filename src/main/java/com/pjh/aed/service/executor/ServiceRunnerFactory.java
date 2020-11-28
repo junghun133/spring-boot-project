@@ -16,5 +16,4 @@ public class ServiceRunnerFactory {
 	public  ServiceRunnerInterface findRunner(Class<?> runnerType) {
 		return autowirdService.getBean(runnerType);
 	}
-	
 }
