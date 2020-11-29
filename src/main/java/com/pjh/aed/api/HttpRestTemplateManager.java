@@ -1,5 +1,6 @@
 package com.pjh.aed.api;
 
+import com.pjh.aed.api.data.response.AEDFullDownData;
 import com.pjh.aed.api.data.response.AEDResponseData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,8 @@ public class HttpRestTemplateManager {
         URI uri = UriComponentsBuilder.fromUriString(apiInfo.url).queryParams(params).encode().build().toUri();
         ResponseEntity<? extends AEDResponseData> response = null;
         try {
+
+            AEDFullDownData data = restTemplate.getForObject(uri, AEDFullDownData.class);
 
         ResponseEntity<Map> mapResponse = restTemplate.exchange(
                 uri,
