@@ -12,6 +12,7 @@ https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15000652
 - Exception handling
 - H2 
 - JWT
+- AOP
 
 >시나리오
 
