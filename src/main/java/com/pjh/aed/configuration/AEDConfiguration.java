@@ -17,5 +17,4 @@ public class AEDConfiguration {
     String dataformat;
 
     public List<String> data = new ArrayList<>();
-
 }

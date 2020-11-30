@@ -7,11 +7,15 @@ import com.pjh.aed.api.data.request.AEDFullDownRequestData;
 import com.pjh.aed.api.data.response.AEDFullDownResponse;
 import com.pjh.aed.api.data.response.AEDResponseData;
 import com.pjh.aed.configuration.AEDConfiguration;
+import com.pjh.aed.configuration.APIDetailCode;
+import com.pjh.aed.http.URIAssemble;
 import com.pjh.aed.service.executor.ServiceRequest;
 import com.pjh.aed.service.executor.ServiceRunnerInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Service
@@ -31,21 +35,21 @@ public class AEDFullDownServiceRunner implements ServiceRunnerInterface {
     @Override
     public String runService(ServiceRequest request) {
         APICaller apiCaller = apiFactory.getAPICaller(apiType);
-        String url = aedConfiguration.getUrl();
         List<String> detailAddress = aedConfiguration.getData();
+        String url = aedConfiguration.getUrl() + detailAddress.get(APIDetailCode.AEDAPIDetailCode.FULL_DATA.getCode());
         AEDFullDownRequestData requestData = new AEDFullDownRequestData();
-        requestData.setServiceKey(aedConfiguration.getApikey());
+
+        URIAssemble uriAssemble = new URIAssemble(url, aedConfiguration.getApikey());
 
         APIInfo apiInfo = APIInfo.builder()
                 .apiType(apiType)
                 .aedRequestData(requestData)
                 .aedResponseData(new AEDFullDownResponse())
-                .url(url + detailAddress.get(2))
+                .uri(uriAssemble.basicAEDURIAddress())
                 .build();
 
         AEDResponseData AEDResponseData = apiCaller.APICall(apiInfo);
         //AEDResponse -> Response
-
         return null;
     }
 }

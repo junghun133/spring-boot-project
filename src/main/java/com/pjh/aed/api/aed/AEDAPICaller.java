@@ -2,7 +2,7 @@ package com.pjh.aed.api.aed;
 
 import com.pjh.aed.api.APICaller;
 import com.pjh.aed.api.APIInfo;
-import com.pjh.aed.api.HttpRestTemplateManager;
+import com.pjh.aed.http.HttpRestTemplateManager;
 import com.pjh.aed.api.data.response.AEDResponseData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

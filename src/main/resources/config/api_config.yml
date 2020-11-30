@@ -4,13 +4,10 @@ api-info:
   dataformat: xml
   data:
     #자동심장충격 관리정보를 시도/시군구별 조회할 수 있다.
-    # aed-manage-info:
     - getEgytAedManageInfoInqire
     #자동심장충격기 정보를 경도/위도별 반경내 정보를 조회할 수 있다.
-    # aed-location-info:
     - getAedLcinfoInquire
-    #자동심장충격기 정보를 경도/위도별 반경내 정보를 조회할 수 있다.
-    # aed-location-info:
+    #자동심장충격기 전체 정보 조회할 수 있다.
     - getAedFullDown
 
 #경/위도를 기준으로 외상센터 위치정보를 조회하는 외상센터 위치정보 조회 기능제공
