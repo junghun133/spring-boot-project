@@ -3,15 +3,12 @@ package com.pjh.aed.api.data.response;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Setter @Getter
-@XmlRootElement(name ="item")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class AEDDto {
+@XmlRootElement(name = "item")
+public class AEDItemDto {
     @XmlElement(name ="buildAddress" )
     private String buildAddress;
 
