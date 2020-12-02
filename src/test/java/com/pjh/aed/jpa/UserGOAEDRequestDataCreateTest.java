@@ -12,7 +12,7 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 @Rollback(false)
-public class UserAEDRequestDataCreateTest {
+public class UserGOAEDRequestDataCreateTest {
     @Autowired
     UserRepository userRepository;
 

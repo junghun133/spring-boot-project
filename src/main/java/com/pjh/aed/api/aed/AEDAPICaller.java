@@ -3,7 +3,7 @@ package com.pjh.aed.api.aed;
 import com.pjh.aed.api.APICaller;
 import com.pjh.aed.api.APIInfo;
 import com.pjh.aed.http.HttpRestTemplateManager;
-import com.pjh.aed.api.data.response.AEDResponseData;
+import com.pjh.aed.api.data.response.GO_AEDResponseData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class AEDAPICaller implements APICaller {
     }
 
     @Override
-    public <R extends AEDResponseData> R APICall(APIInfo apiInfo) {
+    public <R extends GO_AEDResponseData> R APICall(APIInfo apiInfo) {
         ResponseEntity responseEntity = restTemplate.sendGet(apiInfo);
         return (R) responseEntity.getBody();
     }

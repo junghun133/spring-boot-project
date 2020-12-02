@@ -18,9 +18,14 @@ public class AEDController {
 
     //AED 전체 목록
     @GetMapping("/find/{token}/all")
-    public String findAEDInfoAll(@PathVariable String token){
+    @ResponseBody
+    public String findAEDInfoAll(@PathVariable String token, Integer pageNo, Integer numOfRows){
         ServiceRequest request = ServiceRequest.createServiceRequest(
-                AEDLocationRequestData.AEDLocationRequestDataBuilder().token(token).build(),
+                AEDLocationRequestData.AEDLocationRequestDataBuilder()
+                        .token(token)
+                        .pageNo(pageNo)
+                        .numOfRows(numOfRows)
+                        .build(),
                 ServiceRunnerType.find(ServiceRunnerType.AED_FULLDOWN)
                 );
 
@@ -29,7 +34,7 @@ public class AEDController {
 
     //AED 지역 조회
     @GetMapping("/find/{token}/address")
-    public String findAEDInfoPage(@PathVariable String token,
+    public String findAEDInfoFromAddress(@PathVariable String token,
                                   @RequestParam(required = true, value = "state") String state,
                                   @RequestParam(required = true, value = "county") String county
                                   ){

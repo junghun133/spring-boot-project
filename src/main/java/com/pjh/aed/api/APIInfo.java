@@ -1,7 +1,7 @@
 package com.pjh.aed.api;
 
-import com.pjh.aed.api.data.request.AEDRequestData;
-import com.pjh.aed.api.data.response.AEDResponseData;
+import com.pjh.aed.api.data.request.GO_AEDRequestData;
+import com.pjh.aed.api.data.response.GO_AEDResponseData;
 import lombok.*;
 
 import java.net.URI;
@@ -14,6 +14,6 @@ public class APIInfo {
     APICaller.APIs apiType;
     URI uri;
 
-    AEDRequestData aedRequestData;
-    AEDResponseData aedResponseData;
+    GO_AEDRequestData GOAedRequestData;
+    GO_AEDResponseData GOAedResponseData;
 }

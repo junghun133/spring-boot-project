@@ -1,5 +1,6 @@
 package com.pjh.aed.api.data.response;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -9,12 +10,16 @@ import java.util.List;
 
 @XmlRootElement(name = "body")
 @Setter
-public class AEDItems {
-    private List<AEDItemDto> items;
+@Getter
+public class GO_AEDItems {
+    private List<GO_AEDItemDto> items;
 
     @XmlElementWrapper(name = "items")
     @XmlElement(name = "item")
-    public List<AEDItemDto> getItems(){
+    public List<GO_AEDItemDto> getItems(){
         return items;
     }
+    private Integer numOfRows;
+    private Integer pageNo;
+    private Integer totalCount;
 }

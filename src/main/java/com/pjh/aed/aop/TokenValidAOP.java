@@ -21,6 +21,7 @@ public class TokenValidAOP {
 
     @Before("execution(* com.pjh.aed.service.executor.ServiceRunnerInterface.runService(..))")
     public void tokenValid(JoinPoint joinPoint){
+        log.info("********* Token checking... ***********");
         Object[] args = joinPoint.getArgs();
         ServiceRequest request = (ServiceRequest) args[0];
 
@@ -28,5 +29,6 @@ public class TokenValidAOP {
 
         log.info("aop token: " + token);
         authDao.isToken(token);
+        log.info("***************************************");
     }
 }

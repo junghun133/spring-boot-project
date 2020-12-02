@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserProcessResponse extends Response {
+public class UserInfoResponse extends Response {
     String id;
     String name;
 
@@ -22,7 +22,7 @@ public class UserProcessResponse extends Response {
     }
 
     @Builder(builderMethodName = "userProcessResponseBuilder")
-    public UserProcessResponse(String id, String name, List<String> token){
+    public UserInfoResponse(String id, String name, List<String> token){
         this.id = id;
         this.name = name;
         this.token = token;

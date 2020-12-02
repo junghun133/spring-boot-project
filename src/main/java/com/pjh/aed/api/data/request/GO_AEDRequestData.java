@@ -1,4 +1,4 @@
 package com.pjh.aed.api.data.request;
 
-public interface AEDRequestData {
+public interface GO_AEDRequestData {
 }

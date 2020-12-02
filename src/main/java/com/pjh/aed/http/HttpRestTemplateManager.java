@@ -1,7 +1,7 @@
 package com.pjh.aed.http;
 
 import com.pjh.aed.api.APIInfo;
-import com.pjh.aed.api.data.response.AEDResponseData;
+import com.pjh.aed.api.data.response.GO_AEDResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +20,7 @@ public class HttpRestTemplateManager {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<?> httpEntity = new HttpEntity<>(headers);
 //        MultiValueMap<String, String> params = null;
-        ResponseEntity<? extends AEDResponseData> response = null;
+        ResponseEntity<? extends GO_AEDResponseData> response = null;
         try {
 //        if(apiInfo.getAedRequestData() != null)
 //            params = MultiValueMapConverter.convert(apiInfo.getAedRequestData());
@@ -28,7 +28,7 @@ public class HttpRestTemplateManager {
                 apiInfo.getUri(),
                 HttpMethod.GET,
                 httpEntity,
-                apiInfo.getAedResponseData().getClass());
+                apiInfo.getGOAedResponseData().getClass());
 
         } catch (Exception e){
             log.debug(apiInfo.getApiType() + " API fail cause:" + e);

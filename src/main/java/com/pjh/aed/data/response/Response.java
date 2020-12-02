@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Response {
-    protected String code;
-    protected String message;
+    public String code;
+    public String message;
 }

@@ -11,12 +11,16 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AEDLocationRequestData extends CommonRequestData {
+    Integer pageNo;
+    Integer numOfRows;
     String state;
     String county;
 
     @Builder(builderMethodName = "AEDLocationRequestDataBuilder")
-    public AEDLocationRequestData(String token, String state, String county){
+    public AEDLocationRequestData(String token, Integer pageNo, Integer numOfRows, String state, String county){
         setToken(token);
+        this.pageNo = pageNo;
+        this.numOfRows = numOfRows;
         this.state = state;
         this.county = county;
     }

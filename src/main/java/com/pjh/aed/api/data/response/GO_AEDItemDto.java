@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Setter @Getter
 @XmlRootElement(name = "item")
-public class AEDItemDto {
+public class GO_AEDItemDto {
     @XmlElement(name ="buildAddress" )
     private String buildAddress;
 

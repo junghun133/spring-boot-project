@@ -9,7 +9,8 @@ import java.util.Map;
 @XmlRootElement(name = "response")
 @Setter
 @Getter
-public class AEDFullDownResponse implements AEDResponseData {
+public class GO_AEDFullDownResponse implements GO_AEDResponseData {
         private Map<String, String> header;
-        private AEDItems body;
+        private GO_AEDItems body;
 }
+

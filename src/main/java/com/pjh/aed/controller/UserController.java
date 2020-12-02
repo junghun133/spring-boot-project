@@ -11,7 +11,7 @@ import com.pjh.aed.data.Result;
 import com.pjh.aed.data.domain.User;
 import com.pjh.aed.data.domain.UserAuthentication;
 import com.pjh.aed.data.request.UserRequestData;
-import com.pjh.aed.data.response.UserProcessResponse;
+import com.pjh.aed.data.response.UserInfoResponse;
 import com.pjh.aed.jwt.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -46,7 +46,7 @@ public class UserController {
     ObjectMapper objectMapper;
 
     @PostMapping("/create/user")
-    public EntityModel<UserProcessResponse> createUser(@RequestBody @Valid UserRequestData userRequestData) throws JsonProcessingException {
+    public EntityModel<UserInfoResponse> createUser(@RequestBody @Valid UserRequestData userRequestData) throws JsonProcessingException {
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
 
@@ -57,13 +57,13 @@ public class UserController {
         //create user
         userDao.createUser(userDto);
 
-        UserProcessResponse savedUser = UserProcessResponse.userProcessResponseBuilder()
+        UserInfoResponse savedUser = UserInfoResponse.userProcessResponseBuilder()
                 .id(userDto.getId())
                 .name(userDto.getName())
                 .build();
         savedUser.setResult(code, message);
 
-        EntityModel<UserProcessResponse> resource = new EntityModel<UserProcessResponse>(savedUser);
+        EntityModel<UserInfoResponse> resource = new EntityModel<UserInfoResponse>(savedUser);
 
         WebMvcLinkBuilder searchUserLinkBuilder = linkTo(methodOn(this.getClass()).searchUser(savedUser.getId()));
         WebMvcLinkBuilder createTokenLinkBuilder = linkTo(methodOn(this.getClass()).createAPIKey(null));
@@ -86,19 +86,19 @@ public class UserController {
         }
         FilterProvider filters =  entityFilter.filter("UserFilter", DataField.User.id.name(), DataField.User.name.name());
 
-        UserProcessResponse userProcessResponse = UserProcessResponse.userProcessResponseBuilder()
+        UserInfoResponse userInfoResponse = UserInfoResponse.userProcessResponseBuilder()
                 .id(foundUser.getId())
                 .name(foundUser.getName())
                 .build();
-        userProcessResponse.setResult(code, message);
+        userInfoResponse.setResult(code, message);
 
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userProcessResponse);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userInfoResponse);
         mappingJacksonValue.setFilters(filters);
         return mappingJacksonValue;
     }
 
     @PostMapping("/create/token")
-    public EntityModel<UserProcessResponse> createAPIKey(@RequestBody UserRequestData userRequestData) {
+    public EntityModel<UserInfoResponse> createAPIKey(@RequestBody UserRequestData userRequestData) {
         User foundUser = userDao.loginUser(userRequestData.getId(), userRequestData.getPassword());
         Result.Code code = Result.Code.SUCC;
         Result.DetailMessage message = Result.DetailMessage.Success;
@@ -107,20 +107,20 @@ public class UserController {
             code = Result.Code.FAIL;
             message = Result.DetailMessage.Fail_NotFoundUser;
 
-            UserProcessResponse userProcessResponse = new UserProcessResponse();
-            userProcessResponse.setResult(code, message);
-            return new EntityModel<>(userProcessResponse);
+            UserInfoResponse userInfoResponse = new UserInfoResponse();
+            userInfoResponse.setResult(code, message);
+            return new EntityModel<>(userInfoResponse);
         }
         String token = jwtService.create(userRequestData.getId());
         authDao.createToken(token, foundUser);
 
         User user = userDao.loginUser(userRequestData.getId(), userRequestData.getPassword());
 
-        UserProcessResponse userProcessResponse = UserProcessResponse.userProcessResponseBuilder()
+        UserInfoResponse userInfoResponse = UserInfoResponse.userProcessResponseBuilder()
                 .id(foundUser.getId())
                 .name(foundUser.getName())
                 .build();
-        userProcessResponse.setResult(code, message);
+        userInfoResponse.setResult(code, message);
 
         List<UserAuthentication> userAuthenticationList = user.getUserAuthenticationList();
         List<String> tokens = new ArrayList<>();
@@ -128,7 +128,7 @@ public class UserController {
             tokens.add(ua.getToken());
         }
 
-        userProcessResponse.setToken(tokens);
-        return new EntityModel<>(userProcessResponse);
+        userInfoResponse.setToken(tokens);
+        return new EntityModel<>(userInfoResponse);
     }
 }
