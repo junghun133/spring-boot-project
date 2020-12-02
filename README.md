@@ -21,3 +21,8 @@ https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15000652
 ->  현재 위치를 시도/시군구 or 좌표 데이터로 API에 요청
 
 ->  현재 위치 근방 AED설치 장소정보 응답
+
+-> 간단 
+[![IMAGE ALT TEXT HERE](https://i3.ytimg.com/vi/Zo8oYkwuJ_s/maxresdefault.jpg)](https://www.youtube.com/watch?v=Zo8oYkwuJ_s)
+
+
