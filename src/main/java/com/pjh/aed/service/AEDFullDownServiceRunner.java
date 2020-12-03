@@ -44,14 +44,14 @@ public class AEDFullDownServiceRunner implements ServiceRunnerInterface {
     public String runService(ServiceRequest request) {
         APICaller apiCaller = apiFactory.getAPICaller(apiType);
         List<String> detailAddress = aedConfiguration.getData();
-        String url = aedConfiguration.getUrl() + detailAddress.get(APIDetailCode.AEDAPIDetailCode.FULL_DATA.getCode());
-        GO_AEDFullDownRequestData requestData = new GO_AEDFullDownRequestData();
 
+        //make url
+        String url = aedConfiguration.getUrl() + detailAddress.get(APIDetailCode.AEDAPIDetailCode.FULL_DATA.getCode());
         URIAssemble uriAssemble = new URIAssemble(url, aedConfiguration.getApikey());
 
         APIInfo apiInfo = APIInfo.builder()
                 .apiType(apiType)
-                .GOAedRequestData(requestData)
+                .GOAedRequestData(new GO_AEDFullDownRequestData())
                 .GOAedResponseData(new GO_AEDFullDownResponse())
                 .uri(uriAssemble.basicAEDURIAddress())
                 .build();
@@ -66,6 +66,8 @@ public class AEDFullDownServiceRunner implements ServiceRunnerInterface {
         List<AEDInfoResponse.AED> data = new ArrayList<>();
         for (GO_AEDItemDto item : body.getItems()) {
             data.add(AEDInfoResponse.AED.builder()
+                    .buildPlace(item.getBuildPlace())
+                    .buildAddress(item.getBuildAddress())
                     .clerkTel(item.getClerkTel())
                     .model(item.getModel())
                     .wgs84Lat(item.getWgs84Lat())

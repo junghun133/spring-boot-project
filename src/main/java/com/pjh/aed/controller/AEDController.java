@@ -4,7 +4,10 @@ import com.pjh.aed.data.request.AEDLocationRequestData;
 import com.pjh.aed.service.executor.ServiceRequest;
 import com.pjh.aed.service.executor.ServiceRunnerExecutor;
 import com.pjh.aed.service.executor.ServiceRunnerType;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
 
 
 @RestController
@@ -17,7 +20,7 @@ public class AEDController {
     }
 
     //AED 전체 목록
-    @GetMapping("/find/{token}/all")
+    @GetMapping(value = "/find/{token}/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String findAEDInfoAll(@PathVariable String token, Integer pageNo, Integer numOfRows){
         ServiceRequest request = ServiceRequest.createServiceRequest(
@@ -39,7 +42,11 @@ public class AEDController {
                                   @RequestParam(required = true, value = "county") String county
                                   ){
         ServiceRequest request = ServiceRequest.createServiceRequest(
-                AEDLocationRequestData.AEDLocationRequestDataBuilder().token(token).state(state).county(county).build(),
+                AEDLocationRequestData.AEDLocationRequestDataBuilder()
+                        .token(token)
+                        .state(state)
+                        .county(county)
+                        .build(),
                 ServiceRunnerType.find(ServiceRunnerType.AED_LOCATION_INQUIRE)
         );
 
