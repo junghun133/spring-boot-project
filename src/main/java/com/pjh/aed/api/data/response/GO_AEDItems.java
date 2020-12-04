@@ -22,4 +22,5 @@ public class GO_AEDItems {
     private Integer numOfRows;
     private Integer pageNo;
     private Integer totalCount;
+
 }

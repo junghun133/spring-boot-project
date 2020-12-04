@@ -5,23 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AEDLocationRequestData extends CommonRequestData {
     Integer pageNo;
     Integer numOfRows;
-    String state;
-    String county;
+    String longitude;
+    String latitude;
 
     @Builder(builderMethodName = "AEDLocationRequestDataBuilder")
-    public AEDLocationRequestData(String token, Integer pageNo, Integer numOfRows, String state, String county){
+    public AEDLocationRequestData(String token, Integer pageNo, Integer numOfRows, String longitude, String latitude){
         setToken(token);
         this.pageNo = pageNo;
         this.numOfRows = numOfRows;
-        this.state = state;
-        this.county = county;
+        this.longitude = longitude;
+        this.latitude = latitude;;
     }
 }

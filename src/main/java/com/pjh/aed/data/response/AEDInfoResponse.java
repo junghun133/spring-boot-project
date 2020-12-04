@@ -43,6 +43,9 @@ public class AEDInfoResponse extends Response {
 
         //좌표(위도)
         private String wgs84Lon;
+
+        // 요청 위치와의 거리
+        private String distance;
     }
 
     @Setter

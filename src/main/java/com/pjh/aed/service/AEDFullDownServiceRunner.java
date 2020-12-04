@@ -36,7 +36,6 @@ public class AEDFullDownServiceRunner implements ServiceRunnerInterface {
         this.apiFactory = apiFactory;
         this.aedConfiguration = aedConfiguration;
         this.objectMapper = objectMapper;
-        aedConfiguration.getData().get(2);
     }
 
 
@@ -47,13 +46,14 @@ public class AEDFullDownServiceRunner implements ServiceRunnerInterface {
 
         //make url
         String url = aedConfiguration.getUrl() + detailAddress.get(APIDetailCode.AEDAPIDetailCode.FULL_DATA.getCode());
-        URIAssemble uriAssemble = new URIAssemble(url, aedConfiguration.getApikey());
+        URIAssemble uriAssemble = new URIAssemble();
+        uriAssemble.basicAEDURIAddress(url, aedConfiguration.getApikey());
 
         APIInfo apiInfo = APIInfo.builder()
                 .apiType(apiType)
                 .GOAedRequestData(new GO_AEDFullDownRequestData())
                 .GOAedResponseData(new GO_AEDFullDownResponse())
-                .uri(uriAssemble.basicAEDURIAddress())
+                .uri(uriAssemble.getUri())
                 .build();
 
         GO_AEDResponseData GOAedResponseData = apiCaller.APICall(apiInfo);

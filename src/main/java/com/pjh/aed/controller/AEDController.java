@@ -35,17 +35,21 @@ public class AEDController {
         return serviceExecutor.execute(request);
     }
 
-    //AED 지역 조회
-    @GetMapping("/find/{token}/address")
+    //좌표부근 AED 위치조회
+    @GetMapping("/find/{token}/location")
     public String findAEDInfoFromAddress(@PathVariable String token,
-                                  @RequestParam(required = true, value = "state") String state,
-                                  @RequestParam(required = true, value = "county") String county
-                                  ){
+                                  @RequestParam(required = true, value = "WGS84_LON") String longitude,
+                                  @RequestParam(required = true, value = "WGS84_LAT") String latitude,
+                                 @RequestParam(required = false, value = "pageNo") Integer pageNo,
+                                 @RequestParam(required = false, value = "numOfRows") Integer numOfRows
+                                         ){
         ServiceRequest request = ServiceRequest.createServiceRequest(
                 AEDLocationRequestData.AEDLocationRequestDataBuilder()
                         .token(token)
-                        .state(state)
-                        .county(county)
+                        .longitude(longitude)
+                        .latitude(latitude)
+                        .pageNo(pageNo)
+                        .numOfRows(numOfRows)
                         .build(),
                 ServiceRunnerType.find(ServiceRunnerType.AED_LOCATION_INQUIRE)
         );

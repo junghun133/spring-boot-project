@@ -47,4 +47,8 @@ public class GO_AEDItemDto {
 
     @XmlElement(name ="zipcode2" )
     private String zipcode2;
+
+    @XmlElement(name ="distance")
+    private String distance;
+
 }
