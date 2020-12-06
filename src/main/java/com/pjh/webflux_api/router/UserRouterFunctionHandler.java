@@ -17,8 +17,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Component
 public class UserRouterFunctionHandler {
 
+    //searchuser::Usercontroller 기능 동일
     public Mono<ServerResponse> userSearch(ServerRequest request) {
-        Mono<UserDto> userDtoMono = Mono.just(new UserDto(1, "hello", "hi"));
+        Mono<UserDto> userDtoMono = Mono.just(new UserDto(1L, "hello", "hi"));
         return ServerResponse.ok().body(userDtoMono, UserRouterFunctionHandler.class);
     }
 

@@ -13,6 +13,7 @@ public class UserController {
     @GetMapping("/search")
     public Mono<UserDto> search(){
         UserDto userDto = new UserDto();
+        userDto.setId(1L);
         userDto.setUser_id("jh");
         userDto.setUser_pwd("1234");
         return Mono.just(userDto);
