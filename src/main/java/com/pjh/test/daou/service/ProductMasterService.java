@@ -12,11 +12,10 @@ public class ProductMasterService {
     private final ProductMasterRepository productMasterRepository;
 
     /**
-     * 상품 등록 갯수
+     * 상품 총 개수 조회
      * @return
      */
     public int findAllProductCount(){
-        int count = (int) productMasterRepository.count();
-        return count;
+        return (int) productMasterRepository.count();
     }
 }
