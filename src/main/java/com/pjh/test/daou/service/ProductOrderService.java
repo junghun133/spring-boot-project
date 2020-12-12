@@ -4,13 +4,13 @@ import com.pjh.test.daou.domain.Delivery;
 import com.pjh.test.daou.domain.OrderLine;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.domain.ProductTrade;
+import com.pjh.test.daou.exception.NotFoundProductException;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import com.pjh.test.daou.repository.ProductTradeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +31,7 @@ public class ProductOrderService {
     public Long trade(Long productMasterId, Delivery delivery, int count){
         //상품 조회
         Optional<ProductMaster> productOptional = productMasterRepository.findById(productMasterId);
-        productOptional.orElseThrow(NoSuchElementException::new);
+        productOptional.orElseThrow(NotFoundProductException::new);
 
         ProductMaster product = productOptional.get();
 

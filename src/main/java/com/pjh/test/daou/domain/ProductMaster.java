@@ -1,6 +1,6 @@
 package com.pjh.test.daou.domain;
 
-import com.pjh.test.daou.exception.NotEnothStockException;
+import com.pjh.test.daou.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class ProductMaster {
             log.info("============== Stock deduction failed =========== ");
             log.info("id: " + id);
             log.info("name: " + name);
-            throw new NotEnothStockException("need more stock");
+            throw new NotEnoughStockException("need more stock");
         }
 
         this.stock = restStock;

@@ -7,7 +7,8 @@ import com.pjh.test.daou.domain.RecipientInfo;
 import com.pjh.test.daou.domain.enumerate.DeliveryStatus;
 import com.pjh.test.daou.domain.enumerate.OrderStatus;
 import com.pjh.test.daou.domain.product.Outer;
-import com.pjh.test.daou.exception.NotEnothStockException;
+import com.pjh.test.daou.exception.NotEnoughStockException;
+import com.pjh.test.daou.exception.NotFoundProductException;
 import com.pjh.test.daou.repository.ProductTradeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
-import static org.springframework.test.util.AssertionErrors.fail;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -46,15 +46,14 @@ class ProductOrderServiceTest {
         delivery = createDelivery("박정훈", "01027075947", "경기도 용인시 수지구 죽전동 454");
         orderCount = 2;
     }
+
     /**
-     * 주문 테스트
+     * ================================================= 주문 정상 조회 테스트
      */
     @Test
-    public void productTrade() {
+    public void productTradeTest() {
         //given
-//        ProductMaster outer = createClothes("Cardigan", 15000, 5);
-//        Delivery delivery = createDelivery("박정훈", "01027075947", "경기도 용인시 수지구 죽전동 454");
-//        int orderCount = 2;
+        orderCount = 2;
 
         //when
         Long tradeId = productOrderService.trade(outer.getId(), delivery, orderCount);
@@ -68,15 +67,27 @@ class ProductOrderServiceTest {
     }
 
     /**
-     * 주문시 재고 초과 테스트
+     * ================================================= 주문시 제품의 재고가 초과일때
      */
     @Test
-    public void productStockOver() {
+    public void productStockOverTest() {
         //given
         orderCount = 10;
-
         //when then
-        assertThrows(NotEnothStockException.class, () -> productOrderService.trade(outer.getId(), delivery, orderCount));
+        Long tradeId = productOrderService.trade(outer.getId(), delivery, orderCount);
+        Optional<ProductTrade> productTrade = productTradeRepository.findById(tradeId);
+        assertThrows(NotEnoughStockException.class, () -> productOrderService.trade(productTrade.get().getId(), delivery, orderCount));
+    }
+
+    /**
+     * ================================================= 주문시 상품정보 찾을 수 없을 때
+     */
+    @Test
+    public void productNotfoundTest(){
+        //given
+        orderCount = 2;
+        //when then
+        assertThrows(NotFoundProductException.class, () -> productOrderService.trade(1000L, delivery, orderCount));
     }
 
     private Outer createClothes(String name, int price, int stockQuantity) {
