@@ -1,14 +1,13 @@
 package com.pjh.test.daou.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Table(name = "TB_ORDER_LINE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //일반생성 제한
 public class OrderLine {
     @Id
     @GeneratedValue

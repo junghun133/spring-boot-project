@@ -1,8 +1,10 @@
 package com.pjh.test.daou.domain;
 
 import com.pjh.test.daou.domain.enumerate.OrderStatus;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,16 +16,17 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @Table(name = "TB_PRODUCT_TRADE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductTrade {
     @Id
     @GeneratedValue
     @Column(name = "product_trade_id")
     private Long id;
 
-    @OneToMany(mappedBy = "productTrade")
+    @OneToMany(mappedBy = "productTrade", cascade = CascadeType.ALL)
     private final List<OrderLine> orderLines = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     private Delivery delivery;
 
     private LocalDateTime orderDate;

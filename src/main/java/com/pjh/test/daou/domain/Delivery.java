@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "TB_DELIVERY")
 public class Delivery {
     @Id @GeneratedValue

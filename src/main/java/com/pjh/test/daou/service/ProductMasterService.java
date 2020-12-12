@@ -6,9 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ProductMasterService {
-    //주문
-
 
 }

@@ -2,6 +2,7 @@ package com.pjh.test.daou.domain;
 
 import com.pjh.test.daou.exception.NotEnothStockException;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type") // single table 구분
-@Getter
+@Getter @Setter
 @Table(name = "TB_PRODUCT_MASTER")
 public class ProductMaster {
 
@@ -26,7 +27,7 @@ public class ProductMaster {
     private String imagePath;
     private int deliveryFee;
 
-    @OneToMany(mappedBy = "productMaster")
+    @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL)
     private List<ProductModifyHistory> productModifyHistory;
 
     @Lob
