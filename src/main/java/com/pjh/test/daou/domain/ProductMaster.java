@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -26,6 +27,7 @@ public class ProductMaster {
     private int stock;
     private String imagePath;
     private int deliveryFee;
+    private LocalDateTime registrationDate;
 
     @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL)
     private List<ProductModifyHistory> productModifyHistory;

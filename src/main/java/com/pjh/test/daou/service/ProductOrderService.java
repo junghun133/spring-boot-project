@@ -41,6 +41,7 @@ public class ProductOrderService {
         //주문 생성
         ProductTrade productTrade = ProductTrade.createProductTrade(delivery, orderLine);
 
+        //주문내역 저장 (cascade 로 인해 관련 entity 에 모두 save)
         productTradeRepository.save(productTrade);
         return productTrade.getId();
     }

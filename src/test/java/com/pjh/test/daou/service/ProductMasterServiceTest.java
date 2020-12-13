@@ -26,7 +26,7 @@ class ProductMasterServiceTest {
 
     @BeforeEach
     public void setup(){
-
+        productMasterRepository.deleteAll();
     }
 
     @Test

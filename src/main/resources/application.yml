@@ -1,5 +1,9 @@
 server:
   port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
 
 spring:
   datasource:
@@ -7,16 +11,17 @@ spring:
     username: daou
     password: daou
     driver-class-name: org.h2.Driver
+    initialization-mode: always
 
   jpa:
     hibernate:
       ddl-auto: create
+#      ddl-auto: none
     properties:
       hibernate:
        # show_sql: true
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
-
 #log:
 #  path: /log/was/
 #  name: test_shopping_mall.log

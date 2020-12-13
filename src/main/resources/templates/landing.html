@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
 
 <head>
 
@@ -38,14 +38,16 @@
                 <div class="masthead-content text-white py-5 py-md-0">
                     <h1 class="mb-3">안녕하세요!</h1>
                     <p class="mb-5"><strong>옷뿌리오</strong>에 오신걸 환영합니다. <br>현재
-                        <strong>1234</strong>개의 상품이 등록되어있습니다! <br>원하는 상품이 있다면 검색해보세요.</p>
+                        <strong th:text="${allProductCount}"></strong>개의 상품이 등록되어있습니다! <br>원하는 상품이 있다면 검색해보세요.</p>
 
-                    <div class="input-group input-group-newsletter">
-                        <input type="email" class="form-control" placeholder="상품명.." aria-label="상품명.." aria-describedby="submit-button">
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" id="submit-button">검색 or 입장하기</button>
+                    <form action="/home" method="post">
+                        <div class="input-group input-group-newsletter">
+                            <input type="text" id="product" name="product" class="form-control" placeholder="상품명.." aria-label="상품명.." aria-describedby="submit-button">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit" id="submit-button">검색 or 입장하기</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
