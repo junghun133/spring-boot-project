@@ -1,10 +1,8 @@
 package com.pjh.test.daou.repository.dsl;
 
 import com.pjh.test.daou.domain.ProductMaster;
-import com.pjh.test.daou.domain.QProductMaster;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -29,23 +27,15 @@ public class ProductMasterRepositoryImpl implements ProductMasterRepositoryQD{
                 .selectFrom(productMaster)
                 .where(
                         ltProductId(productId),
-                        isProductContainsKeyword(keyword)
+                        isProductNameContainsKeyword(keyword)
                 )
                 .orderBy(productMaster.id.desc())
                 .limit(pageSize)
                 .fetch();
     }
 
-    private BooleanExpression isProductContainsKeyword(String keyword){
-        return StringUtils.isEmpty(keyword) ? null : isProductNameContainsKeyword(keyword).or(isProductExplainContainsKeyword(keyword));
-    }
-
     private BooleanExpression isProductNameContainsKeyword(String keyword) {
-        return productMaster.name.like(keyword);
-    }
-
-    private BooleanExpression isProductExplainContainsKeyword(String keyword) {
-        return productMaster.explain.like(keyword);
+        return StringUtils.isEmpty(keyword) ? null : productMaster.name.contains(keyword); //index를 타게하려면 + "%"
     }
 
     private BooleanExpression ltProductId(Long productId){

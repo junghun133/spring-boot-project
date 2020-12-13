@@ -40,7 +40,8 @@
                     <p class="mb-5"><strong>옷뿌리오</strong>에 오신걸 환영합니다. <br>현재
                         <strong th:text="${allProductCount}"></strong>개의 상품이 등록되어있습니다! <br>원하는 상품이 있다면 검색해보세요.</p>
 
-                    <form action="/home" method="post">
+                    <!--/*@thymesVar id="productListForm" type="java"*/-->
+                    <form action="/home" th:object="${productListForm}" method="post">
                         <div class="input-group input-group-newsletter">
                             <input type="text" id="product" name="product" class="form-control" placeholder="상품명.." aria-label="상품명.." aria-describedby="submit-button">
                             <div class="input-group-append">

@@ -4,7 +4,7 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
-<html lang="kr">
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
 <head>
     <title>옷 뿌리오</title>
     <meta charset="utf-8" />
@@ -37,63 +37,19 @@
         <!-- Boxes -->
         <div class="thumbnails">
 
-            <div class="box">
-                <a href="https://youtu.be/s6zR2T9vn2c" class="image fit"><img src="/media/pic01.jpg" alt="" /></a>
-                <div class="inner">
-                    <h3>Nascetur nunc varius commodo</h3>
-                    <p>Interdum amet accumsan placerat commodo ut amet aliquam blandit nunc tempor lobortis nunc non. Mi accumsan.</p>
-                    <a href="https://youtu.be/s6zR2T9vn2c" class="button fit" data-poptrox="youtube,800x400">Watch</a>
+            <tr th:each="product : ${productList}">
+                <div class="box">
+                    <a href="#" class="image fit"><img th:src="${product.imagePath}" alt="" /></a>
+                    <div class="inner">
+                        <h3 th:text="${product.name}">name</h3>
+                        <p th:text="${product.explain}">explain</p>
+                        <p th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}">price</p>
+                        <a href="#" class="button fit" data-poptrox="youtube,800x400">자세히</a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="box">
-                <a href="https://youtu.be/s6zR2T9vn2c" class="image fit"><img src="/media/pic02.jpg" alt="" /></a>
-                <div class="inner">
-                    <h3>Nascetur nunc varius commodo</h3>
-                    <p>Interdum amet accumsan placerat commodo ut amet aliquam blandit nunc tempor lobortis nunc non. Mi accumsan.</p>
-                    <a href="https://youtu.be/s6zR2T9vn2c" class="button style2 fit" data-poptrox="youtube,800x400">Watch</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <a href="https://youtu.be/s6zR2T9vn2c" class="image fit"><img src="/media/pic03.jpg" alt="" /></a>
-                <div class="inner">
-                    <h3>Nascetur nunc varius commodo</h3>
-                    <p>Interdum amet accumsan placerat commodo ut amet aliquam blandit nunc tempor lobortis nunc non. Mi accumsan.</p>
-                    <a href="https://youtu.be/s6zR2T9vn2c" class="button style3 fit" data-poptrox="youtube,800x400">Watch</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <a href="https://youtu.be/s6zR2T9vn2c" class="image fit"><img src="/media/pic04.jpg" alt="" /></a>
-                <div class="inner">
-                    <h3>Nascetur nunc varius commodo</h3>
-                    <p>Interdum amet accumsan placerat commodo ut amet aliquam blandit nunc tempor lobortis nunc non. Mi accumsan.</p>
-                    <a href="https://youtu.be/s6zR2T9vn2c" class="button style2 fit" data-poptrox="youtube,800x400">Watch</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <a href="https://youtu.be/s6zR2T9vn2c" class="image fit"><img src="/media/pic05.jpg" alt="" /></a>
-                <div class="inner">
-                    <h3>Nascetur nunc varius commodo</h3>
-                    <p>Interdum amet accumsan placerat commodo ut amet aliquam blandit nunc tempor lobortis nunc non. Mi accumsan.</p>
-                    <a href="https://youtu.be/s6zR2T9vn2c" class="button style3 fit" data-poptrox="youtube,800x400">Watch</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <a href="https://youtu.be/s6zR2T9vn2c" class="image fit"><img src="/media/pic06.jpg" alt="" /></a>
-                <div class="inner">
-                    <h3>Nascetur nunc varius commodo</h3>
-                    <p>Interdum amet accumsan placerat commodo ut amet aliquam blandit nunc tempor lobortis nunc non. Mi accumsan.</p>
-                    <a href="https://youtu.be/s6zR2T9vn2c" class="button fit" data-poptrox="youtube,800x400">Watch</a>
-                </div>
-            </div>
-
-
+            </tr>
         </div>
-
+        <input type="hidden" id="timeline_moimId" th:value="${productList.get(productList.size()-1)}"/>
     </div>
 </div>
 
@@ -101,9 +57,8 @@
 <footer id="footer">
     <div class="inner">
         <h2>다우 인터넷서비스개발 과제전형</h2>
-        <p>용인에 거주하는 29살 박정훈<br>
-            "내가 개발한 코드를 다른 사람이 보았을 때, 읽기 좋은 깨끗한 책 처럼 읽혔으면 좋겠다" <br>라는 개발 가치관을 가지고 있다고 한다.</p>
-
+        <p>
+            "내가 개발한 코드를 다른 사람이 보았을 때, 읽기 좋은 깨끗한 책처럼 느껴졌으면 좋겠다" <br> - 박정훈(개발자)</p>
         <ul class="icons">
             <li><a href="/manager" ><span class="label">상품관리</span></a></li>
         </ul>
