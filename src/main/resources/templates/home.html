@@ -35,22 +35,28 @@
     <div class="inner">
 
         <!-- Boxes -->
-        <div class="thumbnails">
-
+        <div id="boxes" class="thumbnails">
             <tr th:each="product : ${productList}">
                 <div class="box">
-                    <a href="#" class="image fit"><img th:src="${product.imagePath}" alt="" /></a>
+                    <a th:href="@{'/product/' + ${product.id}}" class="image fit"><img th:src="${product.imagePath}" alt="" /></a>
                     <div class="inner">
                         <h3 th:text="${product.name}">name</h3>
                         <p th:text="${product.explain}">explain</p>
                         <p th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}">price</p>
-                        <a href="#" class="button fit" data-poptrox="youtube,800x400">자세히</a>
+                        <a th:field="detail" th:href="@{'/product/' + ${product.id}}">자세히</a>
                     </div>
                 </div>
             </tr>
         </div>
-        <input type="hidden" id="timeline_moimId" th:value="${productList.get(productList.size()-1)}"/>
+        <div class="inner">
+            <form id="moreForm" action="/home" method="post">
+                <input type="hidden" id="productId" th:value="${productList.get(productList.size()-1).id}"/>
+    <!--            <input type="hidden" id="product" th:value="${productList.get(productList.size()-1)}"/>-->
+                <button type="button" id="moreBtn" onclick="showMoreTimeline()" class="btn btn-primary">더보기</button>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <!-- Footer -->
@@ -68,7 +74,7 @@
 <!-- Scripts -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.scrolly.min.js"></script>
-<script src="/js/jquery.poptrox.min.js"></script>
+<!--<script src="/js/jquery.poptrox.min.js"></script>-->
 <script src="/js/skel.min.js"></script>
 <script src="/js/util.js"></script>
 <script src="/js/main.js"></script>
