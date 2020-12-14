@@ -1,5 +1,6 @@
 package com.pjh.test.daou.domain;
 
+import com.pjh.test.daou.domain.product.Product;
 import com.pjh.test.daou.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -29,8 +31,10 @@ public class ProductMaster {
     private int deliveryFee;
     private LocalDateTime registrationDate;
 
+    @Column(name = "product_type", insertable = false, updatable = false)
+    private String productType;
     @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL)
-    private List<ProductModifyHistory> productModifyHistory;
+    private List<ProductModifyHistory> productModifyHistoryList = new ArrayList<>();
 
     @Lob
     private String explain;
@@ -45,5 +49,10 @@ public class ProductMaster {
         }
 
         this.stock = restStock;
+    }
+
+    public void addModifyHistory(ProductModifyHistory productModifyHistory){
+        productModifyHistoryList.add(productModifyHistory);
+        productModifyHistory.setProductMaster(this);
     }
 }

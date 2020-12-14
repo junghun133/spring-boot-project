@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form th:object="${productForm}" method="post">
+        <!-- id -->
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{productType}" />
+        <div class="form-group">
+            <label th:for="productType">상품 종류 코드</label>
+            <input type="text" th:field="*{productType}" class="form-control"
+                  disabled />
+        </div>
+
+        <div class="form-group">
+            <label th:for="name">상품명</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   placeholder="이름을 입력하세요" />
+        </div>
+        <div class="form-group">
+            <label th:for="price">가격</label>
+            <input type="number" th:field="*{price}" class="form-control"
+                   placeholder="가격을 입력하세요" />
+        </div>
+        <div class="form-group">
+            <label th:for="stock">수량</label>
+            <input type="number" th:field="*{stock}" class="formcontrol" placeholder="수량을 입력하세요" />
+        </div>
+        <div class="form-group">
+            <label th:for="explain">설명</label>
+            <input type="text" th:field="*{explain}" class="formcontrol" placeholder="설명을 입력하세요"  style="width:800px;height:100px;font-size:15px;" />
+        </div>
+        <div class="form-group">
+            <label th:for="deliveryFee">배송가격</label>
+            <input type="number" th:field="*{deliveryFee}" class="formcontrol" placeholder="배송가격을 입력하세요" />
+        </div>
+
+        <div class="form-group" style="display:none">
+            <label th:for="material">재질</label>
+            <input type="text" th:field="*{material}" class="form-control"
+                   placeholder="재질을 입력하세요" />
+        </div>
+        <div class="form-group" style="display:none">
+            <label th:for="waistWidth">상의 사이즈</label>
+            <input type="text" th:field="*{waistWidth}" class="form-control"
+                   placeholder="상의 사이즈를 입력하세요" />
+        </div>
+        <div class="form-group" style="display:none">
+            <label th:for="shoulderWidth">하의 사이즈</label>
+            <input type="text" th:field="*{shoulderWidth}" class="form-control"
+                   placeholder="하의 사이즈를 입력하세요" />
+        </div>
+        <button type="submit" class="btn btn-primary">확인</button>
+    </form>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

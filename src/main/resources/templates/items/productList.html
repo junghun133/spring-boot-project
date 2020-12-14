@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <a href="#" th:href="@{/product/delete/{id} (id=${product.id})}"
-                       class="btn btn-primary" role="button">삭제</a>
+                       class="btn btn-primary" role="button" th:onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                 </td>
             </tr>
             </tbody>

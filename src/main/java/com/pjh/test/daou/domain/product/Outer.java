@@ -12,6 +12,16 @@ import javax.persistence.Entity;
 @DiscriminatorValue("O001")
 @Setter
 @Getter
-public class Outer extends ProductMaster {
+public class Outer extends ProductMaster implements Product {
     private String material; //재질
+
+
+    @Override
+    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee) {
+        setName(name);
+        setPrice(price);
+        setStock(stock);
+        setExplain(explain);
+        setDeliveryFee(deliveryFee);
+    }
 }

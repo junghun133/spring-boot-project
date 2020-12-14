@@ -1,28 +1,85 @@
 package com.pjh.test.daou.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pjh.test.daou.controller.ProductForm;
 import com.pjh.test.daou.controller.ProductListForm;
 import com.pjh.test.daou.domain.ProductMaster;
+import com.pjh.test.daou.domain.ProductModifyHistory;
+import com.pjh.test.daou.domain.product.ProductFactory;
+import com.pjh.test.daou.domain.product.ProductType;
 import com.pjh.test.daou.exception.BadRequestProductException;
+import com.pjh.test.daou.exception.NotFoundProductException;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ProductMasterService {
     private final ProductMasterRepository productMasterRepository;
-    private final int DEFAULT_LIST_COUNT = 9;
+    private final ProductHistoryManager productHistoryManager;
 
-
+    /**
+     * 상품 저장
+     * @param productMaster
+     */
     @Transactional
     public void saveProduct(ProductMaster productMaster){
+        productMaster.setRegistrationDate(LocalDateTime.now());
         productMasterRepository.save(productMaster);
     }
 
+    /**
+     * 상품 수정
+     * @param productForm
+     */
+    @Transactional
+    public void updateProduct(ProductForm productForm){
+        StringBuilder updateLogSB = new StringBuilder();
+
+        Optional<ProductMaster> productOptional = productMasterRepository.findById(productForm.getId());
+        ProductMaster productObject = productOptional.orElseThrow(NotFoundProductException::new);
+        ProductType productType = ProductType.convertProductType(productForm.getProductType());
+
+        updateLogSB.append("before||");
+        updateLogSB.append(productHistoryManager.convertPojo2Json(productObject));
+
+        //dirty checking
+        ProductFactory.createFormToProductObject(productType, productForm, productObject);
+
+        updateLogSB.append("||update||");
+        updateLogSB.append(productHistoryManager.convertPojo2Json(productObject));
+
+        // 상품 변경내역 히스토리
+        ProductModifyHistory productModifyHistory = new ProductModifyHistory();
+        productModifyHistory.setModifiedDate(LocalDateTime.now());
+        productModifyHistory.setModifiedLog(updateLogSB.toString());
+
+        //cascade
+        productObject.addModifyHistory(productModifyHistory);
+    }
+
+    @Transactional
+    public void deleteProduct(Long productId) {
+        productMasterRepository.deleteById(productId);
+    }
+
+    public ProductMaster findProduct(Long productId){
+        Optional<ProductMaster> selectedProduct = productMasterRepository.findById(productId);
+        return selectedProduct.orElseThrow(NotFoundProductException::new);
+    }
+    /**
+     * 상품 전체 조회 (조건 미포함)
+     * @return
+     */
     public List<ProductMaster> findProducts(){
         return productMasterRepository.findAll();
     }
@@ -35,7 +92,7 @@ public class ProductMasterService {
     }
 
     /**
-     * 상품 List 뿌리기 조회
+     * 상품 전체 조회(조건 포함)
      */
     public List<ProductMaster> findProductsPaging(ProductListForm productListForm){
         if(productListForm == null){
@@ -43,4 +100,5 @@ public class ProductMasterService {
         }
         return productMasterRepository.selectProductList(productListForm.getProductId(), productListForm.getPageSize(), productListForm.getProduct());
     }
+
 }

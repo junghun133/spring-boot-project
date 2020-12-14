@@ -7,10 +7,7 @@ import com.pjh.test.daou.service.ProductMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,7 +31,7 @@ public class ProductController {
     @PostMapping("/product/add")
     public String createProduct(ProductForm productForm){
 //        productMaster.setImagePath(productForm.getImagePath()); TODO 이미지 등록
-        productMasterService.saveProduct(ProductFactory.createProduct(ProductType.valueOf(productForm.getProductType()), productForm));
+        productMasterService.saveProduct(ProductFactory.createFormToProductObject(ProductType.valueOf(productForm.getProductType()), productForm, new ProductMaster()));
 
         return "redirect:/home";
     }
@@ -44,6 +41,31 @@ public class ProductController {
         List<ProductMaster> products = productMasterService.findProducts();
         model.addAttribute("products", products);
         return "items/productList";
+    }
 
+    @GetMapping("/product/update/{productId}")
+    public String updateProductForm(@PathVariable("productId") Long productId, Model model){
+        ProductMaster product = productMasterService.findProduct(productId);
+
+        ProductForm productForm = ProductFactory.createProductObjectToForm(ProductType.convertProductType(product.getProductType()), product);
+        model.addAttribute("productForm", productForm);
+
+//        productForm.setProductImage(); TODO
+        return "items/updateProduct";
+    }
+
+    @PostMapping("/product/update/{productId}")
+    public String updateProductForm(@ModelAttribute("productForm") ProductForm productForm){
+//        productMasterService.saveProduct(ProductFactory.createFormToProductObject(ProductType.convertProductType(productForm.getProductType()), productForm));
+        productMasterService.updateProduct(productForm);
+
+        return "redirect:/home"; //요구사항에 명시되어있음 리스트로 가는것이 더좋아보임
+    }
+
+    @GetMapping("/product/delete/{productId}")
+    public String deleteProductForm(@PathVariable Long productId){
+        productMasterService.deleteProduct(productId);
+
+        return "redirect:/home";
     }
 }
