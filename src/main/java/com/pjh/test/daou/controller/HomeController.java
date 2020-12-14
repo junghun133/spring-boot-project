@@ -16,13 +16,15 @@ public class HomeController {
     ProductMasterService productMasterService;
 
     @RequestMapping("/home")
-    public String home(){
+    public String home(Model model){
+        List<ProductMaster> productList = productMasterService.findProductsPaging(new ProductListForm());
+        model.addAttribute("productList", productList);
         return "home";
     }
 
     @PostMapping(value = "/home")
     public String home(Model model, ProductListForm productListForm){
-        List<ProductMaster> productList = productMasterService.findProductList(productListForm);
+        List<ProductMaster> productList = productMasterService.findProductsPaging(productListForm);
         model.addAttribute("productList", productList);
 
         return "home";

@@ -131,7 +131,7 @@ function showMoreTimeline(){
 		cache: false
 	}).done(function (productList) {
 		$("#boxes").replaceWith(productList);
-
+//TODO
 		/*var html = "";
 
 		for(product in productList){

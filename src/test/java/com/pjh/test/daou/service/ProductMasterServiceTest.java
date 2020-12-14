@@ -1,6 +1,5 @@
 package com.pjh.test.daou.service;
 
-import com.pjh.test.daou.controller.ProductListForm;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.domain.product.Outer;
 import com.pjh.test.daou.exception.BadRequestProductException;
@@ -8,16 +7,10 @@ import com.pjh.test.daou.repository.ProductMasterRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,7 +35,7 @@ class ProductMasterServiceTest {
 
     @Test
     public void findProductListExceptionTest(){
-        assertThrows(BadRequestProductException.class, () -> productMasterService.findProductList(null));
+        assertThrows(BadRequestProductException.class, () -> productMasterService.findProductsPaging(null));
     }
 
     @Test

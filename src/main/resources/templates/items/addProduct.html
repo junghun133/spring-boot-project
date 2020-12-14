@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form th:action="@{/product/add}" th:object="${productForm}" method="post" >
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-danger">
+                    <input type="radio" th:field="*{productType}" name="jb-radio" id="jb-radio-1" th:onchange="productTypeInfo()" th:value="Outer"> 아우터
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" th:field="*{productType}"  name="jb-radio" id="jb-radio-2" th:onchange="productTypeInfo()" th:value="Top"> 상의
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" th:field="*{productType}"  name="jb-radio" id="jb-radio-3" th:onchange="productTypeInfo()" th:value="Pants"> 하의
+                </label>
+            </div>
+
+        <script>
+            function productTypeInfo(){
+                if($('input:radio[id=jb-radio-1]').is(':checked')) {
+                    $('#topDiv').hide();
+                    $('#pantsDiv').hide();
+                    $('#outerDiv').show();
+
+                }else if($('input:radio[id=jb-radio-2]').is(':checked')){
+                    $('#outerDiv').hide();
+                    $('#pantsDiv').hide();
+                    $('#topDiv').show();
+                }else{
+                    $('#outerDiv').hide();
+                    $('#topDiv').hide();
+                    $('#pantsDiv').show();
+                }
+            }
+        </script>
+        <!-- 상품 별 추가 정보-->
+        <div class="form-group" id="outerDiv" style="display:none">
+            <label th:for="material">재질</label>
+            <input type="text" th:field="*{material}" class="form-control"
+                   placeholder="이 아우터의 재질은 어떻게되나요?">
+        </div>
+        <div class="form-group" id="topDiv" style="display:none">
+            <label th:for="shoulderWidth">상의 사이즈 정보</label>
+            <input type="text" th:field="*{shoulderWidth}" class="form-control"
+                   placeholder="이 상의의 사이즈 정보는요? ex)어깨 64, 가슴 63, 팔길이 57, 총기장 68">
+        </div>
+        <div class="form-group" id="pantsDiv" style="display:none">
+            <label th:for="waistWidth">하의 사이즈 정보</label>
+            <input type="text" th:field="*{waistWidth}" class="form-control"
+                   placeholder="이 하의의 사이즈 정보는요? ex)허리 39, 밑위 28, 허벅지31, 밑단 19, 총길이 102 ">
+        </div>
+<br>
+
+        <strong><label>이미지 등록</label></strong>
+        <input type="file" th:feild="*{productImage}" accept="image/*">
+
+        <div class="form-group">
+            <label th:for="name">상품명</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   placeholder="이름을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="price">가격</label>
+            <input type="number" th:field="*{price}" class="form-control"
+                   placeholder="가격을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="stockQuantity">수량</label>
+            <input type="number" th:field="*{stock}" class="form-control" placeholder="수량을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="explain">상품설명</label>
+            <input type="text" th:field="*{explain}" class="form-control" placeholder="설명을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="delivery-fee">배송비</label>
+            <input type="number" th:field="*{deliveryFee}" class="form-control" placeholder="배송 금액을 입력하세요">
+        </div>
+        <!--<div class="form-group"> 이미지
+            <label th:for="delivery-fee">배송비</label>
+            <input type="number" th:field="*{deliveryFee}" class="form-control" placeholder="배송 금액을 입력하세요">
+        </div>
+      -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>

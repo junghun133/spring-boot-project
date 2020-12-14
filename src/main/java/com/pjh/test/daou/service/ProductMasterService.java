@@ -18,6 +18,14 @@ public class ProductMasterService {
     private final int DEFAULT_LIST_COUNT = 9;
 
 
+    @Transactional
+    public void saveProduct(ProductMaster productMaster){
+        productMasterRepository.save(productMaster);
+    }
+
+    public List<ProductMaster> findProducts(){
+        return productMasterRepository.findAll();
+    }
     /**
      * 상품 총 개수 조회
      * @return
@@ -29,7 +37,7 @@ public class ProductMasterService {
     /**
      * 상품 List 뿌리기 조회
      */
-    public List<ProductMaster> findProductList(ProductListForm productListForm){
+    public List<ProductMaster> findProductsPaging(ProductListForm productListForm){
         if(productListForm == null){
             throw new BadRequestProductException();
         }
