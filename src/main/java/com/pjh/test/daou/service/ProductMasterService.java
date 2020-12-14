@@ -27,20 +27,14 @@ public class ProductMasterService {
     private final ProductMasterRepository productMasterRepository;
     private final ProductHistoryManager productHistoryManager;
 
-    /**
-     * 상품 저장
-     * @param productMaster
-     */
+    //상품 저장
     @Transactional
     public void saveProduct(ProductMaster productMaster){
         productMaster.setRegistrationDate(LocalDateTime.now());
         productMasterRepository.save(productMaster);
     }
 
-    /**
-     * 상품 수정
-     * @param productForm
-     */
+    //상품 수정
     @Transactional
     public void updateProduct(ProductForm productForm){
         StringBuilder updateLogSB = new StringBuilder();
@@ -67,33 +61,29 @@ public class ProductMasterService {
         productObject.addModifyHistory(productModifyHistory);
     }
 
+    //상품 삭제
     @Transactional
     public void deleteProduct(Long productId) {
         productMasterRepository.deleteById(productId);
     }
 
+    // 상품 단건 조회
     public ProductMaster findProduct(Long productId){
         Optional<ProductMaster> selectedProduct = productMasterRepository.findById(productId);
         return selectedProduct.orElseThrow(NotFoundProductException::new);
     }
-    /**
-     * 상품 전체 조회 (조건 미포함)
-     * @return
-     */
+
+    // 상품 전체 조회 (조건 미포함)
     public List<ProductMaster> findProducts(){
         return productMasterRepository.findAll();
     }
-    /**
-     * 상품 총 개수 조회
-     * @return
-     */
+
+    //상품 총 개수 조회
     public int findAllProductCount(){
         return (int) productMasterRepository.count();
     }
 
-    /**
-     * 상품 전체 조회(조건 포함)
-     */
+    //상품 전체 조회(조건 포함)
     public List<ProductMaster> findProductsPaging(ProductListForm productListForm){
         if(productListForm == null){
             throw new BadRequestProductException();

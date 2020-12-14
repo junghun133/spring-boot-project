@@ -68,4 +68,19 @@ public class ProductController {
 
         return "redirect:/home";
     }
+
+    @GetMapping("/product/{productId}")
+    public String detailProductForm(@PathVariable Long productId, Model model){
+        ProductMaster product = productMasterService.findProduct(productId);
+        model.addAttribute("product", product);
+        model.addAttribute("tradeForm", new TradeForm());
+
+        return "items/productDetail";
+    }
+
+    @PostMapping("/product/product/buy/{productId}")
+    public String buyProductForm(@ModelAttribute("tradeForm") TradeForm tradeForm ){
+//        productMasterService.buyProduct(tradeForm);
+        return "redirect:/home";
+    }
 }
