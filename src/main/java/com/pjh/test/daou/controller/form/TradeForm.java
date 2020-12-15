@@ -1,4 +1,4 @@
-package com.pjh.test.daou.controller;
+package com.pjh.test.daou.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;

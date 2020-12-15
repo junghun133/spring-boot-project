@@ -22,25 +22,26 @@ public class ProductMasterRepositoryImpl implements ProductMasterRepositoryQD{
 
     //상품 리스트 조회 + pagination (no offset)
     @Override
-    public List<ProductMaster> selectProductList(Long productId, int pageSize, String keyword) {
+    public List<ProductMaster> selectProductList(Long productId, int offset, int limit, String keyword) {
         return queryFactory
                 .selectFrom(productMaster)
                 .where(
-                        ltProductId(productId),
+//                        ltProductId(productId),
                         isProductNameContainsKeyword(keyword)
                 )
                 .orderBy(productMaster.id.desc())
-                .limit(pageSize)
+                .offset(offset)
+                .limit(limit)
                 .fetch();
     }
 
     private BooleanExpression isProductNameContainsKeyword(String keyword) {
-        return StringUtils.isEmpty(keyword) ? null : productMaster.name.contains(keyword); //index를 타게하려면 + "%"
+        return StringUtils.isEmpty(keyword) ? null : productMaster.name.contains(keyword);
     }
-
+/*
     private BooleanExpression ltProductId(Long productId){
         if(productId == null) return null; //첫조회
 
         return productMaster.id.lt(productId);
-    }
+    }*/
 }

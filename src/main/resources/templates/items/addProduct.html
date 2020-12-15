@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form th:action="@{/product/add}" th:object="${productForm}" method="post" >
+    <form th:action="@{/product/add}" th:object="${productForm}" method="post" enctype="multipart/form-data">
 
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-danger">
@@ -55,7 +55,7 @@
 <br>
 
         <strong><label>이미지 등록</label></strong>
-        <input type="file" th:feild="*{productImage}" accept="image/*">
+        <input type="file" id="productImage" name="productImage">
 
         <div class="form-group">
             <label th:for="name">상품명</label>
@@ -79,11 +79,7 @@
             <label th:for="delivery-fee">배송비</label>
             <input type="number" th:field="*{deliveryFee}" value=3000 class="form-control" placeholder="배송 금액을 입력하세요">
         </div>
-        <!--<div class="form-group"> 이미지
-            <label th:for="delivery-fee">배송비</label>
-            <input type="number" th:field="*{deliveryFee}" class="form-control" placeholder="배송 금액을 입력하세요">
-        </div>
-      -->
+
         <button type="submit" class="btn btn-primary">확인</button>
     </form>
     <br/>

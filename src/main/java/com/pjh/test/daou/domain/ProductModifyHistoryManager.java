@@ -2,7 +2,6 @@ package com.pjh.test.daou.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.exception.InternalServerException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,7 @@ import java.util.Objects;
 
 @Component
 @AllArgsConstructor
-public class ProductHistoryManager {
+public class ProductModifyHistoryManager {
     private final ObjectMapper objectMapper;
 
     public String convertPojo2Json(List<String> list) {

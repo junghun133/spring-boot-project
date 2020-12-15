@@ -17,11 +17,12 @@ public class Outer extends ProductMaster implements Product {
 
 
     @Override
-    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee) {
+    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee, String imagePath) {
         setName(name);
         setPrice(price);
         setStock(stock);
         setExplain(explain);
         setDeliveryFee(deliveryFee);
+        setImagePath(imagePath);
     }
 }

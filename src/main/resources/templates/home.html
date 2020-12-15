@@ -48,22 +48,60 @@
                 </div>
             </tr>
         </div>
-        <!--<div class="inner">
-            <form id="moreForm" action="/home" method="post">
-                <input type="hidden" id="productId" th:value="${productList.get(productList.size()-1).id}"/>
-                <button type="button" id="moreBtn" onclick="showMoreTimeline()" class="btn btn-primary">더보기</button>
-            </form>
-        </div>-->
+
+            <div class="thumbnails">
+                <form id="moreForm" >
+                    <input type="hidden" id="page" value="2"/>
+                    <button type="button" id="moreBtn" onclick="showMoreTimeline()" class="btn btn-primary">더보기</button>
+                </form>
+            </div>
     </div>
 
 </div>
+<!--<script>
+    pageNum = 2;
+    moreButtonCheck();
+    function moreButtonCheck() {
+            /*<![CDATA[*/
+        var totalPage = [[${totalPage}]];
+        alert("totalPage" + totalPage);
+        alert("pagenum" + pageNum);
+        if(totalPage == pageNum){
+            document.getElementById("moreBtn").style.display = "none";
+        }
+
+        /*]]>*/
+    }
+
+    function showMoreTimeline() {
+        productListForm = $('#moreForm').serialize();
+        // const productListForm = new FormData();
+        // productListForm.append("page", pageNum);
+        alert(productListForm);
+        alert(pageNum);
+        $.ajax({
+            url: "/home/more",
+            data: productListForm,
+            type: "POST",
+            success: function (data) {
+                alert(data);
+                $("#boxes").replaceWith(data);
+            },
+            error: function (e) {
+                alert('서버 연결 도중 에러가 발생하였습니다. 다시 시도해 주십시오.');
+            }
+        });
+        moreButtonCheck();
+        pageNum++;
+    }
+</script>-->
 
 <!-- Footer -->
 <footer id="footer">
     <div class="inner">
         <h2>옷뿌리오</h2>
         <p>
-            "내가 개발한 코드를 다른 사람이 보았을 때, 읽기 좋은 깨끗한 책처럼 느껴졌으면 좋겠다" <br> - 박정훈(개발자)</p>
+            "내가 개발한 코드를 다른 사람이 보았을 때, 읽기 좋은 깨끗한 책처럼 느껴졌으면 좋겠다" <br> - 박정훈(29.9)
         <ul class="icons">
             <li><a href="/product" ><span class="label">상품관리</span></a></li>
         </ul>

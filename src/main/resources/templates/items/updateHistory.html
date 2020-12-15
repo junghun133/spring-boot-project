@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>상품명</th>
+                <th>수정일자</th>
+                <th>수정내용</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="history : ${histories}">
+                <td th:text="${history.getProductMaster().getId()}"></td>
+                <td th:text="${history.getProductMaster().getName()}"></td>
+                <td th:text="${#temporals.format(history.modifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${history.modifiedLog}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

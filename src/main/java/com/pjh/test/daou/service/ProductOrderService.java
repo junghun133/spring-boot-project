@@ -1,6 +1,6 @@
 package com.pjh.test.daou.service;
 
-import com.pjh.test.daou.controller.TradeForm;
+import com.pjh.test.daou.controller.form.TradeForm;
 import com.pjh.test.daou.domain.*;
 import com.pjh.test.daou.domain.enumerate.DeliveryStatus;
 import com.pjh.test.daou.exception.NotFoundProductException;
@@ -45,7 +45,5 @@ public class ProductOrderService {
     }
 
     //검색
-//    public List<ProductMaster> findTrade(ProductSearch productSearch){
-//        productMasterRepository.findALL(productSearch);
-//    }
+
 }

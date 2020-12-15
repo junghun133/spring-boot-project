@@ -1,12 +1,12 @@
 package com.pjh.test.daou.domain.product;
 
-import com.pjh.test.daou.controller.ProductForm;
+import com.pjh.test.daou.controller.form.ProductForm;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.exception.NotProvideProductTypeExcpetion;
 
 public class ProductFactory {
 
-    public static ProductMaster createFormToProductObject(ProductType productType, ProductForm productForm){
+    public static ProductMaster createFormToProductObject(ProductType productType, ProductForm productForm, String imagePath){
 
         switch (productType){
             case Outer:
@@ -18,7 +18,8 @@ public class ProductFactory {
                         productForm.getPrice(),
                         productForm.getStock(),
                         productForm.getExplain(),
-                        productForm.getDeliveryFee()
+                        productForm.getDeliveryFee(),
+                        imagePath
                 );
                 return outer;
             case Pants:
@@ -30,7 +31,8 @@ public class ProductFactory {
                         productForm.getPrice(),
                         productForm.getStock(),
                         productForm.getExplain(),
-                        productForm.getDeliveryFee()
+                        productForm.getDeliveryFee(),
+                        imagePath
                 );
                 return pants;
             case Top:
@@ -42,7 +44,8 @@ public class ProductFactory {
                         productForm.getPrice(),
                         productForm.getStock(),
                         productForm.getExplain(),
-                        productForm.getDeliveryFee()
+                        productForm.getDeliveryFee(),
+                        imagePath
                 );
                 return top;
 
@@ -57,38 +60,32 @@ public class ProductFactory {
             case Outer:
                 Outer outer = (Outer) productMaster;
                 outer.setMaterial(productForm.getMaterial());
+                outer.setName(productForm.getName());
+                outer.setPrice(productForm.getPrice());
+                outer.setStock(productForm.getStock());
+                outer.setExplain(productForm.getExplain());
+                outer.setDeliveryFee(productForm.getDeliveryFee());
 
-                outer.changeProductCreate(
-                        productForm.getName(),
-                        productForm.getPrice(),
-                        productForm.getStock(),
-                        productForm.getExplain(),
-                        productForm.getDeliveryFee()
-                );
                 return outer;
             case Pants:
                 Pants pants = (Pants) productMaster;
                 pants.setWaistWidth(productForm.getWaistWidth());
+                pants.setName(productForm.getName());
+                pants.setPrice(productForm.getPrice());
+                pants.setStock(productForm.getStock());
+                pants.setExplain(productForm.getExplain());
+                pants.setDeliveryFee(productForm.getDeliveryFee());
 
-                pants.changeProductCreate(
-                        productForm.getName(),
-                        productForm.getPrice(),
-                        productForm.getStock(),
-                        productForm.getExplain(),
-                        productForm.getDeliveryFee()
-                );
                 return pants;
             case Top:
                 Top top = (Top) productMaster;
                 top.setShoulderWidth(productForm.getShoulderWidth());
+                top.setName(productForm.getName());
+                top.setPrice(productForm.getPrice());
+                top.setStock(productForm.getStock());
+                top.setExplain(productForm.getExplain());
+                top.setDeliveryFee(productForm.getDeliveryFee());
 
-                top.changeProductCreate(
-                        productForm.getName(),
-                        productForm.getPrice(),
-                        productForm.getStock(),
-                        productForm.getExplain(),
-                        productForm.getDeliveryFee()
-                );
                 return top;
 
             default:

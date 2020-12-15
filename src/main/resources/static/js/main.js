@@ -121,32 +121,3 @@
 	id = $('#timeline_moimId').val();
 	var pageSize = 9;
 }*/
-
-function showMoreTimeline(){
-	var productListForm = $('#moreForm').serialize();
-	$.ajax({
-		url: "/home",
-		data: productListForm,
-		type:"POST",
-		cache: false
-	}).done(function (productList) {
-		$("#boxes").replaceWith(productList);
-//TODO
-		/*var html = "";
-
-		for(product in productList){
-			htmp += '<div class="box">';
-			htmp += '<a th:href="@{'/product/' + ${product.id}}" class="image fit"><img th:src="${product.imagePath}" alt="" /></a>';
-			htmp += '<div class="inner">';
-			htmp += '<h3 th:text="${product.name}">name</h3>';
-			htmp += '<p th:text="${product.explain}">explain</p>';
-			htmp += '<p th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}">price</p>';
-			htmp += '<a th:field="detail" th:href="@{'/product/' + ${product.id}}">자세히</a>';
-			htmp += '</div></div>';
-		}
-		$('#dynamicTBody').append(html);*/
-
-	});
-
-}
-

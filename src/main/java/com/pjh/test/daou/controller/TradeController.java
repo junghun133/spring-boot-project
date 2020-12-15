@@ -1,5 +1,6 @@
 package com.pjh.test.daou.controller;
 
+import com.pjh.test.daou.controller.form.TradeForm;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.service.ProductMasterService;
 import com.pjh.test.daou.service.ProductOrderService;

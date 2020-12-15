@@ -1,4 +1,4 @@
-package com.pjh.test.daou.controller;
+package com.pjh.test.daou.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ public class ProductForm {
     private int stock;
     private String explain;
 
-    private MultipartFile productImage;
     private int deliveryFee;
 
     private String productType;
