@@ -6,7 +6,52 @@ import com.pjh.test.daou.exception.NotProvideProductTypeExcpetion;
 
 public class ProductFactory {
 
-    public static ProductMaster createFormToProductObject(ProductType productType, ProductForm productForm, ProductMaster productMaster){
+    public static ProductMaster createFormToProductObject(ProductType productType, ProductForm productForm){
+
+        switch (productType){
+            case Outer:
+                Outer outer = new Outer();
+                outer.setMaterial(productForm.getMaterial());
+
+                outer.changeProductCreate(
+                        productForm.getName(),
+                        productForm.getPrice(),
+                        productForm.getStock(),
+                        productForm.getExplain(),
+                        productForm.getDeliveryFee()
+                );
+                return outer;
+            case Pants:
+                Pants pants = new Pants();
+                pants.setWaistWidth(productForm.getWaistWidth());
+
+                pants.changeProductCreate(
+                        productForm.getName(),
+                        productForm.getPrice(),
+                        productForm.getStock(),
+                        productForm.getExplain(),
+                        productForm.getDeliveryFee()
+                );
+                return pants;
+            case Top:
+                Top top = new Top();
+                top.setShoulderWidth(productForm.getShoulderWidth());
+
+                top.changeProductCreate(
+                        productForm.getName(),
+                        productForm.getPrice(),
+                        productForm.getStock(),
+                        productForm.getExplain(),
+                        productForm.getDeliveryFee()
+                );
+                return top;
+
+            default:
+                throw new NotProvideProductTypeExcpetion();
+        }
+    }
+
+    public static ProductMaster updateFormToProductObject(ProductType productType, ProductForm productForm, ProductMaster productMaster){
 
         switch (productType){
             case Outer:

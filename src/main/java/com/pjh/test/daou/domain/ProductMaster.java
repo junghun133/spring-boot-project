@@ -1,6 +1,7 @@
 package com.pjh.test.daou.domain;
 
 import com.pjh.test.daou.domain.product.Product;
+import com.pjh.test.daou.exception.InternalServerException;
 import com.pjh.test.daou.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +18,15 @@ import java.util.List;
 @DiscriminatorColumn(name = "product_type") // single table 구분
 @Getter @Setter
 @Table(name = "TB_PRODUCT_MASTER")
-public class ProductMaster {
-
-    @Id
-    @GeneratedValue
+@SequenceGenerator(
+        name = "PRODUCT_MASTER_SEQ_GENERATOR",
+        sequenceName = "PRODUCT_MASTER_SEQ",
+        initialValue = 31, allocationSize = 1)
+public class ProductMaster implements Cloneable{
+    @Id @GeneratedValue(
+            strategy=GenerationType.IDENTITY,
+            generator="PRODUCT_MASTER_SEQ"
+    )
     @Column(name = "product_master_id")
     private Long id;
 
@@ -31,13 +37,14 @@ public class ProductMaster {
     private int deliveryFee;
     private LocalDateTime registrationDate;
 
-    @Column(name = "product_type", insertable = false, updatable = false)
-    private String productType;
     @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL)
     private List<ProductModifyHistory> productModifyHistoryList = new ArrayList<>();
 
     @Lob
     private String explain;
+
+    @Column(name = "product_type", insertable = false, updatable = false)
+    private String productType;
 
     public void deductStock(int orderStock) {
         int restStock = this.stock - orderStock;
@@ -54,5 +61,14 @@ public class ProductMaster {
     public void addModifyHistory(ProductModifyHistory productModifyHistory){
         productModifyHistoryList.add(productModifyHistory);
         productModifyHistory.setProductMaster(this);
+    }
+
+    @Override
+    public Object clone(){
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new InternalServerException(e);
+        }
     }
 }

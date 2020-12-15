@@ -42,37 +42,45 @@
 
 </div>
 <div class="thumbnails">
-    <form th:object="${tradeForm}" method="post">
+    <form th:object="${tradeForm}" method="post" action="/product/buy">
+        <input type="hidden" name = "productId" th:value="${product.id}" >
+
+        <div class="form-group">
+            <label th:for="orderCount">상품 개수</label>
+            <input type="number" th:field="*{orderCount}" class="form-control"
+                   placeholder="상품 개수" min="1" max="10" value="1" autocomplete="off"/>
+        </div><br>
         <div class="form-group">
             <label th:for="orderName">주문자 이름</label>
             <input type="text" th:field="*{orderName}" class="form-control"
-                   placeholder="주문자 이름"/>
-        </div>
+                   placeholder="주문자 이름" required
+                   />
+        </div><br>
         <div class="form-group">
             <label th:for="name">주문자 전화번호</label>
-            <input type="tel" th:field="*{orderPhone}" class="form-control"
-                   placeholder="010-0000-0000" />
-        </div>
+            <input type="tel" th:field="*{orderPhone}" class="form-control" onkeyup="inputPhoneNumber(this)"
+                   placeholder="010-0000-0000" required
+                   />
+        </div><br>
         <div class="form-group">
             <label th:for="recipientName">수신자 이름</label>
             <input type="text" th:field="*{recipientName}" class="form-control"
                    placeholder="수신자 이름" />
-        </div>
+        </div><br>
         <div class="form-group">
             <label th:for="recipientPhone">수신자 전화번호</label>
-            <input type="tel" th:field="*{recipientPhone}" class="formcontrol" placeholder="010-0000-0000" />
-        </div>
-        <div class="form-group">
-            <label th:for="recipientAddress">수신자 주소</label>
-            <input type="text" th:field="*{getRecipientJibunAddress}" class="formcontrol" placeholder="주소" />
-        </div>
+            <input type="tel" th:field="*{recipientPhone}" class="form-control" placeholder="010-0000-0000" onkeyup="inputPhoneNumber(this)"/>
+        </div><br>
+
 <!--  daum api -->
-        <input type="text" id="sample4_postcode" placeholder="우편번호" style="width:500px;font-size:15px;">
-        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+        <input type="button" onclick="sample4_execDaumPostcode()" value="주소 검색"><br>
+        <input type="text" id="sample4_postcode" placeholder="우편번호" style="width:500px;font-size:15px;" disabled>
         <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-        <input type="text" th:field="*{getRecipientJibunAddress}" id="sample4_jibunAddress" placeholder="지번주소">
+        <input type="text" th:field="*{recipientJibunAddress}" id="sample4_jibunAddress" placeholder="지번주소" required
+               >
         <span id="guide" style="color:#999;display:none"></span>
-        <input type="text" th:field="*{getRecipientDetailAddress}" id="sample4_detailAddress" placeholder="상세주소"><br>
+        <input type="text" th:field="*{recipientDetailAddress}" id="sample4_detailAddress" placeholder="상세주소" required
+           ><br>
 
         <button type="submit" class="btn btn-primary">주문하기</button>
     </form>
@@ -137,5 +145,32 @@
             }
         }).open();
     }
+
+    function inputPhoneNumber(obj) {
+        var number = obj.value.replace(/[^0-9]/g, "");
+        var phone = "";
+
+        if(number.length < 4) {
+            return number;
+        } else if(number.length < 7) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3);
+        } else if(number.length < 11) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 3);
+            phone += "-";
+            phone += number.substr(6);
+        } else {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 4);
+            phone += "-";
+            phone += number.substr(7);
+        }
+        obj.value = phone;
+    }
+
 </script>
 </html>

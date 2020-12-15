@@ -1,18 +1,17 @@
 package com.pjh.test.daou.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pjh.test.daou.controller.ProductForm;
 import com.pjh.test.daou.controller.ProductListForm;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.domain.ProductModifyHistory;
 import com.pjh.test.daou.domain.product.ProductFactory;
+import com.pjh.test.daou.domain.ProductHistoryManager;
 import com.pjh.test.daou.domain.product.ProductType;
 import com.pjh.test.daou.exception.BadRequestProductException;
+import com.pjh.test.daou.exception.InternalServerException;
 import com.pjh.test.daou.exception.NotFoundProductException;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,25 +36,25 @@ public class ProductMasterService {
     //상품 수정
     @Transactional
     public void updateProduct(ProductForm productForm){
-        StringBuilder updateLogSB = new StringBuilder();
-
         Optional<ProductMaster> productOptional = productMasterRepository.findById(productForm.getId());
         ProductMaster productObject = productOptional.orElseThrow(NotFoundProductException::new);
         ProductType productType = ProductType.convertProductType(productForm.getProductType());
-
-        updateLogSB.append("before||");
-        updateLogSB.append(productHistoryManager.convertPojo2Json(productObject));
+        Object copy = productObject.clone(); // 저장전 상품정보 deep copy
 
         //dirty checking
-        ProductFactory.createFormToProductObject(productType, productForm, productObject);
-
-        updateLogSB.append("||update||");
-        updateLogSB.append(productHistoryManager.convertPojo2Json(productObject));
+        ProductFactory.updateFormToProductObject(productType, productForm, productObject);
 
         // 상품 변경내역 히스토리
+        List<String> difference = null;
+        try {
+            difference = productHistoryManager.getDifference(copy, productObject);
+        } catch (IllegalAccessException e) {
+            throw new InternalServerException(e);
+        }
+
         ProductModifyHistory productModifyHistory = new ProductModifyHistory();
         productModifyHistory.setModifiedDate(LocalDateTime.now());
-        productModifyHistory.setModifiedLog(updateLogSB.toString());
+        productModifyHistory.setModifiedLog(productHistoryManager.convertPojo2Json(difference));
 
         //cascade
         productObject.addModifyHistory(productModifyHistory);

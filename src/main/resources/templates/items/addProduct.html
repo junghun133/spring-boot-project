@@ -8,7 +8,7 @@
 
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-danger">
-                    <input type="radio" th:field="*{productType}" name="jb-radio" id="jb-radio-1" th:onchange="productTypeInfo()" th:value="Outer"> 아우터
+                    <input type="radio" th:field="*{productType}" name="jb-radio" id="jb-radio-1" th:onchange="productTypeInfo()" th:value="Outer" required> 아우터
                 </label>
                 <label class="btn btn-danger">
                     <input type="radio" th:field="*{productType}"  name="jb-radio" id="jb-radio-2" th:onchange="productTypeInfo()" th:value="Top"> 상의
@@ -40,7 +40,7 @@
         <div class="form-group" id="outerDiv" style="display:none">
             <label th:for="material">재질</label>
             <input type="text" th:field="*{material}" class="form-control"
-                   placeholder="이 아우터의 재질은 어떻게되나요?">
+                   placeholder="이 아우터의 재질은 어떻게되나요?" >
         </div>
         <div class="form-group" id="topDiv" style="display:none">
             <label th:for="shoulderWidth">상의 사이즈 정보</label>
@@ -60,24 +60,24 @@
         <div class="form-group">
             <label th:for="name">상품명</label>
             <input type="text" th:field="*{name}" class="form-control"
-                   placeholder="이름을 입력하세요">
+                   placeholder="이름을 입력하세요" required>
         </div>
         <div class="form-group">
             <label th:for="price">가격</label>
             <input type="number" th:field="*{price}" class="form-control"
-                   placeholder="가격을 입력하세요">
+                   placeholder="가격을 입력하세요" required>
         </div>
         <div class="form-group">
             <label th:for="stockQuantity">수량</label>
-            <input type="number" th:field="*{stock}" class="form-control" placeholder="수량을 입력하세요">
+            <input type="number" th:field="*{stock}" class="form-control" placeholder="수량을 입력하세요" required>
         </div>
         <div class="form-group">
             <label th:for="explain">상품설명</label>
-            <input type="text" th:field="*{explain}" class="form-control" placeholder="설명을 입력하세요">
+            <input type="text" th:field="*{explain}" class="form-control" placeholder="설명을 입력하세요" required>
         </div>
         <div class="form-group">
             <label th:for="delivery-fee">배송비</label>
-            <input type="number" th:field="*{deliveryFee}" class="form-control" placeholder="배송 금액을 입력하세요">
+            <input type="number" th:field="*{deliveryFee}" value=3000 class="form-control" placeholder="배송 금액을 입력하세요">
         </div>
         <!--<div class="form-group"> 이미지
             <label th:for="delivery-fee">배송비</label>

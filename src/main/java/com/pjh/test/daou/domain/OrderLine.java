@@ -8,9 +8,15 @@ import javax.persistence.*;
 @Getter
 @Table(name = "TB_ORDER_LINE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //일반생성 제한
+@SequenceGenerator(
+        name = "ORDER_LINE_SEQ_GENERATOR",
+        sequenceName = "ORDER_LINE_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class OrderLine {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(
+            strategy=GenerationType.IDENTITY,
+            generator="ORDER_LINE_SEQ"
+    )
     @Column(name = "order_line_id")
     private Long id;
 
@@ -40,6 +46,7 @@ public class OrderLine {
                 .count(count)
                 .build();
 
+        //재고 차감
         productMaster.deductStock(count);
         return orderLine;
     }

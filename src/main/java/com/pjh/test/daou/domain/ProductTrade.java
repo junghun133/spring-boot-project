@@ -17,9 +17,15 @@ import static javax.persistence.FetchType.*;
 @Getter
 @Table(name = "TB_PRODUCT_TRADE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SequenceGenerator(
+        name = "PRODUCT_TRADE_SEQ_GENERATOR",
+        sequenceName = "PRODUCT_TRADE_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class ProductTrade {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(
+            strategy=GenerationType.IDENTITY,
+            generator="PRODUCT_TRADE_SEQ"
+    )
     @Column(name = "product_trade_id")
     private Long id;
 
@@ -81,5 +87,10 @@ public class ProductTrade {
             totalPrice += orderLine.getTotalPrice();
         }
         return totalPrice;
+    }
+
+    public void setOrderUserInfo(String userName, String userPhone){
+        this.orderName = userName;
+        this.orderPhone = userPhone;
     }
 }

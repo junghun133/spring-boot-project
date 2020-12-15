@@ -31,8 +31,11 @@ public class ProductController {
     @PostMapping("/product/add")
     public String createProduct(ProductForm productForm){
 //        productMaster.setImagePath(productForm.getImagePath()); TODO 이미지 등록
-        productMasterService.saveProduct(ProductFactory.createFormToProductObject(ProductType.valueOf(productForm.getProductType()), productForm, new ProductMaster()));
-
+        productMasterService.saveProduct(ProductFactory.createFormToProductObject(
+                ProductType.convertProductType(productForm.getProductType()),
+                productForm
+                )
+        );
         return "redirect:/home";
     }
 
@@ -69,18 +72,6 @@ public class ProductController {
         return "redirect:/home";
     }
 
-    @GetMapping("/product/{productId}")
-    public String detailProductForm(@PathVariable Long productId, Model model){
-        ProductMaster product = productMasterService.findProduct(productId);
-        model.addAttribute("product", product);
-        model.addAttribute("tradeForm", new TradeForm());
 
-        return "items/productDetail";
-    }
 
-    @PostMapping("/product/product/buy/{productId}")
-    public String buyProductForm(@ModelAttribute("tradeForm") TradeForm tradeForm ){
-//        productMasterService.buyProduct(tradeForm);
-        return "redirect:/home";
-    }
 }

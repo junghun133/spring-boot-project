@@ -1,9 +1,8 @@
 package com.pjh.test.daou.service;
 
-import com.pjh.test.daou.domain.Delivery;
-import com.pjh.test.daou.domain.OrderLine;
-import com.pjh.test.daou.domain.ProductMaster;
-import com.pjh.test.daou.domain.ProductTrade;
+import com.pjh.test.daou.controller.TradeForm;
+import com.pjh.test.daou.domain.*;
+import com.pjh.test.daou.domain.enumerate.DeliveryStatus;
 import com.pjh.test.daou.exception.NotFoundProductException;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import com.pjh.test.daou.repository.ProductTradeRepository;
@@ -20,28 +19,27 @@ public class ProductOrderService {
     private final ProductTradeRepository productTradeRepository;
     private final ProductMasterRepository productMasterRepository;
 
-    /**
-     * 주문
-     * @param productMasterId
-     * @param delivery
-     * @param count
-     * @return
-     */
+    // 상품 주문
     @Transactional
-    public Long trade(Long productMasterId, Delivery delivery, int count){
+    public Long trade(Long productMasterId, TradeForm tradeForm){
         //상품 조회
         Optional<ProductMaster> productOptional = productMasterRepository.findById(productMasterId);
         productOptional.orElseThrow(NotFoundProductException::new);
-
         ProductMaster product = productOptional.get();
 
         //주문라인 생성
-        OrderLine orderLine = OrderLine.createOrderLine(product, product.getPrice(), count);
+        OrderLine orderLine = OrderLine.createOrderLine(product, product.getPrice(), tradeForm.getOrderCount());
+
+        //주문정보 생성
+        Delivery delivery = new Delivery();
+        delivery.setStatus(DeliveryStatus.READY);
+        delivery.setRecipientInfo(new RecipientInfo(tradeForm.getRecipientName(), tradeForm.getRecipientPhone(), tradeForm.getRecipientAddress() ));
 
         //주문 생성
         ProductTrade productTrade = ProductTrade.createProductTrade(delivery, orderLine);
+        productTrade.setOrderUserInfo(tradeForm.getOrderName(), tradeForm.getOrderPhone());
 
-        //주문내역 저장 (cascade 로 인해 관련 entity 에 모두 save)
+        //주문내역 저장 (cascade 로 인해 관련 entity 모두 save)
         productTradeRepository.save(productTrade);
         return productTrade.getId();
     }
