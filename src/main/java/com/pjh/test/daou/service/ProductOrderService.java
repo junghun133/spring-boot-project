@@ -4,12 +4,14 @@ import com.pjh.test.daou.controller.form.TradeForm;
 import com.pjh.test.daou.domain.*;
 import com.pjh.test.daou.domain.enumerate.DeliveryStatus;
 import com.pjh.test.daou.exception.NotFoundProductException;
+import com.pjh.test.daou.repository.OrderLineRepository;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import com.pjh.test.daou.repository.ProductTradeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class ProductOrderService {
     private final ProductTradeRepository productTradeRepository;
     private final ProductMasterRepository productMasterRepository;
+    private final OrderLineRepository orderLineRepository;
 
     // 상품 주문
     @Transactional
@@ -45,5 +48,8 @@ public class ProductOrderService {
     }
 
     //검색
+    public List<OrderLine> findAllOrder(){
+        return orderLineRepository.findAll();
+    }
 
 }

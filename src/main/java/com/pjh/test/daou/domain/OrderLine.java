@@ -54,4 +54,5 @@ public class OrderLine {
     public int getTotalPrice() {
         return getOrderPrice() * count;
     }
+
 }
