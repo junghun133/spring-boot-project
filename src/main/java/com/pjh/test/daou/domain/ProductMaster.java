@@ -47,8 +47,6 @@ public class ProductMaster implements Cloneable{
     @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductModifyHistory> productModifyHistoryList = new ArrayList<>();
 
-
-
     public void deductStock(int orderStock) {
         int restStock = this.stock - orderStock;
         if(restStock < 0) {
@@ -71,7 +69,7 @@ public class ProductMaster implements Cloneable{
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new InternalServerException(e);
+            throw new InternalServerException("Fail object clone", e);
         }
     }
 }

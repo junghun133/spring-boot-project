@@ -46,14 +46,5 @@ public class HomeController {
         model.addAttribute("totalPage", totalPage);
         return "home::#boxes";
     }*/
-  @RequestMapping("/image")
-  public String image(Model model){
 
-      return "imageTest";
-  }
-    @RequestMapping("/image/upload")
-    public String image(Model model, @RequestParam("filess")  MultipartFile filess){
-        System.out.println("file.getOriginalFilename() = " + filess.getOriginalFilename());
-        return "imageTest";
-    }
 }

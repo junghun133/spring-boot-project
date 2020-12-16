@@ -100,9 +100,9 @@ public class ProductMasterService {
     }
 
     //상품 전체 조회(조건 포함)
-    public List<ProductMaster> findProducts(ProductListForm productListForm){
+    public List<ProductMaster> findProducts(ProductListForm productListForm) throws BadRequestProductException{
         if(productListForm == null){
-            throw new BadRequestProductException();
+            throw new BadRequestProductException("Product list form is null");
         }
 
         return productMasterRepository.selectProductList(productListForm.getProductId(), 0, CONTENT_LIMIT, productListForm.getProduct());

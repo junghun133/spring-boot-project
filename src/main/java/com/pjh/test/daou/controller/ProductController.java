@@ -5,6 +5,9 @@ import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.domain.ProductModifyHistory;
 import com.pjh.test.daou.domain.product.ProductFactory;
 import com.pjh.test.daou.domain.product.ProductType;
+import com.pjh.test.daou.exception.BadRequestProductException;
+import com.pjh.test.daou.exception.InternalServerException;
+import com.pjh.test.daou.exception.NotProvideProductTypeExcpetion;
 import com.pjh.test.daou.service.ProductHistoryService;
 import com.pjh.test.daou.service.ProductImageService;
 import com.pjh.test.daou.service.ProductMasterService;
@@ -37,7 +40,7 @@ public class ProductController {
     }
 
     @PostMapping("/product/add")
-    public String createProduct(ProductForm productForm){
+    public String createProduct(ProductForm productForm) throws NotProvideProductTypeExcpetion {
         if(productForm.getImageId() == null)
             return "redirect:/product/add";
 
@@ -60,7 +63,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/list")
-    public String productList(Model model){
+    public String productList(Model model) throws BadRequestProductException {
         List<ProductMaster> products = productMasterService.findProducts();
         model.addAttribute("products", products);
         return "items/productList";
@@ -78,7 +81,7 @@ public class ProductController {
     }
 
     @PostMapping("/product/update/{productId}")
-    public String updateProduct(@ModelAttribute("productForm") ProductForm productForm){
+    public String updateProduct(@ModelAttribute("productForm") ProductForm productForm) throws BadRequestProductException, InternalServerException {
 //        productMasterService.saveProduct(ProductFactory.createFormToProductObject(ProductType.convertProductType(productForm.getProductType()), productForm));
         productMasterService.updateProduct(productForm);
 

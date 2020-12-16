@@ -2,9 +2,11 @@ package com.pjh.test.daou.controller;
 
 import com.pjh.test.daou.controller.form.TradeForm;
 import com.pjh.test.daou.domain.ProductMaster;
+import com.pjh.test.daou.exception.NotEnoughStockException;
 import com.pjh.test.daou.service.ProductMasterService;
 import com.pjh.test.daou.service.ProductOrderService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,12 +30,13 @@ public class TradeController {
     }
 
     @PostMapping("/product/buy")
-    public String buyProduct(@Valid TradeForm tradeForm, @RequestParam("productId") Long productId, BindingResult br){
+    public String buyProduct(@Valid TradeForm tradeForm, @RequestParam("productId") Long productId, BindingResult br) {
         if(br.hasErrors()){
             return "items/productDetail";
         }
-
         productOrderService.trade(productId, tradeForm);
+
         return "redirect:/home";
     }
+
 }
