@@ -6,7 +6,7 @@ import com.pjh.test.daou.exception.NotProvideProductTypeExcpetion;
 
 public class ProductFactory {
 
-    public static ProductMaster createFormToProductObject(ProductType productType, ProductForm productForm, String imagePath){
+    public static ProductMaster createFormToProductObject(ProductType productType, ProductForm productForm){
 
         switch (productType){
             case Outer:
@@ -18,8 +18,7 @@ public class ProductFactory {
                         productForm.getPrice(),
                         productForm.getStock(),
                         productForm.getExplain(),
-                        productForm.getDeliveryFee(),
-                        imagePath
+                        productForm.getDeliveryFee()
                 );
                 return outer;
             case Pants:
@@ -31,8 +30,7 @@ public class ProductFactory {
                         productForm.getPrice(),
                         productForm.getStock(),
                         productForm.getExplain(),
-                        productForm.getDeliveryFee(),
-                        imagePath
+                        productForm.getDeliveryFee()
                 );
                 return pants;
             case Top:
@@ -44,8 +42,7 @@ public class ProductFactory {
                         productForm.getPrice(),
                         productForm.getStock(),
                         productForm.getExplain(),
-                        productForm.getDeliveryFee(),
-                        imagePath
+                        productForm.getDeliveryFee()
                 );
                 return top;
 

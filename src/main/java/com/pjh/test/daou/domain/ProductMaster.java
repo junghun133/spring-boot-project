@@ -33,18 +33,21 @@ public class ProductMaster implements Cloneable{
     private String name;
     private int price;
     private int stock;
-    private String imagePath;
     private int deliveryFee;
     private LocalDateTime registrationDate;
-
-    @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL)
-    private List<ProductModifyHistory> productModifyHistoryList = new ArrayList<>();
-
     @Lob
     private String explain;
-
     @Column(name = "product_type", insertable = false, updatable = false)
     private String productType;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "att_img_id")
+    private AttachmentImage attachmentImage;
+
+    @OneToMany(mappedBy = "productMaster", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductModifyHistory> productModifyHistoryList = new ArrayList<>();
+
+
 
     public void deductStock(int orderStock) {
         int restStock = this.stock - orderStock;

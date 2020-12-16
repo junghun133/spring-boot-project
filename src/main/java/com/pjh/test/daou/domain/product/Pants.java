@@ -15,12 +15,12 @@ public class Pants extends ProductMaster implements Product{
     private String waistWidth; //허리둘레
 
     @Override
-    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee, String imagePath) {
+    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee) {
         setName(name);
         setPrice(price);
         setStock(stock);
         setExplain(explain);
         setDeliveryFee(deliveryFee);
-        setImagePath(imagePath);
+//        setImagePath(imagePath);
     }
 }

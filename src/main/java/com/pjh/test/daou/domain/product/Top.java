@@ -16,12 +16,11 @@ public class Top extends ProductMaster implements Product{
     private String shoulderWidth; //어깨넓이
 
     @Override
-    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee, String imagePath) {
+    public void changeProductCreate(String name, int price, int stock, String explain, int deliveryFee) {
         setName(name);
         setPrice(price);
         setStock(stock);
         setExplain(explain);
         setDeliveryFee(deliveryFee);
-        setImagePath(imagePath);
     }
 }

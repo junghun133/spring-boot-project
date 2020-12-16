@@ -6,6 +6,7 @@ import com.pjh.test.daou.domain.ProductModifyHistory;
 import com.pjh.test.daou.domain.product.ProductFactory;
 import com.pjh.test.daou.domain.product.ProductType;
 import com.pjh.test.daou.service.ProductHistoryService;
+import com.pjh.test.daou.service.ProductImageService;
 import com.pjh.test.daou.service.ProductMasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class ProductController {
 
     private final ProductMasterService productMasterService;
     private final ProductHistoryService productHistoryService;
+    private final ProductImageService productImageService;
 
     @RequestMapping("/product")
     public String manager(){
@@ -30,21 +32,30 @@ public class ProductController {
     @GetMapping("/product/add")
     public String createProduct(Model model){
         model.addAttribute("productForm", new ProductForm());
+        model.addAttribute("attachments", productImageService.getImageList());
         return "items/addProduct";
     }
 
     @PostMapping("/product/add")
-    public String createProduct(ProductForm productForm, @RequestParam("productImage") MultipartFile productImage){
-//        productMaster.setImagePath(productForm.getImagePath()); TODO 이미지 등록
-        String imagePath = productMasterService.saveImageFile(productImage);
+    public String createProduct(ProductForm productForm){
+        if(productForm.getImageId() == null)
+            return "redirect:/product/add";
+
         productMasterService.saveProduct(ProductFactory.createFormToProductObject(
                 ProductType.convertProductType(productForm.getProductType()),
-                productForm,
-                imagePath
-                )
+                productForm
+                ), productForm.getImageId()
         );
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/product/add/{imageId}")
+    public String createProductChooseImage(@PathVariable Long imageId, Model model){
+        model.addAttribute("selectedImageId", imageId);
+        model.addAttribute("productForm", new ProductForm());
+
+        return "items/addProduct";
     }
 
     @GetMapping("/product/list")

@@ -2,6 +2,7 @@ package com.pjh.test.daou.service;
 
 import com.pjh.test.daou.controller.form.ProductForm;
 import com.pjh.test.daou.controller.form.ProductListForm;
+import com.pjh.test.daou.domain.AttachmentImage;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.domain.ProductModifyHistory;
 import com.pjh.test.daou.domain.product.ProductFactory;
@@ -10,6 +11,7 @@ import com.pjh.test.daou.domain.product.ProductType;
 import com.pjh.test.daou.exception.BadRequestProductException;
 import com.pjh.test.daou.exception.InternalServerException;
 import com.pjh.test.daou.exception.NotFoundProductException;
+import com.pjh.test.daou.repository.AttachmentImageRepository;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +38,15 @@ public class ProductMasterService {
     private final int CONTENT_LIMIT = 9;
     private final ProductMasterRepository productMasterRepository;
     private final ProductModifyHistoryManager productModifyHistoryManager;
+    private final AttachmentImageRepository attachmentImageRepository;
 
     //상품 저장
     @Transactional
-    public void saveProduct(ProductMaster productMaster){
+    public void saveProduct(ProductMaster productMaster, Long imageId){
         productMaster.setRegistrationDate(LocalDateTime.now());
+        Optional<AttachmentImage> foundAttachment = attachmentImageRepository.findById(imageId);
+        AttachmentImage attachmentImage = foundAttachment.orElseThrow(NotFoundProductException::new);
+        productMaster.setAttachmentImage(attachmentImage);
         productMasterRepository.save(productMaster);
     }
 
@@ -111,7 +117,7 @@ public class ProductMasterService {
         return productMasterRepository.selectProductList(productListForm.getProductId(), 0, limit, productListForm.getProduct());
     }
 
-    public String saveImageFile(MultipartFile productImage) {
+    /*public String saveImageFile(MultipartFile productImage) {
         UUID uuid = UUID.randomUUID();
         String imageName = productImage.getOriginalFilename() + "_" + uuid;
         Path filePath = Paths.get("classpath:resources/static/images/"+productImage.getOriginalFilename());
@@ -125,5 +131,5 @@ public class ProductMasterService {
         }
 
         return filePath.toString();
-    }
+    }*/
 }

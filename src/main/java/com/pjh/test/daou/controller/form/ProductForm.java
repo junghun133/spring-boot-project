@@ -2,7 +2,6 @@ package com.pjh.test.daou.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -15,9 +14,10 @@ public class ProductForm {
 
     private int deliveryFee;
 
+    private Long imageId;
     private String productType;
 
-    private String material; //outer 속성 -재질
-    private String waistWidth; //pants 속성 - 허리둘레
-    private String shoulderWidth; //top 속성 - 어깨넓이
+    private String material; //outer 속성
+    private String waistWidth; //pants 속성
+    private String shoulderWidth; //top 속성
 }

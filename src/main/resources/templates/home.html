@@ -38,7 +38,7 @@
         <div id="boxes" class="thumbnails">
             <tr th:each="product : ${productList}">
                 <div class="box">
-                    <a th:href="@{'/product/' + ${product.id}}" class="image fit"><img th:src="${product.imagePath}" alt="" /></a>
+                    <a th:href="@{'/product/' + ${product.id}}" class="image fit"><img th:src="${product.attachmentImage.imagePath}" alt="" /></a>
                     <div class="inner">
                         <h3 th:text="${product.name}">name</h3>
                         <p th:text="${product.explain}">explain</p>
