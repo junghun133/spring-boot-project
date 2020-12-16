@@ -44,7 +44,8 @@ public class ProductController {
         productMasterService.saveProduct(ProductFactory.createFormToProductObject(
                 ProductType.convertProductType(productForm.getProductType()),
                 productForm
-                ), productForm.getImageId()
+                )
+                ,productForm.getImageId()
         );
 
         return "redirect:/home";
