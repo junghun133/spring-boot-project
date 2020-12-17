@@ -10,6 +10,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/home.css" />
+<!--    <script src="/js/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body id="top">
 
@@ -36,6 +38,7 @@
 
         <!-- Boxes -->
         <div id="boxes" class="thumbnails">
+            <h1 th:if="${productList.size() == 0}">검색된 상품이 없습니다.</h1>
             <tr th:each="product : ${productList}">
                 <div class="box">
                     <a th:href="@{'/product/' + ${product.id}}" class="image fit"><img th:src="${product.attachmentImage.imagePath}" alt="" /></a>
@@ -51,51 +54,61 @@
 
             <div class="thumbnails">
                 <form id="moreForm" >
-                    <input type="hidden" id="page" value="2"/>
-                    <button type="button" id="moreBtn" onclick="showMoreTimeline()" class="btn btn-primary">더보기</button>
+<!--                    <input type="hidden" id="page" value="2"/>-->
+                    <button type="button" name="moreBtn" id="moreBtn" class="btn btn-primary">더보기</button>
                 </form>
             </div>
     </div>
 
 </div>
-<!--<script>
-    pageNum = 2;
-    moreButtonCheck();
-    function moreButtonCheck() {
-            /*<![CDATA[*/
-        var totalPage = [[${totalPage}]];
-        alert("totalPage" + totalPage);
-        alert("pagenum" + pageNum);
-        if(totalPage == pageNum){
-            document.getElementById("moreBtn").style.display = "none";
-        }
 
-        /*]]>*/
+<!--load more function-->
+<script>
+    firstUrl = "/product/more/1";
+
+    $("#moreBtn").click(function(){
+       $.ajax({
+           type: 'GET',
+           url: firstUrl,
+           dataType: 'json',
+           contentType: 'application/json',
+           success: function (result){
+               //추가 페이지 확인
+               if(result.meta.is_end == false){
+                   $('#moreBtn').hide();
+               }
+               //페이지 주소 변경 (hateos)
+               firstUrl = result._links.nextRequest["href"];
+
+               console.log(firstUrl)
+
+               var itemHtml = "";
+               for(key in result.documents){
+                   itemHtml += '<div class="box">';
+                   itemHtml += '<a href="/product/' + result.documents[key].id + '" class="image fit">';
+                   itemHtml += '<img src="' + result.documents[key].imagePath + '" alt="" /></a>';
+                   itemHtml += '<div class="inner">';
+                   itemHtml += '<h3>' + result.documents[key].name + '</h3>';
+                   itemHtml += '<p>' + result.documents[key].explain + '</p>';
+                   itemHtml += '<p>' + numberWithCommas(result.documents[key].price) + '</p>';
+                   itemHtml += '<a href="/product/' + result.documents[key].id + '">자세히</a></div></div>';
+               }
+               console.log(itemHtml);
+               // result.documents.forEach(function(document){
+               // });
+               $('#boxes').append(itemHtml);
+           }
+       })
+    });
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+</script>
 
-    function showMoreTimeline() {
-        productListForm = $('#moreForm').serialize();
-        // const productListForm = new FormData();
-        // productListForm.append("page", pageNum);
-        alert(productListForm);
-        alert(pageNum);
-        $.ajax({
-            url: "/home/more",
-            data: productListForm,
-            type: "POST",
-            success: function (data) {
-                alert(data);
-                $("#boxes").replaceWith(data);
-            },
-            error: function (e) {
-                alert('서버 연결 도중 에러가 발생하였습니다. 다시 시도해 주십시오.');
-            }
-        });
-        moreButtonCheck();
-        pageNum++;
-    }
-</script>-->
+<script>
 
+</script>
 <!-- Footer -->
 <footer id="footer">
     <div class="inner">
@@ -108,7 +121,6 @@
     </div>
 </footer>
 
-<script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.scrolly.min.js"></script>
 <!--<script src="/js/jquery.poptrox.min.js"></script>-->
 <script src="/js/skel.min.js"></script>

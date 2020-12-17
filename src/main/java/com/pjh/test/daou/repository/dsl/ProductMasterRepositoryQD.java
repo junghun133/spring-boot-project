@@ -5,5 +5,5 @@ import com.pjh.test.daou.domain.ProductMaster;
 import java.util.List;
 
 public interface ProductMasterRepositoryQD {
-    List<ProductMaster> selectProductList(Long productId, int offset, int limit, String keyword);
+    List<ProductMaster> selectProductList(int offset, int limit, String keyword);
 }

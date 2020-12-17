@@ -3,6 +3,7 @@ package com.pjh.test.daou.repository.dsl;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -22,7 +23,7 @@ public class ProductMasterRepositoryImpl implements ProductMasterRepositoryQD{
 
     //상품 리스트 조회 + pagination (no offset)
     @Override
-    public List<ProductMaster> selectProductList(Long productId, int offset, int limit, String keyword) {
+    public List<ProductMaster> selectProductList(int offset, int limit, String keyword) {
         return queryFactory
                 .selectFrom(productMaster)
                 .where(
@@ -38,10 +39,8 @@ public class ProductMasterRepositoryImpl implements ProductMasterRepositoryQD{
     private BooleanExpression isProductNameContainsKeyword(String keyword) {
         return StringUtils.isEmpty(keyword) ? null : productMaster.name.contains(keyword);
     }
-/*
-    private BooleanExpression ltProductId(Long productId){
-        if(productId == null) return null; //첫조회
 
-        return productMaster.id.lt(productId);
+/*    private BooleanExpression isPageable(Pageable pageable){
+        if(pageable == null) return null; //첫조회
     }*/
 }

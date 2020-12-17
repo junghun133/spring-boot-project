@@ -28,10 +28,10 @@ class ProductMasterRepositoryImplTest {
         String keyword = "점퍼";
         int page = 0;
         //when
-        List<ProductMaster> productMasters1 = productMasterRepository.selectProductList(null, 9, null);
-        List<ProductMaster> productMasters2 = productMasterRepository.selectProductList(22L, 9, null);
-        List<ProductMaster> productMasters3 = productMasterRepository.selectProductList(13L, 9, null);
-        List<ProductMaster> productMastersWithKeyword = productMasterRepository.selectProductList(null, 9, keyword);
+        List<ProductMaster> productMasters1 = productMasterRepository.selectProductList(null, 0, 9, null);
+        List<ProductMaster> productMasters2 = productMasterRepository.selectProductList(22L, 0,9, null);
+        List<ProductMaster> productMasters3 = productMasterRepository.selectProductList(13L, 0,9, null);
+        List<ProductMaster> productMastersWithKeyword = productMasterRepository.selectProductList(null,0, 9, keyword);
 
         for (ProductMaster productMaster : productMasters1) {
             System.out.println("productMaster = " + productMaster.getId());

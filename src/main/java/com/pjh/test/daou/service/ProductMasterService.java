@@ -1,12 +1,14 @@
 package com.pjh.test.daou.service;
 
 import com.pjh.test.daou.controller.form.ProductForm;
-import com.pjh.test.daou.controller.form.ProductListForm;
+import com.pjh.test.daou.http.entity.Documents;
+import com.pjh.test.daou.http.entity.Meta;
+import com.pjh.test.daou.http.entity.ProductResponse;
 import com.pjh.test.daou.domain.AttachmentImage;
 import com.pjh.test.daou.domain.ProductMaster;
 import com.pjh.test.daou.domain.ProductModifyHistory;
-import com.pjh.test.daou.domain.product.ProductFactory;
 import com.pjh.test.daou.domain.ProductModifyHistoryManager;
+import com.pjh.test.daou.domain.product.ProductFactory;
 import com.pjh.test.daou.domain.product.ProductType;
 import com.pjh.test.daou.exception.BadRequestProductException;
 import com.pjh.test.daou.exception.InternalServerException;
@@ -15,27 +17,23 @@ import com.pjh.test.daou.repository.AttachmentImageRepository;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
 public class ProductMasterService {
-    private final int CONTENT_LIMIT = 9;
+    private static final int CONTENT_LIMIT = 9;
     private final ProductMasterRepository productMasterRepository;
     private final ProductModifyHistoryManager productModifyHistoryManager;
     private final AttachmentImageRepository attachmentImageRepository;
@@ -100,36 +98,42 @@ public class ProductMasterService {
     }
 
     //상품 전체 조회(조건 포함)
-    public List<ProductMaster> findProducts(ProductListForm productListForm) throws BadRequestProductException{
-        if(productListForm == null){
-            throw new BadRequestProductException("Product list form is null");
-        }
-
-        return productMasterRepository.selectProductList(productListForm.getProductId(), 0, CONTENT_LIMIT, productListForm.getProduct());
+    public List<ProductMaster> findProductsWithKeyword(String keyword) throws BadRequestProductException{
+        return productMasterRepository.selectProductList(0, CONTENT_LIMIT, keyword);
     }
 
-    public List<ProductMaster> findProductsPaging(ProductListForm productListForm){
 
-        //offset, limit 처리
-        int page = productListForm.getPage();
-        int limit = CONTENT_LIMIT * page;
+    public ProductResponse findProductsPageable(PageRequest pageRequest) {
+        Page<ProductMaster> page = productMasterRepository.findAll(pageRequest);
 
-        return productMasterRepository.selectProductList(productListForm.getProductId(), 0, limit, productListForm.getProduct());
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setDocuments(makeDocuments(page.toList()));
+        productResponse.setMeta(
+        Meta.builder()
+                .total_count(page.getTotalPages())
+                .pageable_count(page.getSize())
+                .is_end(page.hasNext())
+                .build()
+        );
+
+        return productResponse;
     }
 
-    /*public String saveImageFile(MultipartFile productImage) {
-        UUID uuid = UUID.randomUUID();
-        String imageName = productImage.getOriginalFilename() + "_" + uuid;
-        Path filePath = Paths.get("classpath:resources/static/images/"+productImage.getOriginalFilename());
-        try {
-            FileOutputStream output = new FileOutputStream("/static/images/"+productImage.getOriginalFilename());
-            output.write(productImage.getBytes());
-//            Files.write(filePath, productImage.getBytes());
-        } catch (IOException e) {
-            log.error("Fail save image case:" + e.getMessage());
-            e.printStackTrace();
+    //entity -> response
+    public List<Documents> makeDocuments(List<ProductMaster> productList){
+        List<Documents> documents = new ArrayList<>();
+
+        for (ProductMaster pr : productList) {
+            Documents document = Documents.builder()
+                    .id(pr.getId())
+                    .name(pr.getName())
+                    .explain(pr.getExplain())
+                    .price(pr.getPrice())
+                    .imagePath(pr.getAttachmentImage().getImagePath())
+                    .build();
+            documents.add(document);
         }
 
-        return filePath.toString();
-    }*/
+        return documents;
+    }
 }

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class HomeController {
 
     @RequestMapping("/home")
     public String home(Model model){
-        List<ProductMaster> productList = productMasterService.findProducts(new ProductListForm());
+        List<ProductMaster> productList = productMasterService.findProductsWithKeyword(null);
         model.addAttribute("productList", productList);
 
         return "home";
@@ -28,23 +26,9 @@ public class HomeController {
 
     @PostMapping(value = "/home")
     public String homePost(Model model, ProductListForm productListForm){
-        List<ProductMaster> productList = productMasterService.findProducts(productListForm);
+        List<ProductMaster> productList = productMasterService.findProductsWithKeyword(productListForm.getProduct());
         model.addAttribute("productList", productList);
 
         return "home";
     }
-
-  /*  @PostMapping(value = "/home/more")
-    public String homePostMore(Model model, ProductListForm productListForm){
-        List<ProductMaster> productList = productMasterService.findProductsPaging(productListForm);
-        model.addAttribute("productList", productList);
-        int productSize = productMasterService.findAllProductCount();
-        int totalPage = productSize / 9;
-        if(productSize % 9 != 0)
-            totalPage += 1;
-
-        model.addAttribute("totalPage", totalPage);
-        return "home::#boxes";
-    }*/
-
 }
