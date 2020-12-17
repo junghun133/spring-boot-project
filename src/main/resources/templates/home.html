@@ -1,26 +1,15 @@
 <!DOCTYPE HTML>
-<!--
-	Full Motion by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
 <html xmlns:th="http://www.thymeleaf.org" lang="kr">
 <head>
     <title>옷 뿌리오</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/home.css" />
-<!--    <script src="/js/jquery.min.js"></script>-->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body id="top">
 
 <!-- Banner -->
-<!--
-    To use a video as your background, set data-video to the name of your video without
-    its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
-    formats to work correctly.
--->
 <section id="banner" data-video="/media/banner">
     <div class="inner">
         <header>
@@ -54,7 +43,6 @@
 
             <div class="thumbnails">
                 <form id="moreForm" >
-<!--                    <input type="hidden" id="page" value="2"/>-->
                     <button type="button" name="moreBtn" id="moreBtn" class="btn btn-primary">더보기</button>
                 </form>
             </div>
@@ -64,8 +52,13 @@
 
 <!--load more function-->
 <script>
-    firstUrl = "/product/more/1";
+    //검색시 검색결과 없음 처리
+    window.onload = function(){
+        if([[${productList.size()}]] == 0)
+            $('#moreBtn').hide();
+    }
 
+    firstUrl = "/product/more/1";
     $("#moreBtn").click(function(){
        $.ajax({
            type: 'GET',
@@ -77,7 +70,7 @@
                if(result.meta.is_end == false){
                    $('#moreBtn').hide();
                }
-               //페이지 주소 변경 (hateos)
+               //페이지 주소 변경 (hateos link)
                firstUrl = result._links.nextRequest["href"];
 
                console.log(firstUrl)
@@ -93,17 +86,18 @@
                    itemHtml += '<p>' + numberWithCommas(result.documents[key].price) + '</p>';
                    itemHtml += '<a href="/product/' + result.documents[key].id + '">자세히</a></div></div>';
                }
-               console.log(itemHtml);
-               // result.documents.forEach(function(document){
-               // });
                $('#boxes').append(itemHtml);
-           }
+           },
+           error: function () { window.location.href="/home" }
        })
     });
 
+    //금액 천단위 comma 처리
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+
 </script>
 
 <script>
@@ -122,7 +116,6 @@
 </footer>
 
 <script src="/js/jquery.scrolly.min.js"></script>
-<!--<script src="/js/jquery.poptrox.min.js"></script>-->
 <script src="/js/skel.min.js"></script>
 <script src="/js/util.js"></script>
 <script src="/js/main.js"></script>

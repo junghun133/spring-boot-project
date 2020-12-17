@@ -92,7 +92,6 @@
 <script >
     document.getElementById("productNum").value = 1
     /*<![CDATA[*/
-
     $( "#productNum.form-control" ).on('input', function() {
         var x = document.getElementById("productNum").value;
         if (x > [[${product.stock}]]) {

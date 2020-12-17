@@ -7,7 +7,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/clothes
+#    url: jdbc:h2:tcp://localhost/~/clothes
+#    url: jdbc:h2:~/clothes
+    url: jdbc:h2:mem:clothes2
     username: daou
     password: daou
     driver-class-name: org.h2.Driver
@@ -27,11 +29,11 @@ spring:
     web:
       pageable:
         default-page-size: 9
-#log:
-#  path: /log/was/
-#  name: test_shopping_mall.log
-#  pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %msg %n"
-#  appender: dailyRollingFileAppender
+log:
+  path: /log/was/
+  name: test_shopping_mall.log
+  pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %msg %n"
+  appender: dailyRollingFileAppender
 
 logging:
   level:
