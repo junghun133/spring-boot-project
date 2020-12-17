@@ -16,8 +16,5 @@ class ProductMasterRepositoryImplTest {
     @Autowired
     ProductMasterRepository productMasterRepository;
 
-    @Test
-    public void selectToProductListNoOffsetPaginationTest(){
 
-    }
 }

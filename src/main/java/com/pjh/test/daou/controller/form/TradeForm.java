@@ -1,5 +1,6 @@
 package com.pjh.test.daou.controller.form;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

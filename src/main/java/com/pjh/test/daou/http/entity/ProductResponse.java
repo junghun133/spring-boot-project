@@ -1,6 +1,5 @@
 package com.pjh.test.daou.http.entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
