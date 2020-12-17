@@ -64,6 +64,8 @@ public class ProductMasterService {
         try {
             difference = productModifyHistoryManager.getDifference(copy, productObject);
         } catch (IllegalAccessException e) {
+            log.error("An error occurred while comparing history");
+            log.error(e.getMessage());
             throw new InternalServerException(e);
         }
 

@@ -37,8 +37,8 @@ log:
 
 logging:
   level:
-    kr.co.daou: DEBUG
+    kr.co.daou: info
     org.springframework: INFO
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: trace
 
