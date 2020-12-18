@@ -14,6 +14,7 @@ spring:
     password: daou
     driver-class-name: org.h2.Driver
     initialization-mode: always
+    sql-script-encoding: UTF-8
 
   jpa:
     hibernate:
@@ -39,6 +40,22 @@ logging:
   level:
     kr.co.daou: info
     org.springframework: INFO
-#    org.hibernate.SQL: debug
-#    org.hibernate.type: trace
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+
+springdoc:
+  version: '@project.version@'
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+  paths-to-match:
+    - /product/**
 

@@ -29,6 +29,8 @@ public class TradeController {
         return "items/productDetail";
     }
 
+
+
     @PostMapping("/product/buy")
     public String buyProduct(@Valid TradeForm tradeForm, @RequestParam("productId") Long productId, BindingResult br) {
         if(br.hasErrors()){

@@ -2,8 +2,12 @@ package com.pjh.test.daou.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +29,6 @@ public class AttachmentImage {
 
     private boolean enabled = false;
 
-    @OneToOne(mappedBy = "attachmentImage")
-    ProductMaster productMaster;
+    @OneToMany(mappedBy = "attachmentImage")
+    List<ProductMaster> productMaster = new ArrayList<>();
 }

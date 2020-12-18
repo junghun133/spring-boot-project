@@ -40,7 +40,7 @@ public class ProductMaster implements Cloneable{
     @Column(name = "product_type", insertable = false, updatable = false)
     private String productType;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "att_img_id")
     private AttachmentImage attachmentImage;
 
