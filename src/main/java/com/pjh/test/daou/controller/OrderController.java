@@ -2,6 +2,7 @@ package com.pjh.test.daou.controller;
 
 import com.pjh.test.daou.domain.OrderLine;
 import com.pjh.test.daou.domain.ProductTrade;
+import com.pjh.test.daou.http.entity.OrderRank;
 import com.pjh.test.daou.service.ProductOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ public class OrderController {
     @GetMapping("/orders")
     public String orderList(Model model){
         List<OrderLine> allOrder = productOrderService.findAllOrder();
+        List<OrderRank> orderRank = productOrderService.findOrderRank();
         model.addAttribute("allOrder", allOrder);
+        model.addAttribute("orderRank", orderRank);
 
         return "items/tradeList";
     }

@@ -4,6 +4,7 @@ import com.pjh.test.daou.controller.form.TradeForm;
 import com.pjh.test.daou.domain.*;
 import com.pjh.test.daou.domain.enumerate.DeliveryStatus;
 import com.pjh.test.daou.exception.NotFoundProductException;
+import com.pjh.test.daou.http.entity.OrderRank;
 import com.pjh.test.daou.repository.OrderLineRepository;
 import com.pjh.test.daou.repository.ProductMasterRepository;
 import com.pjh.test.daou.repository.ProductTradeRepository;
@@ -52,4 +53,13 @@ public class ProductOrderService {
         return orderLineRepository.findAll();
     }
 
+    public List<OrderRank> findOrderRank(){
+        List<OrderRank> orderRanks = orderLineRepository.select5CountGroupByProductMasterSumCount();
+        long totalOrderCount = orderLineRepository.sumByOrderCount();
+
+        for (OrderRank orderRank : orderRanks) {
+            orderRank.getPercent((int) totalOrderCount);
+        }
+        return orderRanks;
+    }
 }

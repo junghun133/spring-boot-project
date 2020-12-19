@@ -1,7 +1,10 @@
 package com.pjh.test.daou.repository;
 
 import com.pjh.test.daou.domain.OrderLine;
+import com.pjh.test.daou.repository.dsl.OrderLineRepositoryQD;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderLineRepository extends JpaRepository<OrderLine, Long> {
+import java.util.List;
+
+public interface OrderLineRepository extends JpaRepository<OrderLine, Long>, OrderLineRepositoryQD {
 }

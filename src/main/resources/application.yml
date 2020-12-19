@@ -7,9 +7,8 @@ server:
 
 spring:
   datasource:
-#    url: jdbc:h2:tcp://localhost/~/clothes
-#    url: jdbc:h2:~/clothes
-    url: jdbc:h2:mem:clothes2
+    url: jdbc:h2:tcp://localhost/~/clothes
+#    url: jdbc:h2:mem:clothes
     username: daou
     password: daou
     driver-class-name: org.h2.Driver

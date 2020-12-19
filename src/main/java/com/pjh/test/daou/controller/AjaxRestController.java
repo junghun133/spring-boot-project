@@ -2,6 +2,7 @@ package com.pjh.test.daou.controller;
 
 import com.pjh.test.daou.http.entity.ProductResponse;
 import com.pjh.test.daou.service.ProductMasterService;
+import com.pjh.test.daou.service.ProductOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,6 +20,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class AjaxRestController {
     @Autowired
     ProductMasterService productMasterService;
+    @Autowired
+    ProductOrderService productOrderService;
 
     @RequestMapping(value = "/product/more/{pageNum}",
                     method = RequestMethod.GET)
@@ -33,4 +36,5 @@ public class AjaxRestController {
 
         return response;
     }
+
 }
