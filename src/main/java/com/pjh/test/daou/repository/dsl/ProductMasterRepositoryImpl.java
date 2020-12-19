@@ -21,13 +21,12 @@ public class ProductMasterRepositoryImpl implements ProductMasterRepositoryQD{
         this.em = em;
     }
 
-    //상품 리스트 조회 + pagination (no offset)
+    //상품 리스트 조회 + keyword
     @Override
     public List<ProductMaster> selectProductList(int offset, int limit, String keyword) {
         return queryFactory
                 .selectFrom(productMaster)
                 .where(
-//                        ltProductId(productId),
                         isProductNameContainsKeyword(keyword)
                 )
                 .orderBy(productMaster.id.desc())

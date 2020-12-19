@@ -12,9 +12,12 @@
                 <th>주문자명</th>
                 <th>주문일자</th>
                 <th>주문자 휴대폰번호</th>
+                <th>상품아이디</th>
+                <th>상품명</th>
                 <th>상품가격</th>
                 <th>구입개수</th>
                 <th>총가격</th>
+                <th>배송상태</th>
             </tr>
             </thead>
             <tbody>
@@ -23,9 +26,12 @@
                 <td th:text="${order.productTrade.orderName}"></td>
                 <td th:text="${#temporals.format(order.productTrade.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
                 <td th:text="${order.productTrade.orderPhone}"></td>
+                <td th:text="${order.productMaster.id}"></td>
+                <td th:text="${order.productMaster.name}"></td>
                 <td th:text="${order.orderPrice}"></td>
                 <td th:text="${order.count}"></td>
                 <td th:text="${order.getTotalPrice()}"></td>
+                <td th:text="${order.productTrade.delivery.status}"></td>
             </tr>
             </tbody>
         </table>
