@@ -22,10 +22,15 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
 ****
   
   #### 3. How to run?
-  >3-1. https://github.com/junghun133/store/test_shopping_mall.jar 다운로드
-  >3-2. java -jar test_shopping_mall.jar 실행
-
-  swagger url -> http://localhost:8080/swagger-ui/index.html 이동 후 /api-docs 입력 후 explore 클릭
+  >3-1 jar 다운로드
+  >>3-1. https://drive.google.com/file/d/1P9BGk9Wcq4gbjCqssXFYsFR2SQhMxn-G/view?usp=sharing 다운로드
+  >>3-2. java -jar test_shopping_mall.jar 실행
+  
+  >3-1 build
+  >>3-1. clone 후 gradle>build>bootjar 로 jar파일 생성
+  >>3-2. 파일이름 변경 후 java -jar test_shopping_mall.jar 실행
+  
+  swagger  -> http://localhost:8080/swagger-ui/index.html 이동 후 /api-docs 입력 후 explore 클릭
   
   ![home](https://user-images.githubusercontent.com/13414116/102690874-cd57dd00-424b-11eb-99ab-e886f4e29654.png)
 
