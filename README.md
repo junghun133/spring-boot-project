@@ -15,24 +15,15 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
         JPA, queryDSL, swagger, hateoas(api), AOP
 
 ****
-
-  #### 2. Install (clone시)
-  >   2-1 https://github.com/junghun133/store clone 
-  >   2-2 H2 설정 확인 
-  * url: jdbc:h2:mem:clothes 
-  * username: pp 
-  * password: pp 
-  >    2-3 localhost port 8080 중복 확인 (8080 중복시 application.yml 의 port 변경)
-****
-  #### 3. Initialize
-  >   3-1 default sql script
+  #### 2. Initialize
+  >   2-1 default sql script
       - 상품 30개, 이미지 45개
 
 ****
   
-  #### 4. How to run?
-  >4-1. https://github.com/junghun133/store/test_shopping_mall.jar 다운로드
-  >4-2. java -jar test_shopping_mall.jar 실행
+  #### 3. How to run?
+  >3-1. https://github.com/junghun133/store/test_shopping_mall.jar 다운로드
+  >3-2. java -jar test_shopping_mall.jar 실행
 
   swagger url -> http://localhost:8080/swagger-ui/index.html 이동 후 /api-docs 입력 후 explore 클릭
   
