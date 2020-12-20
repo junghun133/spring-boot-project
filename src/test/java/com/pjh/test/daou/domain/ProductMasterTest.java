@@ -44,7 +44,7 @@ class ProductMasterTest {
     }
 
     @Test
-    public void deductStockFailTest(){
+    public void 재고차감실패_테스트(){
         productMaster = new ProductMaster();
         productMaster.setStock(5);
 

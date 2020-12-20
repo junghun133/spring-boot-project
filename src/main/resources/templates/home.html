@@ -52,10 +52,12 @@
 
 <!--load more function-->
 <script>
-    //검색시 검색결과 없음 처리
     window.onload = function(){
+
+        //검색시 검색결과 없음 처리
         if([[${productList.size()}]] == 0)
             $('#moreBtn').hide();
+
     }
 
     firstUrl = "/product/more/1";

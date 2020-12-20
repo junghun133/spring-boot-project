@@ -55,10 +55,12 @@ public class ProductOrderService {
 
     public List<OrderRank> findOrderRank(){
         List<OrderRank> orderRanks = orderLineRepository.select5CountGroupByProductMasterSumCount();
-        long totalOrderCount = orderLineRepository.sumByOrderCount();
+        if(orderRanks.size() > 0) {
+            long totalOrderCount = orderLineRepository.sumByOrderCount();
 
-        for (OrderRank orderRank : orderRanks) {
-            orderRank.getPercent((int) totalOrderCount);
+            for (OrderRank orderRank : orderRanks) {
+                orderRank.getPercent((int) totalOrderCount);
+            }
         }
         return orderRanks;
     }

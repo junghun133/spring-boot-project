@@ -22,6 +22,8 @@ public class OrderController {
     public String orderList(Model model){
         List<OrderLine> allOrder = productOrderService.findAllOrder();
         List<OrderRank> orderRank = productOrderService.findOrderRank();
+
+
         model.addAttribute("allOrder", allOrder);
         model.addAttribute("orderRank", orderRank);
 

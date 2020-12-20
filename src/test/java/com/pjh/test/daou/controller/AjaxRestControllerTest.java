@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -57,6 +56,14 @@ class AjaxRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$['documents'][0].explain", is(notNullValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$['documents'][0].price", is(notNullValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$['documents'][0].imagePath", is(notNullValue())))
+                .andDo(print());
+    }
+
+    @Test
+    public void 더보기_올바르지않은URI_실패_테스트() throws Exception {
+        mockMvc.perform(get("/product/more/이상한주소"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("error/500"))
                 .andDo(print());
     }
 }

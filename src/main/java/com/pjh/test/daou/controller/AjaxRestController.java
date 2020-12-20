@@ -20,8 +20,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class AjaxRestController {
     @Autowired
     ProductMasterService productMasterService;
-    @Autowired
-    ProductOrderService productOrderService;
 
     @RequestMapping(value = "/product/more/{pageNum}",
                     method = RequestMethod.GET)
