@@ -1,6 +1,6 @@
 # store
 
-## 쇼핑몰 제작 프로젝트
+## 쇼핑몰 제작 다우 테스트
 Spring boot 제작 쇼핑몰(옷뿌리오)
 
 ### 프로젝트 정보
@@ -18,8 +18,7 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
 
   #### 2. Install (clone시)
   >   2-1 https://github.com/junghun133/store clone 
-  >   2-2 H2 설정  
-       - 데이터베이스 자동 생성 불가시 H2 데이터베이스 생성
+  >   2-2 H2 설정 확인 
            url: jdbc:h2:mem:clothes
            username: daou
            password: daou
