@@ -19,9 +19,9 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
   #### 2. Install (clone시)
   >   2-1 https://github.com/junghun133/store clone 
   >   2-2 H2 설정 확인 
-           url: jdbc:h2:mem:clothes
-           username: daou
-           password: daou
+  * url: jdbc:h2:mem:clothes 
+  * username: pp 
+  * password: pp 
   >    2-3 localhost port 8080 중복 확인 (8080 중복시 application.yml 의 port 변경)
 ****
   #### 3. Initialize
