@@ -1,6 +1,7 @@
 package com.pjh.test.daou.repository.dsl;
 
 import com.pjh.test.daou.domain.ProductMaster;
+import com.pjh.test.daou.domain.QAttachmentImage;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.pjh.test.daou.domain.QAttachmentImage.attachmentImage;
 import static com.pjh.test.daou.domain.QProductMaster.productMaster;
 
 
@@ -25,13 +27,16 @@ public class ProductMasterRepositoryImpl implements ProductMasterRepositoryQD{
     @Override
     public List<ProductMaster> selectProductList(int offset, int limit, String keyword) {
         return queryFactory
-                .selectFrom(productMaster)
+                .select(productMaster)
+                .from(productMaster)
+                .innerJoin(productMaster.attachmentImage, attachmentImage)
                 .where(
                         isProductNameContainsKeyword(keyword)
                 )
                 .orderBy(productMaster.id.desc())
                 .offset(offset)
                 .limit(limit)
+                .fetchJoin()
                 .fetch();
     }
 
