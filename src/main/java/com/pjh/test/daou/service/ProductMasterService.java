@@ -106,7 +106,7 @@ public class ProductMasterService {
 
 
     public ProductResponse findProductsPageable(PageRequest pageRequest) {
-        Page<ProductMaster> page = productMasterRepository.findAll(pageRequest);
+        Page<ProductMaster> page = productMasterRepository.findAllWithFetch(pageRequest);
 
         ProductResponse productResponse = new ProductResponse();
         productResponse.setDocuments(makeDocuments(page.toList()));

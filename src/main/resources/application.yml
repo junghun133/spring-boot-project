@@ -8,8 +8,8 @@ server:
 spring:
   datasource:
     url: jdbc:h2:mem:clothes
-    username: daou
-    password: daou
+    username: pp
+    password: pp
     driver-class-name: org.h2.Driver
     initialization-mode: always
     sql-script-encoding: UTF-8
@@ -23,6 +23,7 @@ spring:
        # show_sql: true
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
+      default_batch_fetch_size: 100
 
   data:
     web:
