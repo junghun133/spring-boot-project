@@ -51,7 +51,8 @@ public class ProductMasterService {
     //상품 수정
     @Transactional
     public void updateProduct(ProductForm productForm){
-        Optional<ProductMaster> productOptional = productMasterRepository.findById(productForm.getId());
+//        Optional<ProductMaster> productOptional = productMasterRepository.findById(productForm.getId());
+        Optional<ProductMaster> productOptional = productMasterRepository.findProductById(productForm.getId());
         ProductMaster productObject = productOptional.orElseThrow(NotFoundProductException::new);
         ProductType productType = ProductType.convertProductType(productForm.getProductType());
         Object copy = productObject.clone(); // 저장전 상품정보 deep copy
@@ -85,7 +86,7 @@ public class ProductMasterService {
 
     // 상품 단건 조회
     public ProductMaster findProduct(Long productId){
-        Optional<ProductMaster> selectedProduct = productMasterRepository.findById(productId);
+        Optional<ProductMaster> selectedProduct = productMasterRepository.findProductById(productId);
         return selectedProduct.orElseThrow(NotFoundProductException::new);
     }
 
