@@ -1,6 +1,7 @@
 package com.pjh.test.daou.dto;
 
 import com.pjh.test.daou.domain.Member;
+import com.pjh.test.daou.domain.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +19,13 @@ public class MemberTO {
 
     private String password;
 
-    private LocalDateTime lastAccessDt;
+    private LocalDateTime lastAccessDate;
 
-    private LocalDateTime regDt;
+    private LocalDateTime registrationDate;
+
+    private Role role;
 
     public Member toEntity() {
-        return new Member(id, name, account, password);
+        return new Member(id, name, account, password, role);
     }
 }

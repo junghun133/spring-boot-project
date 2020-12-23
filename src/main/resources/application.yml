@@ -7,9 +7,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:clothes
-    username: pp
-    password: pp
+    url: jdbc:h2:tcp://localhost/~/shop
+#    url: jdbc:h2:mem:clothes
+    username: sa
+    password:
     driver-class-name: org.h2.Driver
     initialization-mode: always
     sql-script-encoding: UTF-8

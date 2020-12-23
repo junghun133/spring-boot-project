@@ -42,8 +42,8 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public Long save(MemberTO memberTO) {
         Member member = memberTO.toEntity();
-        member.setLastAccessDt(LocalDateTime.now());
-        member.setRegDt(LocalDateTime.now());
+        member.setLastAccessDate(LocalDateTime.now());
+        member.setRegistrationDate(LocalDateTime.now());
 
         // 비밀번호 암호화
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
