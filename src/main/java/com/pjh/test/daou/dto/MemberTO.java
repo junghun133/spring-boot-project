@@ -28,4 +28,15 @@ public class MemberTO {
     public Member toEntity() {
         return new Member(id, name, account, password, role);
     }
+
+    public MemberTO(Long id, String name, String account, String password, Role role) {
+        this.id = id;
+        this.name = name;
+        this.account = account;
+        this.password = password;
+        this.role = role;
+    }
+
+    public MemberTO() {
+    }
 }

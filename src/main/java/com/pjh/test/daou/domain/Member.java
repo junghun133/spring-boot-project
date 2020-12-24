@@ -1,6 +1,7 @@
 package com.pjh.test.daou.domain;
 
 
+import com.pjh.test.daou.dto.MemberTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,5 +52,9 @@ public class Member {
         this.account = account;
         this.password = password;
         this.role = role;
+    }
+
+    public MemberTO toTo(){
+         return new MemberTO(id, name, account, password, role);
     }
 }

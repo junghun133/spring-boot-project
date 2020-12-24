@@ -19,7 +19,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String landing(){
-        return "home";
+        return "redirect:/home";
     }
 
     @RequestMapping("/home")

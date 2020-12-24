@@ -18,7 +18,7 @@ import java.util.List;
 public class OrderController {
     private final ProductOrderService productOrderService;
 
-    @GetMapping("/orders")
+    @GetMapping("/manager/orders")
     public String orderList(Model model){
         List<OrderLine> allOrder = productOrderService.findAllOrder();
         List<OrderRank> orderRank = productOrderService.findOrderRank();

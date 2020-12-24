@@ -1,5 +1,6 @@
 package com.pjh.test.daou.config;
 
+import com.pjh.test.daou.config.auth.PrincipalDetailsService;
 import com.pjh.test.daou.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private MemberService memberService;
+    private PrincipalDetailsService principalDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -28,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(principalDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -45,7 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/login")// login url 호출시 시큐리티가 낚아채서 대신 로그인 진행
                 .defaultSuccessUrl("/home")
+                .usernameParameter("account")
                 .permitAll();
 
         http.logout()
