@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MemberController {
@@ -35,9 +38,25 @@ public class MemberController {
 
     @PostMapping("/join")
     public String join(MemberTO memberTo){
-        memberService.save(memberTo);
+
+        memberService.save(memberTo.toEntity());
 
         return "redirect:/login";
     }
 
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public Integer idCheck(HttpServletRequest request){
+//        boolean idCheck = memberService.idCheck(memberTo.getAccount());
+        boolean idCheck = memberService.idCheck(request.getParameter("account"));
+
+        return idCheck ? 1 : 0;
+    }
+
+    @GetMapping("/idCheck")
+    @ResponseBody
+    public Integer idCheck(){
+
+        return 1;
+    }
 }

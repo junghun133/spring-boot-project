@@ -17,7 +17,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인으로 등록됨
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+//preAuthorize annotation 확성화, secured annotation 활성
+//@PreAuthorize("hasRole("ROLE_ADMIN"), @Secured("ROLE_ADMIN")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private PrincipalDetailsService principalDetailsService;

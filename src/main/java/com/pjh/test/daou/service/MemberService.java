@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,9 +29,9 @@ public class MemberService {
         return new User(member.getAccount(), member.getPassword(), authorityList);
     }*/
 
+    //회원가입
     @Transactional
-    public Long save(MemberTO memberTO) {
-        Member member = memberTO.toEntity();
+    public Long save(Member member) {
         member.setLastAccessDate(LocalDateTime.now());
         member.setRegistrationDate(LocalDateTime.now());
 
@@ -38,5 +39,11 @@ public class MemberService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         return memberRepository.save(member).getId();
+    }
+
+    //id check
+    public boolean idCheck(String account){
+        Optional<Member> byAccount = memberRepository.findByAccount(account);
+        return byAccount.isPresent();
     }
 }
