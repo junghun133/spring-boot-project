@@ -1,8 +1,10 @@
 package com.pjh.test.daou.controller;
 
+import com.pjh.test.daou.config.auth.PrincipalDetails;
 import com.pjh.test.daou.dto.MemberTO;
 import com.pjh.test.daou.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,5 +60,12 @@ public class MemberController {
     public Integer idCheck(){
 
         return 1;
+    }
+
+    @ResponseBody
+    @GetMapping("/mypage")
+    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println(principalDetails.getAttributes());
+        return "session check";
     }
 }

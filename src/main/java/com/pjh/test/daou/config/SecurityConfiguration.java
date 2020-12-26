@@ -1,7 +1,7 @@
 package com.pjh.test.daou.config;
 
 import com.pjh.test.daou.config.auth.PrincipalDetailsService;
-import com.pjh.test.daou.service.MemberService;
+import com.pjh.test.daou.config.auth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +24,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private PrincipalDetailsService principalDetailsService;
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -54,7 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.oauth2Login()
-                .loginPage("/login");
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
+        //구글로그인 완료된 뒤에 후처리 필요
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

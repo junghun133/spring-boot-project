@@ -2,10 +2,7 @@ package com.pjh.test.daou.domain;
 
 
 import com.pjh.test.daou.dto.MemberTO;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 @SequenceGenerator(
         name = "MEMBER_SEQ_GENERATOR",
         sequenceName = "MEMBER_SEQ",
-        initialValue = 1, allocationSize = 1)
+        initialValue = 2, allocationSize = 1)
 public class Member {
     @Id
     @GeneratedValue(
@@ -37,24 +34,46 @@ public class Member {
     @Column(length = 255, nullable = false)
     private String password;
 
+    @Column(length = 255, nullable = true)
+    private String email;
+
     @Column(name = "last_access_date")
     private LocalDateTime lastAccessDate;
 
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 
+    private String provider;
+
+    private String providerId;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Member(Long id, String name, String account, String password, Role role) {
+    @Builder
+    public Member(Long id, String name, String account, String password, String email, LocalDateTime lastAccessDate, LocalDateTime registrationDate, String provider, String providerId, Role role) {
         this.id = id;
         this.name = name;
         this.account = account;
         this.password = password;
+        this.email = email;
+        this.lastAccessDate = lastAccessDate;
+        this.registrationDate = registrationDate;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.role = role;
+    }
+
+    public Member(Long id, String name, String account, String password, String email, Role role) {
+        this.id = id;
+        this.name = name;
+        this.account = account;
+        this.password = password;
+        this.email = email;
         this.role = role;
     }
 
     public MemberTO toTo(){
-         return new MemberTO(id, name, account, password, role);
+         return new MemberTO(id, name, account, password, email, role);
     }
 }
