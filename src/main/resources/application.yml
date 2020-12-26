@@ -30,6 +30,17 @@ spring:
     web:
       pageable:
         default-page-size: 9
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 92716082917-a0r6guoo96518404a6sc9ekbv1eb2gkb.apps.googleusercontent.com
+            client-secret: ypb2lK_rrqU7ylQxODzHCKDQ
+            scope:
+              - email
+              - profile
 log:
   path: /log/was/
   name: test_shopping_mall.log
@@ -58,4 +69,6 @@ springdoc:
     display-query-params-without-oauth2: true
   paths-to-match:
     - /product/**
+
+
 

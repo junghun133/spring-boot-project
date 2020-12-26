@@ -53,6 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("account")
                 .permitAll();
 
+        http.oauth2Login()
+                .loginPage("/login");
+
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login")

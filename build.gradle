@@ -25,9 +25,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation('org.springframework.boot:spring-boot-starter-validation')
     implementation 'com.querydsl:querydsl-jpa'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client'
     compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.1'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.0'
-//    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '2.3.0.RELEASE'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
