@@ -1,6 +1,6 @@
 # store
 
-## 쇼핑몰 제작 테스트
+## 쇼핑몰 제작 프로젝트
 Spring boot 제작 쇼핑몰(옷뿌리오)
 
 ### 프로젝트 정보
@@ -12,7 +12,7 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
   * spring version: spring boot 2.4 
   * Client: javascript, jquery, thymeleaf, bootstrap(css)
   * library: 
-        JPA, queryDSL, swagger, hateoas(api), AOP
+        JPA, queryDSL, swagger, hateoas(api), AOP, spring security, google api(login)
 
 ****
   #### 2. Initialize
