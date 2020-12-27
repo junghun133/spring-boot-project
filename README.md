@@ -12,7 +12,7 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
   * spring version: spring boot 2.4 
   * Client: javascript, jquery, thymeleaf, bootstrap(css)
   * library: 
-        JPA, queryDSL, swagger, hateoas(api), AOP, spring security, google api(login)
+        JPA, queryDSL, swagger, hateoas(api), AOP, spring security, login api(google, facebook) 
 
 ****
   #### 2. Initialize
