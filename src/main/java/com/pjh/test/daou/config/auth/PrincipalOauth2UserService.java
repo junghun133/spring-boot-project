@@ -1,9 +1,15 @@
 package com.pjh.test.daou.config.auth;
 
+import com.pjh.test.daou.config.auth.provider.FacebookUserInfo;
+import com.pjh.test.daou.config.auth.provider.GoogleUserInfo;
+import com.pjh.test.daou.config.auth.provider.OAuth2UserInfo;
+import com.pjh.test.daou.config.auth.provider.OAuthField;
 import com.pjh.test.daou.domain.Member;
 import com.pjh.test.daou.domain.Role;
+import com.pjh.test.daou.exception.InternalServerException;
 import com.pjh.test.daou.exception.NotFoundMemberException;
 import com.pjh.test.daou.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -14,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Autowired
@@ -40,16 +47,24 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 //        System.out.println("userAttributes = " + super.loadUser(userRequest).getAttributes());
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        String provider = userRequest.getClientRegistration().getClientId(); // google
-        String providerId = oAuth2User.getAttribute("sub");
-        String email = oAuth2User.getAttribute("email");
+        OAuth2UserInfo oAuth2UserInfo = null;
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
+        if(registrationId.contentEquals(OAuthField.google.google.name())){
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        }else if(registrationId.contentEquals(OAuthField.facebook.facebook.name())){
+            oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        }else {
+            throw new InternalServerException("RegistrationId error, OAuth reg id:" + registrationId );
+        }
+
+        String provider = oAuth2UserInfo.getProvider();
+        String providerId = oAuth2UserInfo.getProviderId();
+        String email = oAuth2UserInfo.getEmail();
         String username = provider + "_" + providerId;
         String password = bCryptPasswordEncoder.encode("google"); // 큰 의미없음
-        Role role = Role.USER;
-
         Optional<Member> account = memberRepository.findByAccount(username);
-        Member member = null;
 
+        Member member = null;
         if(!account.isPresent()){
              member = Member.builder()
                     .provider(provider)
@@ -58,15 +73,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .email(email)
                     .name(username)
                     .password(password)
-                    .role(role)
+                    .role(Role.USER)
                     .build();
 
             memberRepository.save(member);
         }else {
+            log.info("already signed up");
             throw new NotFoundMemberException();
         }
-
-
         return new PrincipalDetails(member.toTo(), oAuth2User.getAttributes());
     }
 }

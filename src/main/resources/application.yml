@@ -41,6 +41,12 @@ spring:
             scope:
               - email
               - profile
+          facebook:
+            client-id: 427839545068672
+            client-secret: f6ae43cca37e300866514f6a12827727
+            scope:
+              - email
+              - public_profile
 log:
   path: /log/was/
   name: test_shopping_mall.log
