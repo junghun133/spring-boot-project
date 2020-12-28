@@ -64,7 +64,7 @@ public class MemberController {
 
     @ResponseBody
     @GetMapping("/mypage")
-    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         System.out.println(principalDetails.getAttributes());
         return "session check";
     }

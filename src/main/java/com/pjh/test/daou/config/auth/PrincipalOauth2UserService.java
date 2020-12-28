@@ -1,9 +1,6 @@
 package com.pjh.test.daou.config.auth;
 
-import com.pjh.test.daou.config.auth.provider.FacebookUserInfo;
-import com.pjh.test.daou.config.auth.provider.GoogleUserInfo;
-import com.pjh.test.daou.config.auth.provider.OAuth2UserInfo;
-import com.pjh.test.daou.config.auth.provider.OAuthField;
+import com.pjh.test.daou.config.auth.provider.*;
 import com.pjh.test.daou.domain.Member;
 import com.pjh.test.daou.domain.Role;
 import com.pjh.test.daou.exception.InternalServerException;
@@ -18,6 +15,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -53,6 +51,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
         }else if(registrationId.contentEquals(OAuthField.facebook.facebook.name())){
             oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        }else if(registrationId.contentEquals(OAuthField.naver.naver.name())){
+            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get(OAuthField.naver_key.response.name()));
         }else {
             throw new InternalServerException("RegistrationId error, OAuth reg id:" + registrationId );
         }

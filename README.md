@@ -12,7 +12,7 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
   * spring version: spring boot 2.4 
   * Client: javascript, jquery, thymeleaf, bootstrap(css)
   * library: 
-        JPA, queryDSL, swagger, hateoas(api), AOP, spring security, login api(google, facebook) 
+        JPA, queryDSL, swagger, hateoas(api), AOP, spring security, login api(google, facebook, naver) 
 
 ****
   #### 2. Initialize
@@ -21,7 +21,7 @@ Spring boot 제작 쇼핑몰(옷뿌리오)
 
 ****
   
-  #### 3. How to run?
+  ~~#### 3. How to run?~~ 구글,페이스북, 네이버 로그인 API로 인해 실행시 provider 설정필요
   >3 build 
   >>3-1. clone 후 gradle>build>bootjar 로 jar파일 생성 
   

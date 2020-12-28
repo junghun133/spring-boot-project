@@ -1,11 +1,19 @@
 package com.pjh.test.daou.config.auth.provider;
 
-public class OAuthField {
-    public enum google{
+public interface OAuthField {
+    enum google{
         google, sub, email, name
     }
 
-    public enum facebook{
+    enum facebook{
         facebook, id, email, name
+    }
+
+    enum naver{
+        naver, id, email, name
+    }
+
+    enum naver_key{
+        response
     }
 }
