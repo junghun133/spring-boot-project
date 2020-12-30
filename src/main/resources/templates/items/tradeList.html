@@ -37,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="order : ${allOrder}">
+            <tr th:each="order : ${orderLineResult}">
                 <td th:text="${order.productTrade.id}"></td>
                 <td th:text="${order.productTrade.orderName}"></td>
                 <td th:text="${#temporals.format(order.productTrade.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
@@ -46,7 +46,7 @@
                 <td th:text="${order.productMaster.name}"></td>
                 <td th:text="${order.orderPrice}"></td>
                 <td th:text="${order.count}"></td>
-                <td th:text="${order.getTotalPrice()}"></td>
+                <td th:text="${order.totalPrice}"></td>
                 <td th:text="${order.productTrade.delivery.status}"></td>
             </tr>
             </tbody>
