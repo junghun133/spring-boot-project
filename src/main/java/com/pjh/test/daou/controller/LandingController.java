@@ -11,10 +11,10 @@ public class LandingController {
     @Autowired
     ProductMasterService service;
 
-    @RequestMapping("/")
+   /* @RequestMapping("/")
     public String landing(Model model){
         int allProductCount = service.findAllProductCount();
         model.addAttribute("allProductCount", allProductCount);
         return "landing";
-    }
+    }*/
 }
