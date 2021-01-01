@@ -25,6 +25,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation('org.springframework.boot:spring-boot-starter-validation')
     implementation 'com.querydsl:querydsl-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client'
     compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.1'
