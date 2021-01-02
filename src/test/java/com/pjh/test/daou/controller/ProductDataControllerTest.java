@@ -1,5 +1,6 @@
 package com.pjh.test.daou.controller;
 
+import com.pjh.test.daou.controller.api.ProductDataController;
 import com.pjh.test.daou.http.entity.Documents;
 import com.pjh.test.daou.http.entity.Meta;
 import com.pjh.test.daou.http.entity.ProductResponse;
@@ -23,8 +24,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(AjaxRestController.class)
-class AjaxRestControllerTest {
+@WebMvcTest(ProductDataController.class)
+class ProductDataControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
