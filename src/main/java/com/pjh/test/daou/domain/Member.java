@@ -50,8 +50,10 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String apiToken;
+
     @Builder
-    public Member(Long id, String name, String account, String password, String email, LocalDateTime lastAccessDate, LocalDateTime registrationDate, String provider, String providerId, Role role) {
+    public Member(Long id, String name, String account, String password, String email, LocalDateTime lastAccessDate, LocalDateTime registrationDate, String provider, String providerId, Role role, String apiToken) {
         this.id = id;
         this.name = name;
         this.account = account;
@@ -62,6 +64,7 @@ public class Member {
         this.provider = provider;
         this.providerId = providerId;
         this.role = role;
+        this.apiToken = apiToken;
     }
 
     public Member(Long id, String name, String account, String password, String email, Role role) {

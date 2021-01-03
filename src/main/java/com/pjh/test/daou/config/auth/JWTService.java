@@ -5,6 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 
 @Service
 public class JWTService {
@@ -15,7 +16,6 @@ public class JWTService {
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("regDate", System.currentTimeMillis())
                 .setSubject(subject)
-//                .claim(key, data)
                 .signWith(SignatureAlgorithm.HS256, this.generateKey())
                 .compact();
         return jwt;
