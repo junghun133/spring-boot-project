@@ -1,4 +1,4 @@
-package com.pjh.test.daou.config.auth;
+package com.pjh.test.daou.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

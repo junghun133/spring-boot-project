@@ -2,6 +2,7 @@ package com.pjh.test.daou.config;
 
 import com.pjh.test.daou.config.auth.PrincipalDetailsService;
 import com.pjh.test.daou.config.auth.PrincipalOauth2UserService;
+import com.pjh.test.daou.config.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 
@@ -50,8 +53,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").authenticated()
+
+                .antMatchers("/api/v1/**").authenticated()
+                .antMatchers("/api/manager/**").authenticated()
                 .antMatchers("/**").permitAll();
 
+//        http.addFilterBefore(new APIFilter(), BasicAuthenticationFilter.class); //api filter config class 구현
+        http.addFilter(corsFilter);
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager()));
+
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.httpBasic().disable();
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")// login url 호출시 시큐리티가 낚아채서 대신 로그인 진행
@@ -73,6 +85,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
 
-        http.addFilter(corsFilter);
     }
 }

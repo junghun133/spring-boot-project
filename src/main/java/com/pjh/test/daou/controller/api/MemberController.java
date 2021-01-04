@@ -2,9 +2,11 @@ package com.pjh.test.daou.controller.api;
 
 
 import org.springframework.hateoas.EntityModel;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/v1/member")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class MemberController {
 
     @RequestMapping(value = "/mypage",

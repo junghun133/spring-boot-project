@@ -1,4 +1,4 @@
-package com.pjh.test.daou.config;
+package com.pjh.test.daou.config.filter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

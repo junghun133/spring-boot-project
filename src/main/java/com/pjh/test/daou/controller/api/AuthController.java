@@ -1,7 +1,6 @@
 package com.pjh.test.daou.controller.api;
 
-import com.pjh.test.daou.config.auth.JWTService;
-import com.pjh.test.daou.config.auth.JWTUtil;
+import com.pjh.test.daou.config.jwt.JWTUtil;
 import com.pjh.test.daou.domain.Member;
 import com.pjh.test.daou.exception.NotFoundMemberException;
 import com.pjh.test.daou.repository.MemberRepository;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@RestController("/api/v1/auth")
+@RestController("/api/v1/token")
 public class AuthController {
     @Autowired
     JWTUtil jwtUtil;
