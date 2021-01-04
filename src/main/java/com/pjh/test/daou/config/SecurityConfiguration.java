@@ -2,17 +2,17 @@ package com.pjh.test.daou.config;
 
 import com.pjh.test.daou.config.auth.PrincipalDetailsService;
 import com.pjh.test.daou.config.auth.PrincipalOauth2UserService;
-import com.pjh.test.daou.config.jwt.JwtAuthenticationFilter;
+import com.pjh.test.daou.config.filter.APIFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -54,13 +54,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").authenticated()
 
-                .antMatchers("/api/v1/**").authenticated()
-                .antMatchers("/api/manager/**").authenticated()
+                .antMatchers("/api/v1/manager/**").authenticated()
                 .antMatchers("/**").permitAll();
 
-//        http.addFilterBefore(new APIFilter(), BasicAuthenticationFilter.class); //api filter config class 구현
+        http.addFilterBefore(new APIFilter(), BasicAuthenticationFilter.class); //api filter config class 구현
         http.addFilter(corsFilter);
-        http.addFilter(new JwtAuthenticationFilter(authenticationManager()));
+//        http.addFilter(new JwtAuthenticationFilter(authenticationManager())); // form login을 사용하지않을때 필터로 구현하면 좋을 것 같음
 
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        http.httpBasic().disable();
@@ -85,5 +84,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
 
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

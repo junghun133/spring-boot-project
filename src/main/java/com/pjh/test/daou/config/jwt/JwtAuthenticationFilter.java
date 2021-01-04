@@ -18,13 +18,11 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
-
     //login 요청을 하면 로그인시도를 위해서 실행되는 함수
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         log.info("로그인 시도 중");
 
-        super.setFilterProcessesUrl("/api/v1/login");
         try {
             log.info(String.valueOf(request.getInputStream()));
         } catch (IOException e) {

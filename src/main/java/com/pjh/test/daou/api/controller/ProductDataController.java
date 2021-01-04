@@ -1,4 +1,4 @@
-package com.pjh.test.daou.controller.api;
+package com.pjh.test.daou.api.controller;
 
 import com.pjh.test.daou.http.entity.ProductResponse;
 import com.pjh.test.daou.service.ProductMasterService;

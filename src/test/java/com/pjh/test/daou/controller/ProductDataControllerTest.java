@@ -1,6 +1,6 @@
 package com.pjh.test.daou.controller;
 
-import com.pjh.test.daou.controller.api.ProductDataController;
+import com.pjh.test.daou.api.controller.ProductDataController;
 import com.pjh.test.daou.http.entity.Documents;
 import com.pjh.test.daou.http.entity.Meta;
 import com.pjh.test.daou.http.entity.ProductResponse;

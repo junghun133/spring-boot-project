@@ -1,4 +1,4 @@
-package com.pjh.test.daou.controller.api;
+package com.pjh.test.daou.api.controller;
 
 
 import org.springframework.hateoas.EntityModel;
