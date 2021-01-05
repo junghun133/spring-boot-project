@@ -3,6 +3,7 @@ package com.pjh.web.shop.config.jwt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pjh.web.shop.config.auth.PrincipalDetails;
 import com.pjh.web.shop.dto.MemberTO;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 // /login post 요청시 username, password 받기위해 필터등록
-@RequiredArgsConstructor
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private final AuthenticationManager authenticationManager;
-    private final ObjectMapper objectMapper;
-    private final JWTUtil jwtUtil;
+    private AuthenticationManager authenticationManager;
+    private ObjectMapper objectMapper;
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
     //login 요청을 하면 로그인시도를 위해서 실행되는 함수
     @Override
@@ -51,6 +54,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         //method 진입시 인증완료된것
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+        JWTUtil jwtUtil = new JWTUtil();
         String jwtToken = jwtUtil.generateToken(principalDetails, 1000 * 60 * 60 * 10);
 
         response.addHeader("Authorization", "Bearer " + jwtToken);

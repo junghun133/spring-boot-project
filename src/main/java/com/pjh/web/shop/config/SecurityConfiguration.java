@@ -3,6 +3,9 @@ package com.pjh.web.shop.config;
 import com.pjh.web.shop.config.auth.PrincipalDetailsService;
 import com.pjh.web.shop.config.auth.PrincipalOauth2UserService;
 import com.pjh.web.shop.config.filter.APIFilter;
+import com.pjh.web.shop.config.jwt.JwtAuthenticationFilter;
+import com.pjh.web.shop.config.jwt.JwtAuthorizationFilter;
+import com.pjh.web.shop.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private CorsFilter corsFilter;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -59,7 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(new APIFilter(), BasicAuthenticationFilter.class); //api filter config class 구현
         http.addFilter(corsFilter);
-//        http.addFilter(new JwtAuthenticationFilter(authenticationManager())); // form login을 사용하지않을때 필터로 구현하면 좋을 것 같음
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager())); // form login을 사용하지않을때 필터로 구현하면 좋을 것 같음
+        http.addFilter(new JwtAuthorizationFilter(authenticationManager(), memberRepository));
 
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        http.httpBasic().disable();
