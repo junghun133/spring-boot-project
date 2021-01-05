@@ -14,6 +14,7 @@ import java.util.function.Function;
 
 @Component
 public class JWTUtil {
+    private final int DEFAULT_EXPIRETIME = 1000 * 60 * 60 * 10;
     private String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
@@ -38,18 +39,27 @@ public class JWTUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+        return createToken(claims, userDetails.getUsername(), DEFAULT_EXPIRETIME);
+    }
+    public String generateToken(UserDetails userDetails, int expire) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userDetails.getUsername(), expire);
     }
 
     public String generateToken(String subject) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, subject);
+        return createToken(claims, subject, DEFAULT_EXPIRETIME);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    public String generateToken(String subject, int expire) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, subject, expire);
+    }
+
+    private String createToken(Map<String, Object> claims, String subject, int expire) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + expire))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 

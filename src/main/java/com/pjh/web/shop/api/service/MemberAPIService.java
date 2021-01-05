@@ -19,13 +19,13 @@ public class MemberAPIService {
     AuthenticationManager authenticationManager;
 
     public void apilogin(String account, String password) {
+
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(account, password);
-
         //PrincipalDetailService의 loadUserByUsername() 실행
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
         System.out.println(principalDetails.getMember().getId()); //login 정상되었을때
 
         //authentication 객체 return -> session 영역 저장
