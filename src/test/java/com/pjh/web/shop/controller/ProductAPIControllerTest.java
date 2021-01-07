@@ -1,6 +1,6 @@
 package com.pjh.web.shop.controller;
 
-import com.pjh.web.shop.api.controller.ProductDataController;
+import com.pjh.web.shop.api.controller.ProductAPIController;
 import com.pjh.web.shop.http.entity.Documents;
 import com.pjh.web.shop.http.entity.Meta;
 import com.pjh.web.shop.http.entity.ProductResponse;
@@ -24,8 +24,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(ProductDataController.class)
-class ProductDataControllerTest {
+@WebMvcTest(ProductAPIController.class)
+class ProductAPIControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

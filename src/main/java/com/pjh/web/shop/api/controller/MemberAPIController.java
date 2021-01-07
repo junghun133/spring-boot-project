@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/v1/member")
 @PreAuthorize("hasRole('ROLE_USER')")
-public class MemberController {
+public class MemberAPIController {
 
     @RequestMapping(value = "/mypage",
             method = RequestMethod.GET)
