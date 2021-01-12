@@ -1,0 +1,10 @@
+.progress {
+    background:transparent !important;
+    box-shadow:none !important;
+}
+table .progress {
+    margin-bottom: 0;
+}
+.progress-bar {
+    border-radius:4px !important;
+}

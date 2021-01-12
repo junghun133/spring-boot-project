@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head>
+    <title>옷 뿌리오</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body id="top">
+
+<!-- Banner -->
+<section id="banner" data-video="/media/banner">
+    <div class="inner">
+        <header>
+            <h1>옷 뿌리오</h1>
+            <p>정말 뿌리진 않지만<br />
+                저렴한 가격의 쇼핑몰입니다.</p>
+        </header>
+        <a href="#main" class="more">Learn More</a>
+    </div>
+</section>
+
+<!-- Main -->
+<div id="main">
+    <div class="inner">
+
+        <!-- Boxes -->
+        <div id="boxes" class="thumbnails">
+            <h1 th:if="${productList.size() == 0}">검색된 상품이 없습니다.</h1>
+            <tr th:each="product : ${productList}">
+                <div class="box">
+                    <a th:href="@{'/product/' + ${product.id}}" class="image fit"><img th:src="${product.attachmentImage.imagePath}" alt="" /></a>
+                    <div class="inner">
+                        <h3 th:text="${product.name}">name</h3>
+                        <p th:text="${product.explain}">explain</p>
+                        <p th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}">price</p>
+                        <a th:field="detail" th:href="@{'/product/' + ${product.id}}">자세히</a>
+                    </div>
+                </div>
+            </tr>
+        </div>
+
+            <div class="thumbnails">
+                <form id="moreForm" >
+                    <button type="button" name="moreBtn" id="moreBtn" class="btn btn-primary">더보기</button>
+                </form>
+            </div>
+    </div>
+
+</div>
+
+<!--load more function-->
+<script>
+    window.onload = function(){
+
+        //검색시 검색결과 없음 처리
+        if([[${productList.size()}]] == 0)
+            $('#moreBtn').hide();
+
+    }
+
+    firstUrl = "/product/more/1";
+    $("#moreBtn").click(function(){
+       $.ajax({
+           type: 'GET',
+           url: firstUrl,
+           dataType: 'json',
+           contentType: 'application/json',
+           success: function (result){
+               //추가 페이지 확인
+               if(result.meta.is_end == false){
+                   $('#moreBtn').hide();
+               }
+               //페이지 주소 변경 (hateos link)
+               firstUrl = result._links.nextRequest["href"];
+
+               var itemHtml = "";
+               for(key in result.documents){
+                   itemHtml += '<div class="box">';
+                   itemHtml += '<a href="/product/' + result.documents[key].id + '" class="image fit">';
+                   itemHtml += '<img src="' + result.documents[key].imagePath + '" alt="" /></a>';
+                   itemHtml += '<div class="inner">';
+                   itemHtml += '<h3>' + result.documents[key].name + '</h3>';
+                   itemHtml += '<p>' + result.documents[key].explain + '</p>';
+                   itemHtml += '<p>' + numberWithCommas(result.documents[key].price) + '</p>';
+                   itemHtml += '<a href="/product/' + result.documents[key].id + '">자세히</a></div></div>';
+               }
+               $('#boxes').append(itemHtml);
+           },
+           error: function () { window.location.href="/home" }
+       })
+    });
+
+    //금액 천단위 comma 처리
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+
+</script>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="inner">
+        <h2>옷뿌리오</h2>
+        <p>
+            "내가 개발한 코드를 다른 사람이 보았을 때, 읽기 좋은 깨끗한 책처럼 느껴졌으면 좋겠다" <br> - 박정훈(29.9)
+        <ul class="icons">
+            <li><a href="/manager/product" ><span class="label">상품관리</span></a></li>
+        </ul>
+    </div>
+</footer>
+
+<script src="/js/jquery.scrolly.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

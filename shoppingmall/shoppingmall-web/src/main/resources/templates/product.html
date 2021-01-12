@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head th:replace="fragments/header :: header">
+    <title>관리자 페이지</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="jumbotron">
+        <h1>옷뿌리오 관리메뉴</h1>
+        <p class="lead">상품 기능</p>
+        <p>
+            <a class="btn btn-lg btn-dark" href="/manager/product/add">상품 등록</a>
+            <a class="btn btn-lg btn-dark" href="/manager/product/list">상품 목록</a>
+            <a class="btn btn-lg btn-dark" href="/manager/product/history">상품 수정 내역</a>
+        </p>
+        <p class="lead">주문 관리</p>
+        <p>
+            <a class="btn btn-lg btn-info" href="/manager/orders">주문 내역</a>
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
