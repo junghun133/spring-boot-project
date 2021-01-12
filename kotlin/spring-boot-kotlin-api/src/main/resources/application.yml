@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+
+spring:
+  datasource:
+#    url: jdbc:h2:mem:kotlinapi
+    url: jdbc:h2:tcp://localhost/~/kotlinapi
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    #      ddl-auto: none
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+      default_batch_fetch_size: 100
+#    open-in-view: false
+
