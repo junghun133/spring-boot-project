@@ -1,0 +1,6 @@
+local-api:
+  url: https://dapi.kakao.com/v2/local/search/keyword.json
+  apikey: KakaoAK 7822edec9750a048bde7fa98f9e796a3
+
+map-url-info:
+  base_url: https://map.kakao.com/link
