@@ -12,7 +12,7 @@ I used this technique
 - mongo
 - spring security
 - swagger
-- hateoas
+- graphQL
 - etc...
 
 > front
