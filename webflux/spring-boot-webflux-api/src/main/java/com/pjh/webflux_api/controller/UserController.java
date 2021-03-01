@@ -14,8 +14,8 @@ public class UserController {
     public Mono<UserDto> search(){
         UserDto userDto = new UserDto();
         userDto.setId(1L);
-        userDto.setUser_id(encrypt("jh"));
-        userDto.setUser_pwd(encrypt("1234"));
+        userDto.setUser_id("jh");
+        userDto.setUser_pwd("1234");
         return Mono.just(userDto);
     }
 
